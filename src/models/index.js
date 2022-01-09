@@ -1,2 +1,10 @@
 module.exports.Token = require('./token.model');
 module.exports.User = require('./user.model');
+module.exports.Category = require('./category.model');
+module.exports.Comment = require('./comment.model');
+module.exports.Image = require('./image.model');
+module.exports.Order = require('./order.model');
+module.exports.OrderDetail = require('./order_detail.model');
+module.exports.Post = require('./post.model');
+module.exports.Product = require('./product.model');
+module.exports.Voucher = require('./voucher.model');

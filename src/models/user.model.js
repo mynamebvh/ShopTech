@@ -6,10 +6,30 @@ const { roles } = require('../config/roles');
 
 const userSchema = mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
       required: true,
       trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    gender: {
+      type: String,
+      trim: true,
+      enum: ['nam', 'nữ', 'khác'],
+      default: 'khác',
+    },
+    amount: {
+      type: Number,
+      default: 0,
     },
     email: {
       type: String,
@@ -30,7 +50,7 @@ const userSchema = mongoose.Schema(
       minlength: 8,
       validate(value) {
         if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-          throw new Error('Password must contain at least one letter and one number');
+          throw new Error('Password phải chứa ít nhất 1 chữ số, 1 chữ hoa, độ dài tối thiểu 8 kí tự');
         }
       },
       private: true, // used by the toJSON plugin
@@ -39,6 +59,15 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ['admin', 'user'],
       default: 'user',
+    },
+    phone: {
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!value.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
+          throw new Error('Số điện thoại không đúng định dạng');
+        }
+      },
     },
     isEmailVerified: {
       type: Boolean,

@@ -16,7 +16,7 @@ const login = catchAsync(async (req, res) => {
 
   res.cookie('token', tokens, { signed: true, httpOnly: true });
 
-  res.status(httpStatus.NO_CONTENT).json(response(httpStatus.NO_CONTENT, 'Thành công'));
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
 });
 
 const logout = catchAsync(async (req, res) => {
