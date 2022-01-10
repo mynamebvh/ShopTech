@@ -34,18 +34,23 @@ const logout = async (refreshToken) => {
 
 /**
  * Refresh auth tokens
- * @param {string} refreshToken
+ * @param {Object} cookie
  * @returns {Promise<Object>}
  */
-const refreshAuth = async (refreshToken) => {
+const refreshAuth = async (cookie) => {
   try {
-    const refreshTokenDoc = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH);
-    const user = await userService.getUserById(refreshTokenDoc.user);
-    if (!user) {
-      throw new Error();
+    if (cookie?.tokens) {
+      const { refresh } = cookie.tokens;
+      const refreshTokenDoc = await tokenService.verifyToken(refresh.token, tokenTypes.REFRESH);
+      const user = await userService.getUserById(refreshTokenDoc.user);
+      if (!user) {
+        throw new Error();
+      }
+      await refreshTokenDoc.remove();
+      return tokenService.generateAuthTokens(user);
     }
-    await refreshTokenDoc.remove();
-    return tokenService.generateAuthTokens(user);
+
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
   }

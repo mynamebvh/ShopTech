@@ -14,8 +14,7 @@ const login = catchAsync(async (req, res) => {
   const user = await authService.loginUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
 
-  res.cookie('token', tokens, { signed: true, httpOnly: true });
-
+  res.cookie('tokens', tokens, { signed: true, httpOnly: true });
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
 });
 
@@ -25,8 +24,9 @@ const logout = catchAsync(async (req, res) => {
 });
 
 const refreshTokens = catchAsync(async (req, res) => {
-  const tokens = await authService.refreshAuth(req.body.refreshToken);
-  res.send({ ...tokens });
+  const tokens = await authService.refreshAuth(req.signedCookies);
+  res.cookie('tokens', tokens, { signed: true, httpOnly: true });
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
 });
 
 const forgotPassword = catchAsync(async (req, res) => {

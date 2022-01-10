@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      private: true,
     },
     gender: {
       type: String,

@@ -9,7 +9,7 @@ const router = express.Router();
 router
   .route('/')
   .post(auth, validate(userValidation.createUser), userController.createUser)
-  .get(auth, refreshToken, authorize('admin'), validate(userValidation.getUsers), userController.getUsers);
+  .get(auth, authorize('admin'), validate(userValidation.getUsers), userController.getUsers);
 
 router
   .route('/:userId')

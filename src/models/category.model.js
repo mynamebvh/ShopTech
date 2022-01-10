@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
+
 const { toJSON, paginate } = require('./plugins');
 
 const categorySchema = mongoose.Schema(
@@ -11,26 +13,12 @@ const categorySchema = mongoose.Schema(
     },
     slug: {
       type: String,
-      required: true,
     },
     desc: {
       type: String,
       required: true,
       trim: true,
       minLength: [20, 'Mô tả phải có ít nhất 20 từ'],
-    },
-    size: {
-      type: [String],
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-      min: [1, 'Giá tiền phải lớn không 0'],
-    },
-    tag: {
-      type: [String],
-      required: true,
     },
   },
   {
@@ -41,6 +29,24 @@ const categorySchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 categorySchema.plugin(toJSON);
 categorySchema.plugin(paginate);
+
+/**
+ * Check if name category is duplicate
+ * @param {string} name - The name category
+ * @returns {Promise<boolean>}
+ */
+categorySchema.statics.isNameDuplicate = async function (name) {
+  const category = await this.findOne({ name });
+  return !!category;
+};
+
+categorySchema.pre('save', async function (next) {
+  const category = this;
+  if (category.isModified('name')) {
+    category.name = slugify(category.name);
+  }
+  next();
+});
 
 /**
  * @typedef Category

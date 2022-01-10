@@ -9,24 +9,16 @@ const User = require('../models/user.model');
 const ApiError = require('../utils/ApiError');
 const config = require('../config/config');
 
-const getCookie = (req, type) => {
-  let token = req.signedCookies?.token;
-
-  if (!token) {
-    return new ApiError(httpStatus.UNAUTHORIZED, 'Lỗi xác thực');
-  }
-
-  return token[type];
-};
-
 const auth = (req, res, next) => {
-  let accessToken = getCookie(req, tokenTypes.ACCESS);
+  let tokens = req.signedCookies?.tokens;
 
-  if (accessToken instanceof ApiError) {
-    return next(accessToken);
+  if (!tokens) {
+    return next(new Error('Cookie không tìm thấy'));
   }
 
-  const payload = jwt.verify(accessToken.token, config.jwt.secret);
+  let { access } = tokens;
+
+  const payload = jwt.verify(access.token, config.jwt.secret);
 
   if (payload) {
     req.userId = payload.sub;
@@ -42,24 +34,4 @@ const authorize = (role) => async (req, res, next) => {
   next(new ApiError(httpStatus.FORBIDDEN, 'Không có quyền'));
 };
 
-const refreshToken = catchAsync(async (err, req, res, next) => {
-  console.log('hello');
-
-  if (err.message == 'jwt expired') {
-    let refreshToken = getCookie(req, tokenTypes.REFRESH);
-
-    if (refreshToken instanceof ApiError) {
-      throw refreshToken;
-    }
-
-    let doc = await tokenService.verifyToken(refreshToken.token, tokenTypes.REFRESH);
-
-    if (doc) {
-      req.userId = doc.user;
-      return next();
-    }
-  }
-
-  next();
-});
-module.exports = { auth, authorize, refreshToken };
+module.exports = { auth, authorize };
