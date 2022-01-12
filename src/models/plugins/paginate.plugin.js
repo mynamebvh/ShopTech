@@ -40,7 +40,7 @@ const paginate = (schema) => {
     let docsPromise = this.find(filter).sort(sort).skip(skip).limit(limit);
 
     if (options.populate) {
-      "user.id,author.userid"
+      ('user.id,author.userid');
       options.populate.split(',').forEach((populateOption) => {
         docsPromise = docsPromise.populate(
           populateOption
@@ -54,10 +54,10 @@ const paginate = (schema) => {
     docsPromise = docsPromise.exec();
 
     return Promise.all([countPromise, docsPromise]).then((values) => {
-      const [totalResults, results] = values;
+      const [totalResults, data] = values;
       const totalPages = Math.ceil(totalResults / limit);
       const result = {
-        results,
+        data,
         page,
         limit,
         totalPages,

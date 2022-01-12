@@ -1,8 +1,8 @@
 const respone = (statusCode, msg, data = []) => {
   return {
-    statusCode,
+    code,
     msg,
-    data,
+    ...(data?.data ? data : { data: data }),
   };
 };
 

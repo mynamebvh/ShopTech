@@ -18,10 +18,15 @@ const voucherSchema = mongoose.Schema(
     },
     code: {
       type: String,
-      required: true,
       trim: true,
+      required: true,
     },
-    timeExpired: {
+    timeStart: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+    timeEnd: {
       type: Date,
       required: true,
     },
@@ -44,6 +49,16 @@ const voucherSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 voucherSchema.plugin(toJSON);
 voucherSchema.plugin(paginate);
+
+/**
+ * Check if code voucher is duplicate
+ * @param {string} code - The code voucher
+ * @returns {Promise<boolean>}
+ */
+voucherSchema.statics.isCodeDuplicate = async function (code) {
+  const voucher = await this.findOne({ code });
+  return !!voucher;
+};
 
 /**
  * @typedef Voucher
