@@ -3,6 +3,8 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const categoryRoute = require('./category.route');
 const voucherRoute = require('./voucher.route');
+const postRoute = require('./post.route');
+
 const docsRoute = require('./docs.route');
 const config = require('@config/config');
 const { auth, authorize } = require('@middlewares/auth');
@@ -28,6 +30,10 @@ const adminRoutes = [
   {
     path: '/vouchers',
     route: voucherRoute,
+  },
+  {
+    path: '/posts',
+    route: postRoute,
   },
 ];
 

@@ -1,4 +1,4 @@
-const respone = (statusCode, msg, data = []) => {
+const respone = (code, msg, data = []) => {
   return {
     code,
     msg,

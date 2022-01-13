@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const httpStatus = require('http-status');
+
+const client = require('../config/redis');
 const config = require('../config/config');
 const userService = require('./user.service');
 const { Token } = require('../models');
@@ -22,6 +24,7 @@ const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
     exp: expires.unix(),
     type,
   };
+
   return jwt.sign(payload, secret);
 };
 
@@ -42,6 +45,8 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
     type,
     blacklisted,
   });
+
+  // await client.set(userId, JSON.stringify(payload));
   return tokenDoc;
 };
 

@@ -43,7 +43,7 @@ categorySchema.statics.isNameDuplicate = async function (name) {
 categorySchema.pre('save', async function (next) {
   const category = this;
   if (category.isModified('name')) {
-    category.name = slugify(category.name);
+    category.slug = slugify(category.name);
   }
   next();
 });
