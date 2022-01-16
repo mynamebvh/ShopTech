@@ -3,9 +3,14 @@ version: '3'
 services:
   node-app:
     build: .
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_NODE_CPUS:-0}'
+          memory: '${DOCKER_NODE_MEMORY:-0}'
+    env_file:
+      - docker.env
     image: shopgao
-    environment:
-      - MONGODB_URL=mongodb://mongodb:27017/shopgao
     ports:
       - '3000:3000'
     depends_on:
@@ -15,8 +20,21 @@ services:
       - .:/usr/src/shopgao
     networks:
       - node-network
+    healthcheck:
+      test: curl localhost:3000/live
+      interval: '60s'
+      timeout: '20s'
+      start_period: '5s'
+      retries: 5
 
   mongodb:
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_MONGO_CPUS:-0}'
+          memory: '${DOCKER_MONGO_MEMORY:-0}'
+    env_file:
+      - docker.env
     image: mongo:4.2.1-bionic
     ports:
       - '27017:27017'
@@ -24,8 +42,16 @@ services:
       - dbdata:/data/db
     networks:
       - node-network
+    restart: '${DOCKER_RESTART_POLICY:-unless-stopped}'
 
   redis:
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_REDIS_CPUS:-0}'
+          memory: '${DOCKER_REDIS_MEMORY:-0}'
+    env_file:
+      - docker.env
     image: redis:5.0
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
@@ -33,6 +59,8 @@ services:
       - '6379:6379'
     networks:
       - node-network
+    restart: '${DOCKER_RESTART_POLICY:-unless-stopped}'
+
 volumes:
   dbdata:
 
