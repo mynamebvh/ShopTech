@@ -3,15 +3,16 @@ version: '3'
 services:
   node-app:
     build: .
-    image: node-app
+    image: shopgao
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - MONGODB_URL=mongodb://mongodb:27017/shopgao
     ports:
       - '3000:3000'
     depends_on:
       - mongodb
+      - redis
     volumes:
-      - .:/usr/src/node-app
+      - .:/usr/src/shopgao
     networks:
       - node-network
 
@@ -24,6 +25,14 @@ services:
     networks:
       - node-network
 
+  redis:
+    image: redis:5.0
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    networks:
+      - node-network
 volumes:
   dbdata:
 

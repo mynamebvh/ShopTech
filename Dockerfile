@@ -1,15 +1,9 @@
-FROM node:alpine
+FROM node:16
 
-RUN mkdir -p /usr/src/node-app && chown -R node:node /usr/src/node-app
+COPY package.json .
 
-WORKDIR /usr/src/node-app
-
-COPY package.json yarn.lock ./
-
-USER node
-
-RUN yarn install --pure-lockfile
-
-COPY --chown=node:node . .
+RUN npm install
+RUN npm install -g pm2
+COPY . .
 
 EXPOSE 3000

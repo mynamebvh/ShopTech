@@ -20,8 +20,8 @@ const getVouchers = catchAsync(async (req, res) => {
 });
 
 const updateVoucher = catchAsync(async (req, res) => {
-  const category = await voucherService.updateVoucherById(req.params.voucherId, req.body);
-  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', category));
+  const voucher = await voucherService.updateVoucherById(req.params.voucherId, req.body);
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', voucher));
 });
 
 const deleteVoucher = catchAsync(async (req, res) => {

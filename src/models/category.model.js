@@ -40,6 +40,16 @@ categorySchema.statics.isNameDuplicate = async function (name) {
   return !!category;
 };
 
+/**
+ * Check if category is duplicate
+ * @param {ObjectId} id - The id category
+ * @returns {Promise<boolean>}
+ */
+categorySchema.statics.isDuplicate = async function (id) {
+  const category = await this.findById(id);
+  return !!category;
+};
+
 categorySchema.pre('save', async function (next) {
   const category = this;
   if (category.isModified('name')) {

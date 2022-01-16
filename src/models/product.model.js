@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+const slugify = require('slugify');
+
 const { toJSON, paginate } = require('./plugins');
 
 const productSchema = mongoose.Schema(
@@ -8,7 +9,6 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      lowercase: true,
     },
     desc: {
       type: String,
@@ -23,7 +23,6 @@ const productSchema = mongoose.Schema(
     },
     slug: {
       type: String,
-      required: true,
     },
     quantity: {
       type: Number,
@@ -53,6 +52,19 @@ const productSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 productSchema.plugin(toJSON);
 productSchema.plugin(paginate);
+
+productSchema.statics.isNameDuplicate = async function (name) {
+  const category = await this.findOne({ name });
+  return !!category;
+};
+
+productSchema.pre('save', async function (next) {
+  const product = this;
+  if (product.isModified('name')) {
+    product.slug = slugify(product.name);
+  }
+  next();
+});
 
 /**
  * @typedef Product

@@ -1,6 +1,9 @@
 const { createClient } = require('redis');
+const config = require('./config');
 
-const client = createClient();
+const client = createClient({
+  ...(config.env === 'production' && { url: 'redis://redis:6379' }),
+});
 
 client.on('connect', () => console.log(`Redis connected`));
 
