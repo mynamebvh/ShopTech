@@ -1,5 +1,7 @@
 const httpStatus = require('http-status');
-const { Category } = require('../models/index');
+var mongoose = require('mongoose');
+
+const { Category, Product } = require('../models/index');
 
 const ApiError = require('../utils/ApiError');
 
@@ -16,10 +18,11 @@ const getCategorys = async () => {
  * Get category by slug
  * @returns {Promise<Category>}
  */
-const getCategoryBySlug = async (slug) => {
-  const category = await Category.find({ slug });
+const getCategoryBySlug = async (filter, options, slug) => {
+  const category = await Category.findOne({ slug });
+  const products = await Product.paginate({ category: category._id }, options);
 
-  return category;
+  return { category, products };
 };
 
 /**

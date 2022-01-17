@@ -7,10 +7,13 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     phone: {
       type: String,
       trim: true,
+      unique: true,
+      required: true,
       validate(value) {
         if (!value.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
           throw new Error('Số điện thoại không đúng định dạng');

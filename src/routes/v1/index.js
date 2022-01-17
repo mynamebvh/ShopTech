@@ -5,6 +5,7 @@ const categoryRoute = require('./category.route');
 const voucherRoute = require('./voucher.route');
 const postRoute = require('./post.route');
 const productRoute = require('./product.route');
+const orderRoute = require('./order.route');
 
 const docsRoute = require('./docs.route');
 const config = require('@config/config');
@@ -17,13 +18,21 @@ const defaultRoutes = [
     path: '/auth',
     route: authRoute,
   },
+
+  {
+    path: '/categorys',
+    route: categoryRoute,
+  },
+];
+
+const userRoutes = [
   {
     path: '/users',
     route: userRoute,
   },
   {
-    path: '/categorys',
-    route: categoryRoute,
+    path: '/orders',
+    route: orderRoute,
   },
 ];
 
@@ -52,6 +61,10 @@ const devRoutes = [
 
 defaultRoutes.forEach((route) => {
   router.use(route.path, route.route);
+});
+
+userRoutes.forEach((route) => {
+  router.use(route.path, auth, route.route);
 });
 
 adminRoutes.forEach((route) => {

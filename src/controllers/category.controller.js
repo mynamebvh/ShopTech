@@ -1,4 +1,6 @@
 const httpStatus = require('http-status');
+
+const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const response = require('../utils/response');
@@ -16,7 +18,10 @@ const getCategorys = catchAsync(async (req, res) => {
 });
 
 const getCategoryBySlug = catchAsync(async (req, res) => {
-  const category = await categoryService.getCategoryBySlug(req.params.slug);
+  const filter = pick(req.query, ['name', 'role']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+
+  const category = await categoryService.getCategoryBySlug(filter, options, req.params.slug);
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Thể loại không tồn tại');
   }

@@ -7,3 +7,4 @@ module.exports.voucherService = require('./voucher.service');
 module.exports.postService = require('./post.service');
 module.exports.redisService = require('./redis.service');
 module.exports.productService = require('./product.service');
+module.exports.orderService = require('./order.service');
