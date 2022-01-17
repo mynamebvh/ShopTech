@@ -8,7 +8,6 @@ const response = require('../utils/response');
 const { orderService } = require('../services');
 
 const createOrder = catchAsync(async (req, res) => {
-  console.log({ ...req.body, user: req.userId });
   const order = await orderService.createOrder({ ...req.body, user: req.userId });
 
   res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công', order));

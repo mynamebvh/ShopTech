@@ -6,6 +6,7 @@ const voucherRoute = require('./voucher.route');
 const postRoute = require('./post.route');
 const productRoute = require('./product.route');
 const orderRoute = require('./order.route');
+const imageRoute = require('./image.route');
 
 const docsRoute = require('./docs.route');
 const config = require('@config/config');
@@ -48,6 +49,10 @@ const adminRoutes = [
   {
     path: '/products',
     route: productRoute,
+  },
+  {
+    path: '/images',
+    route: imageRoute,
   },
 ];
 
