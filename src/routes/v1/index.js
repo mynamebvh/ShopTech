@@ -7,6 +7,7 @@ const postRoute = require('./post.route');
 const productRoute = require('./product.route');
 const orderRoute = require('./order.route');
 const imageRoute = require('./image.route');
+const commentRoute = require('./comment.route');
 
 const docsRoute = require('./docs.route');
 const config = require('@config/config');
@@ -34,6 +35,10 @@ const userRoutes = [
   {
     path: '/orders',
     route: orderRoute,
+  },
+  {
+    path: '/comments',
+    route: commentRoute,
   },
 ];
 

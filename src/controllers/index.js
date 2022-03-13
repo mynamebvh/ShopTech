@@ -5,3 +5,4 @@ module.exports.voucherController = require('./voucher.controller');
 module.exports.postController = require('./post.controller');
 module.exports.productController = require('./product.controller');
 module.exports.orderController = require('./order.controller');
+module.exports.commentController = require('./comment.controller');

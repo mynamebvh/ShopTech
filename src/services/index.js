@@ -9,3 +9,4 @@ module.exports.redisService = require('./redis.service');
 module.exports.productService = require('./product.service');
 module.exports.orderService = require('./order.service');
 module.exports.imageService = require('./image.service');
+module.exports.commentService = require('./comment.service');

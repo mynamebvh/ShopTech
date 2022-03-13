@@ -8,3 +8,4 @@ module.exports.OrderDetail = require('./order_detail.model');
 module.exports.Post = require('./post.model');
 module.exports.Product = require('./product.model');
 module.exports.Voucher = require('./voucher.model');
+module.exports.Comment = require('./comment.model');

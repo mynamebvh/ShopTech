@@ -15,9 +15,9 @@ const commentSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    category: {
+    product: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Category',
+      ref: 'Product',
       required: true,
     },
   },
