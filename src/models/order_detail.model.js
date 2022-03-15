@@ -1,22 +1,17 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON, paginate } = require('./plugins');
+const OrderProduct = require('../models/order_product.model');
 
-const oderDetailSchema = mongoose.Schema(
+const orderDetailSchema = mongoose.Schema(
   {
-    quantity: {
-      type: Number,
-      required: true,
-      min: [1, 'Số lượng phải lớn hơn 0'],
-    },
     order: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Order',
       required: true,
     },
     product: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Product',
+      type: [OrderProduct],
       required: true,
     },
   },
@@ -26,12 +21,12 @@ const oderDetailSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-oderDetailSchema.plugin(toJSON);
-oderDetailSchema.plugin(paginate);
+orderDetailSchema.plugin(toJSON);
+orderDetailSchema.plugin(paginate);
 
 /**
  * @typedef OrderDetail
  */
-const OrderDetail = mongoose.model('OrderDetail', oderDetailSchema);
+const OrderDetail = mongoose.model('OrderDetail', orderDetailSchema);
 
 module.exports = OrderDetail;
