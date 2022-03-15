@@ -27,6 +27,6 @@ orderProductSchema.plugin(paginate);
 /**
  * @typedef OrderProduct
  */
-const OrderProduct = mongoose.model('OrderProduct', oderDetailSchema);
+const OrderProduct = mongoose.model('OrderProduct', orderProductSchema);
 
-module.exports = OrderProduct;
+module.exports = { OrderProduct, orderProductSchema };

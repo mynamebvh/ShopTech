@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON, paginate } = require('./plugins');
-const OrderProduct = require('../models/order_product.model');
+const { orderProductSchema } = require('../models/order_product.model');
 
 const orderDetailSchema = mongoose.Schema(
   {
@@ -10,8 +10,8 @@ const orderDetailSchema = mongoose.Schema(
       ref: 'Order',
       required: true,
     },
-    product: {
-      type: [OrderProduct],
+    products: {
+      type: [orderProductSchema],
       required: true,
     },
   },

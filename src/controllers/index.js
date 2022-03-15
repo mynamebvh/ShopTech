@@ -6,3 +6,4 @@ module.exports.postController = require('./post.controller');
 module.exports.productController = require('./product.controller');
 module.exports.orderController = require('./order.controller');
 module.exports.commentController = require('./comment.controller');
+module.exports.orderDetailController = require('./order_detail.controller');
