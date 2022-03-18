@@ -30,7 +30,7 @@ const convertExToSecond = (ex) => {
 */
 
 /**
- * Set value using redis setex
+ * Set value using redis SETEX
  * @param {string} category
  * @param {string} key
  * @param {string} ex
@@ -42,13 +42,23 @@ const setex = async (category, key, ex, value) => {
 };
 
 /**
- * get value using redis get
+ * get value using redis GET
  * @param {string} category
  * @param {string} key
  * @returns {Promise<>}
  */
 const get = async (category, key) => {
   return await client.get(`${category}:${key}`);
+};
+
+/**
+ * delete key using redis DEL
+ * @param {string} category
+ * @param {string} key
+ * @returns {Promise<>}
+ */
+const deleteKey = async (category, key) => {
+  return await client.del(`${category}:${key}`);
 };
 
 /* 
@@ -91,6 +101,7 @@ const getValueByField = async (key, field) => {
 module.exports = {
   get,
   setex,
+  deleteKey,
   saveTypeHashes,
   getValueByField,
   getValueByKey,

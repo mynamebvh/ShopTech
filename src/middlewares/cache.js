@@ -7,12 +7,18 @@ const cache = (category, id) => async (req, res, next) => {
   const key = req.params[id];
 
   const value = await redisService.get(category, key);
+
   if (value) {
-    console.log('cache');
     return res.status(200).json(response(httpStatus.OK, 'Thành công', JSON.parse(value)));
   }
 
   next();
 };
 
-module.exports = { cache };
+const clearCache = async (req, res, next) => {
+  const { category, id } = res.locals;
+
+  await redisService.deleteKey(category, id);
+};
+
+module.exports = { cache, clearCache };

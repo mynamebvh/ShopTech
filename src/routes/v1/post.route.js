@@ -1,6 +1,6 @@
 const express = require('express');
 const validate = require('../../middlewares/validate');
-const { cache } = require('../../middlewares/cache');
+const { cache, clearCache } = require('../../middlewares/cache');
 const authValidation = require('../../validations/auth.validation');
 const postController = require('@controllers/post.controller');
 
@@ -11,7 +11,7 @@ router.route('/').get(postController.getPosts).post(postController.createPost);
 router
   .route('/:postId')
   .get(cache('post', 'postId'), postController.getPost)
-  .patch(postController.updatePost)
+  .patch(postController.updatePost, clearCache)
   .delete(postController.deletePost);
 
 module.exports = router;
