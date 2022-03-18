@@ -1,6 +1,63 @@
 const client = require('../config/redis');
 
 /**
+ * Convert ex string to second
+ * @param {string} ex
+ * @returns {number}
+ */
+const convertExToSecond = (ex) => {
+  const type = ex.substring(ex.length - 1);
+  const exNum = parseInt(ex.split(type)[0]);
+
+  switch (type) {
+    case 's':
+      return exNum;
+      break;
+    case 'm':
+      return exNum * 60;
+    case 'h':
+      return exNum * 3600;
+    default:
+      throw new Error('Type ex not exist');
+      break;
+  }
+};
+
+/* 
+  =============================
+  ======Redis Type String======
+  =============================
+*/
+
+/**
+ * Set value using redis setex
+ * @param {string} category
+ * @param {string} key
+ * @param {string} ex
+ * @param {Object} value
+ * @returns {Promise<>}
+ */
+const setex = async (category, key, ex, value) => {
+  return await client.setEx(`${category}:${key}`, convertExToSecond(ex), JSON.stringify(value));
+};
+
+/**
+ * get value using redis get
+ * @param {string} category
+ * @param {string} key
+ * @returns {Promise<>}
+ */
+const get = async (category, key) => {
+  return await client.get(`${category}:${key}`);
+};
+
+/* 
+  =============================
+  ======Redis Type Hashes======
+  =============================
+*/
+
+/**
  * Save value redis type hashes
  * @param {string} key
  * @param {string} field
@@ -32,6 +89,8 @@ const getValueByField = async (key, field) => {
 };
 
 module.exports = {
+  get,
+  setex,
   saveTypeHashes,
   getValueByField,
   getValueByKey,
