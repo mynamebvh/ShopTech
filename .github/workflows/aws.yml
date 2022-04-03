@@ -23,6 +23,6 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem &&
           ssh  ssh -i private_key.pem $USER_NAME@$HOSTNAME &&
           cd /home/ubuntu &&
-          echo "hi" > a.txt
+          echo "hia" > a.txt
 
    
