@@ -11,8 +11,8 @@ const commentRoute = require('./comment.route');
 const orderDetailRoute = require('./order_detail.route');
 
 const docsRoute = require('./docs.route');
-const config = require('@config/config');
-const { auth, authorize } = require('@middlewares/auth');
+const config = require('../../config/config');
+const { auth, authorize } = require('../../middlewares/auth');
 
 const router = express.Router();
 

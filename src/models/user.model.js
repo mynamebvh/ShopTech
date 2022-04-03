@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       validate(value) {
         if (!validator.isEmail(value)) {
-          throw new Error('Invalid email');
+          throw new Error('Email không hợp lệ');
         }
       },
     },
@@ -51,7 +51,7 @@ const userSchema = mongoose.Schema(
       minlength: 8,
       validate(value) {
         if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-          throw new Error('Password phải chứa ít nhất 1 chữ số, 1 chữ hoa, độ dài tối thiểu 8 kí tự');
+          throw new Error('Mật khẩu phải chứa ít nhất 1 chữ số, 1 chữ hoa, độ dài tối thiểu 8 kí tự');
         }
       },
       private: true, // used by the toJSON plugin

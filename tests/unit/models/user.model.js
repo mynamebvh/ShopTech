@@ -6,15 +6,22 @@ describe('User model', () => {
     let newUser;
     beforeEach(() => {
       newUser = {
-        name: faker.name.findName(),
+        firstName: faker.name.findName(),
+        lastName: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
-        password: 'password1',
-        role: 'user',
+        phone: faker.phone.phoneNumber('09########'),
+        username: 'mynamebvh',
+        password: 'Hoangdzqua23',
       };
     });
 
     test('should correctly validate a valid user', async () => {
       await expect(new User(newUser).validate()).resolves.toBeUndefined();
+    });
+
+    test('should throw a validation error if phone is invalid', async () => {
+      newUser.phone = 'invalidPhone';
+      await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
     test('should throw a validation error if email is invalid', async () => {
