@@ -8,5 +8,10 @@ const viewUserController = require('../../controllers/viewUserController');
 const router = express.Router();
 
 router.route('/').get(viewUserController.homePage);
+router.route('/list').get(viewUserController.listProduct);
+router.route('/product').get(viewUserController.productDetail);
+router.route('/cart').get(viewUserController.cart);
+router.route('/checkout').get(viewUserController.checkout);
+router.route('/blog').get(viewUserController.blog);
 
 module.exports = router;

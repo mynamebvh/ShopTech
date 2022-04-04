@@ -7,15 +7,16 @@ const { auth, authorize } = require('../../middlewares/auth');
 
 const router = express.Router();
 
-const viewRoutes = [
-  {
-    path: '/',
-    route: viewUserRoute,
-  },
-];
+// const viewRoutes = [
+//   {
+//     path: '/',
+//     route: viewUserRoute,
+//   },
+// ];
 
-viewRoutes.forEach((route) => {
-  router.use(route.path, route.route);
-});
+router.use('/', viewUserRoute);
+// viewRoutes.forEach((route) => {
+//   router.use(route.path, route.route);
+// });
 
 module.exports = router;

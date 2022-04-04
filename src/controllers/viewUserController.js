@@ -8,4 +8,24 @@ const homePage = catchAsync(async (req, res) => {
   res.render('client/home');
 });
 
-module.exports = { homePage };
+const listProduct = catchAsync(async (req, res) => {
+  res.render('client/listProduct');
+});
+
+const productDetail = catchAsync(async (req, res) => {
+  res.render('client/product');
+});
+
+const cart = catchAsync(async (req, res) => {
+  res.render('client/cart');
+});
+
+const checkout = catchAsync(async (req, res) => {
+  res.render('client/checkout');
+});
+
+const blog = catchAsync(async (req, res) => {
+  res.render('client/blog');
+});
+
+module.exports = { homePage, listProduct, productDetail, cart, checkout, blog };
