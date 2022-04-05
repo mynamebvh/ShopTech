@@ -28,4 +28,8 @@ const blog = catchAsync(async (req, res) => {
   res.render('client/blog');
 });
 
-module.exports = { homePage, listProduct, productDetail, cart, checkout, blog };
+const blogDetail = catchAsync(async (req, res) => {
+  res.render('client/blog_detail');
+});
+
+module.exports = { homePage, listProduct, productDetail, cart, checkout, blog, blogDetail };
