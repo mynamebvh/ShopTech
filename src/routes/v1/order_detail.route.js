@@ -1,7 +1,7 @@
 const express = require('express');
 const validate = require('../../middlewares/validate');
 const authValidation = require('../../validations/auth.validation');
-const orderDetailController = require('@controllers/order_detail.controller');
+const orderDetailController = require('../../controllers/order_detail.controller');
 
 const router = express.Router();
 

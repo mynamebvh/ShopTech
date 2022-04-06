@@ -42,9 +42,16 @@ const getPosts = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', data));
 });
 
-const updatePost = catchAsync(async (req, res) => {
+const updatePost = catchAsync(async (req, res, next) => {
   const post = await postService.updatePostById(req.params.postId, req.body);
+
+  res.locals = {
+    category: 'post',
+    id: req.params.postId,
+  };
+
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', post));
+  next();
 });
 
 const deletePost = catchAsync(async (req, res) => {
