@@ -16,8 +16,6 @@ services:
     depends_on:
       - mongodb
       - redis
-    volumes:
-      - .:/usr/src/shopgao
     networks:
       - node-network
     healthcheck:
