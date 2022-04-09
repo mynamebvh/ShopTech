@@ -7,7 +7,7 @@ const categorySchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Tên thể loại là bắt buộc"],
       trim: true,
       lowercase: true,
     },
@@ -16,7 +16,7 @@ const categorySchema = mongoose.Schema(
     },
     desc: {
       type: String,
-      required: true,
+      required: [true, "Mô tả là bắt buộc"],
       trim: true,
       minLength: [20, 'Mô tả phải có ít nhất 20 từ'],
     },
