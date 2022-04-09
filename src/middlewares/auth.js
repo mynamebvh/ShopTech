@@ -12,8 +12,12 @@ const config = require('../config/config');
 const auth = (req, res, next) => {
   let tokens = req.signedCookies?.tokens;
 
+  // if (!tokens) {
+  //   return next(new Error('Cookie không tìm thấy'));
+  // }
+
   if (!tokens) {
-    return next(new Error('Cookie không tìm thấy'));
+    return res.redirect('/');
   }
 
   let { access } = tokens;
