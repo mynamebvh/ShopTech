@@ -10,13 +10,14 @@ const router = express.Router();
 router
   .route('/')
   .post(auth, validate(userValidation.createUser), userController.createUser)
-  .get(auth, authorize('admin'), validate(userValidation.getUsers), userController.getUsers);
+  .get(auth, authorize('admin'), userController.getUsers);
 
 router
   .route('/:userId')
   .get(validate(userValidation.getUser), userController.getUser)
-  .patch(validate(userValidation.updateUser), userController.updateUser)
-  .delete(validate(userValidation.deleteUser), userController.deleteUser);
+  .patch(userController.updateUser)
+  .delete(validate(userValidation.deleteUser), userController.deleteUser)
+  .lock(userController.lockUser);
 
 module.exports = router;
 

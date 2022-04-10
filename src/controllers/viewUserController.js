@@ -6,8 +6,8 @@ const { categoryService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
   const data = await categoryService.getCategorys();
-  console.log("data", data);
-  res.render('client/home', {data});
+  console.log('data', data);
+  res.render('client/home', { data });
 });
 
 const listProduct = catchAsync(async (req, res) => {
@@ -27,7 +27,9 @@ const checkout = catchAsync(async (req, res) => {
 });
 
 const blog = catchAsync(async (req, res) => {
-  res.render('client/blog');
+  const data = await categoryService.getCategorys();
+
+  res.render('client/blog', { data });
 });
 
 const blogDetail = catchAsync(async (req, res) => {
@@ -35,7 +37,14 @@ const blogDetail = catchAsync(async (req, res) => {
 });
 
 const login = catchAsync(async (req, res) => {
-  res.render('client/login');
+  const data = await categoryService.getCategorys();
+
+  res.render('client/login', { data });
 });
 
-module.exports = { homePage, listProduct, productDetail, cart, checkout, blog, blogDetail, login };
+const profile = catchAsync(async (req, res) => {
+  const data = await categoryService.getCategorys();
+
+  res.render('client/profile', { data });
+});
+module.exports = { homePage, listProduct, productDetail, cart, checkout, blog, blogDetail, login, profile };

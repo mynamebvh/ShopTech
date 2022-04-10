@@ -5,7 +5,6 @@ const catchAsync = require('../utils/catchAsync');
 const { categoryService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
- 
   res.render('admin/dashboard');
 });
 
@@ -22,8 +21,8 @@ const manageCategory = catchAsync(async (req, res) => {
   res.render('admin/manage_category');
 });
 
-const cart = catchAsync(async (req, res) => {
-  res.render('client/cart');
+const manageUser = catchAsync(async (req, res) => {
+  res.render('admin/manage_user');
 });
 
 const checkout = catchAsync(async (req, res) => {
@@ -42,4 +41,4 @@ const login = catchAsync(async (req, res) => {
   res.render('client/login');
 });
 
-module.exports = { homePage, loginPage, manageProduct,manageCategory};
+module.exports = { homePage, loginPage, manageProduct, manageCategory, manageUser };

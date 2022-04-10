@@ -11,7 +11,7 @@ const Category = require("./models/category.model");
 
 // TODO: connect to mongodb
 mongoose
-  .connect("mongodb://mongodb/shoptech")
+  .connect("mongodb://localhost/shoptech")
   .then(() => console.log("connected"))
   .catch((err) => console.log(err));
 

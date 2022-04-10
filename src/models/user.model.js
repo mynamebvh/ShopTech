@@ -20,7 +20,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      private: true,
     },
     gender: {
       type: String,
@@ -71,6 +70,10 @@ const userSchema = mongoose.Schema(
       },
     },
     isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isLocked: {
       type: Boolean,
       default: false,
     },

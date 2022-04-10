@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
  */
 const createUser = async (userBody) => {
   if (await User.isEmailTaken(userBody.email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email đã tồn tại');
   }
   return User.create(userBody);
 };
@@ -66,6 +66,22 @@ const updateUserById = async (userId, updateBody) => {
 };
 
 /**
+ * Lock user by id
+ * @param {ObjectId} userId
+ * @returns {Promise<User>}
+ */
+const lockUserById = async (userId) => {
+  const user = await getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  Object.assign(user, { isLocked: !user.isLocked });
+  await user.save();
+  return user;
+};
+
+/**
  * Delete user by id
  * @param {ObjectId} userId
  * @returns {Promise<User>}
@@ -86,4 +102,5 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
+  lockUserById
 };

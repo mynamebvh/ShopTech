@@ -16,5 +16,7 @@ router.route('/cart').get(viewUserController.cart);
 router.route('/checkout').get(viewUserController.checkout);
 router.route('/blog').get(viewUserController.blog);
 router.route('/blog_detail').get(viewUserController.blogDetail);
+router.route('/profile').get(viewUserController.profile);
+
 
 module.exports = router;

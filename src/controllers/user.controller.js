@@ -3,6 +3,8 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { userService } = require('../services');
+const response = require('../utils/response');
+
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -26,12 +28,17 @@ const getUser = catchAsync(async (req, res) => {
 
 const updateUser = catchAsync(async (req, res) => {
   const user = await userService.updateUserById(req.params.userId, req.body);
-  res.send(user);
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
 });
 
 const deleteUser = catchAsync(async (req, res) => {
   await userService.deleteUserById(req.params.userId);
   res.status(httpStatus.NO_CONTENT).send();
+});
+
+const lockUser = catchAsync(async (req, res) => {
+  const user = await userService.lockUserById(req.params.userId);
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
 });
 
 module.exports = {
@@ -40,4 +47,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  lockUser
 };
