@@ -25,20 +25,13 @@ const manageUser = catchAsync(async (req, res) => {
   res.render('admin/manage_user');
 });
 
-const checkout = catchAsync(async (req, res) => {
-  res.render('client/checkout');
+const manageBlog = catchAsync(async (req, res) => {
+  res.render('admin/manage_blog');
 });
 
-const blog = catchAsync(async (req, res) => {
-  res.render('client/blog');
+
+const createArticles = catchAsync(async (req, res) => {
+  res.render('admin/manage_blog/create');
 });
 
-const blogDetail = catchAsync(async (req, res) => {
-  res.render('client/blog_detail');
-});
-
-const login = catchAsync(async (req, res) => {
-  res.render('client/login');
-});
-
-module.exports = { homePage, loginPage, manageProduct, manageCategory, manageUser };
+module.exports = { homePage, loginPage, manageProduct, manageCategory, manageUser, manageBlog ,createArticles};

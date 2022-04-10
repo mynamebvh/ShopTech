@@ -11,6 +11,9 @@ router.route('/dashboard').get(auth, viewAdminController.homePage);
 router.route('/manage-product').get(auth, viewAdminController.manageProduct);
 router.route('/manage-category').get(auth, viewAdminController.manageCategory);
 router.route('/manage-user').get(auth, viewAdminController.manageUser);
+router.route('/manage-blog/create').get(viewAdminController.createArticles);
+router.route('/manage-blog').get(viewAdminController.manageBlog);
+
 
 router.route('/').get(viewAdminController.loginPage);
 

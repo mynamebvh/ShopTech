@@ -38,138 +38,30 @@
             <div class="ec-blogs-content">
               <div class="ec-blogs-inner">
                 <div class="row">
+                  <% articles.data.forEach(function(article){%>
                   <div class="col-lg-4 col-md-6 col-sm-12 mb-6 ec-blog-block">
                     <div class="ec-blog-inner">
                       <div class="ec-blog-image">
-                        <a href="blog-detail-left-sidebar.html">
-                          <img class="blog-image" src="/static/client/images/blog-image/1.jpg" alt="Blog" />
+                        <a href="/blogs/<%= article.slug %>">
+                          <img class="blog-image" src="<%= article.thumbnail %>" alt="Blog" />
                         </a>
                       </div>
                       <div class="ec-blog-content">
                         <h5 class="ec-blog-title">
-                          <a href="blog-detail-left-sidebar.html">The best fashion influencers.</a>
+                          <a href="/blogs/<%= article.slug %>"><%= article.title %></a>
                         </h5>
 
-                        <div class="ec-blog-date">By <span>Mr Admin</span> / February 10, 2021-2022</div>
+                        <div class="ec-blog-date">By <span><%= article.user.firstName %> <%= article.user.lastName %></span> / February 10, 2021-2022</div>
                         <div class="ec-blog-desc">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
+                          <%= article.title  %>
                         </div>
 
-                        <div class="ec-blog-btn"><a href="#" class="btn btn-primary">Read More</a></div>
+                        <div class="ec-blog-btn"><a href="/blogs/<%= article.slug %>" class="btn btn-primary">Xem thêm</a></div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-6 mb-6 ec-blog-block">
-                    <div class="ec-blog-inner">
-                      <div class="ec-blog-image">
-                        <a href="blog-detail-left-sidebar.html">
-                          <img class="blog-image" src="/static/client/images/blog-image/2.jpg" alt="Blog" />
-                        </a>
-                      </div>
-                      <div class="ec-blog-content">
-                        <h5 class="ec-blog-title">
-                          <a href="blog-detail-left-sidebar.html">Summer Trending Fashion Market.</a>
-                        </h5>
 
-                        <div class="ec-blog-date">By <span>Mr Admin</span> / February 10, 2021-2022</div>
-                        <div class="ec-blog-desc">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                        </div>
-
-                        <div class="ec-blog-btn"><a href="#" class="btn btn-primary">Read More</a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 mb-6 ec-blog-block">
-                    <div class="ec-blog-inner">
-                      <div class="ec-blog-image">
-                        <a href="blog-detail-left-sidebar.html">
-                          <img class="blog-image" src="/static/client/images/blog-image/3.jpg" alt="Blog" />
-                        </a>
-                      </div>
-                      <div class="ec-blog-content">
-                        <h5 class="ec-blog-title">
-                          <a href="blog-detail-left-sidebar.html">Fashion Market Reveals Her Jacket.</a>
-                        </h5>
-
-                        <div class="ec-blog-date">By <span>Mr Admin</span> / February 10, 2021-2022</div>
-                        <div class="ec-blog-desc">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                        </div>
-
-                        <div class="ec-blog-btn"><a href="#" class="btn btn-primary">Read More</a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 mb-6 ec-blog-block">
-                    <div class="ec-blog-inner">
-                      <div class="ec-blog-image">
-                        <a href="blog-detail-left-sidebar.html">
-                          <img class="blog-image" src="/static/client/images/blog-image/4.jpg" alt="Blog" />
-                        </a>
-                      </div>
-                      <div class="ec-blog-content">
-                        <h5 class="ec-blog-title">
-                          <a href="blog-detail-left-sidebar.html">Winter 2021 Trending Fashion Market.</a>
-                        </h5>
-
-                        <div class="ec-blog-date">By <span>Mr Admin</span> / February 10, 2021-2022</div>
-                        <div class="ec-blog-desc">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                        </div>
-
-                        <div class="ec-blog-btn"><a href="#" class="btn btn-primary">Read More</a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 mb-6 ec-blog-block">
-                    <div class="ec-blog-inner">
-                      <div class="ec-blog-image">
-                        <a href="blog-detail-left-sidebar.html">
-                          <img class="blog-image" src="/static/client/images/blog-image/5.jpg" alt="Blog" />
-                        </a>
-                      </div>
-                      <div class="ec-blog-content">
-                        <h5 class="ec-blog-title">
-                          <a href="blog-detail-left-sidebar.html">Vogue Shopping Weekend 2021.</a>
-                        </h5>
-
-                        <div class="ec-blog-date">By <span>Mr Admin</span> / February 10, 2021-2022</div>
-                        <div class="ec-blog-desc">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                        </div>
-
-                        <div class="ec-blog-btn"><a href="#" class="btn btn-primary">Read More</a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 mb-6 ec-blog-block">
-                    <div class="ec-blog-inner">
-                      <div class="ec-blog-image">
-                        <a href="blog-detail-left-sidebar.html">
-                          <img class="blog-image" src="/static/client/images/blog-image/6.jpg" alt="Blog" />
-                        </a>
-                      </div>
-                      <div class="ec-blog-content">
-                        <h5 class="ec-blog-title">
-                          <a href="blog-detail-left-sidebar.html">The best fashion influencers.</a>
-                        </h5>
-
-                        <div class="ec-blog-date">By <span>Mr Admin</span> / February 10, 2021-2022</div>
-                        <div class="ec-blog-desc">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                        </div>
-
-                        <div class="ec-blog-btn"><a href="#" class="btn btn-primary">Read More</a></div>
-                      </div>
-                    </div>
-                  </div>
+                  <%}) %>
                 </div>
               </div>
               <!-- Ec Pagination Start -->

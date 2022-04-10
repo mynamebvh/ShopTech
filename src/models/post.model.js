@@ -23,6 +23,10 @@ const postSchema = mongoose.Schema(
       trim: true,
       minLength: [20, 'Nội dung phải có ít nhất 20 từ'],
     },
+    thumbnail: {
+      type: String,
+      required: [true, 'Ảnh thumbnail là bắt buộc'],
+    },
     slug: {
       type: String,
       trim: true,
@@ -53,6 +57,11 @@ postSchema.pre('save', async function (next) {
     post.slug = slugify(post.title);
   }
   next();
+});
+
+postSchema.pre('find', async function (next) {
+  this.populate({path: 'user', select: ['firstName', 'lastName']}).select("-content")
+  next()
 });
 
 /**

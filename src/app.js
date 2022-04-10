@@ -42,11 +42,14 @@ app.use(
 // parse cookie
 app.use(cookieParser('hoang'));
 
-// parse json request body
-app.use(express.json());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
+
+// parse json request body
+app.use(express.json());
+
+
 
 // sanitize request data
 app.use(xss());

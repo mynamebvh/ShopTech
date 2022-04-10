@@ -118,7 +118,7 @@
           <div class="ec-main-menu">
             <ul>
               <% data.forEach(function(category){%> 
-                <li><a href=""><%= category.name %></a></li>
+                <li><a href="<%= category.slug %>"><%= category.name %></a></li>
               <%}) %>
              
             </ul>

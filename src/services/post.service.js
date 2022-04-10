@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const { Post } = require('../models/index');
-const redisService = require('../services/redis.service');
+const { redisService, formdataService } = require('../services/index');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -38,6 +38,16 @@ const createPost = async (postBody) => {
 const getPostById = async (id) => {
   await redisService.setex(`post`, id, '1m', await Post.findById(id));
   return Post.findById(id);
+};
+
+/**
+ * Get post by slug
+ * @param {String} slug
+ * @returns {Promise<Post>}
+ */
+const getPostBySlug = async (slug) => {
+  // await redisService.setex(`post`, id, '1m', await Post.findById(id));
+  return Post.findOne({ slug });
 };
 
 /**
@@ -81,4 +91,5 @@ module.exports = {
   createPost,
   updatePostById,
   deletePostById,
+  getPostBySlug
 };
