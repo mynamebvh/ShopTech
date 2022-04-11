@@ -36,7 +36,7 @@ const createPost = async (postBody) => {
  * @returns {Promise<Post>}
  */
 const getPostById = async (id) => {
-  await redisService.setex(`post`, id, '1m', await Post.findById(id));
+  // await redisService.setex(`post`, id, '1m', await Post.findById(id));
   return Post.findById(id);
 };
 
@@ -58,9 +58,11 @@ const getPostBySlug = async (slug) => {
  */
 const updatePostById = async (postId, updateBody) => {
   const post = await getPostById(postId);
+  
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Bài viêt không tồn tại');
   }
+
   if (updateBody.title && (await Post.isTitleDuplicate(updateBody.title))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Tên bài viết đã tồn tại');
   }

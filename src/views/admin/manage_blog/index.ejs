@@ -24,7 +24,7 @@
     <!-- Icons css -->
     <link href="/static/admin/css/icons.css" rel="stylesheet" />
     <!--  bootstrap css-->
-    <link href="/static/admin/plugins/notify/css/notifIt.css" rel="stylesheet">
+    <link href="/static/admin/plugins/notify/css/notifIt.css" rel="stylesheet" />
     <link href="/static/admin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Data table css -->
     <link href="/static/admin/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
@@ -584,12 +584,16 @@
               <div class="col-lg-12">
                 <div class="card custom-card overflow-hidden">
                   <div class="card-body">
-                    <a href="/admin/manage-blog/create" target="_blank" rel="noopener noreferrer">
-                      <button type="button" class="btn btn-primary btn-w-sm" data-bs-toggle="modal" data-bs-target="#create-modal">
+                    <a href="/admin/manage-blog/create" rel="noopener noreferrer">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-w-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#create-modal"
+                      >
                         <i class="fa fa-paper-plane"></i> Tạo bài viết
                       </button>
                     </a>
-                    
 
                     <div>
                       <h6 class="main-content-label mb-1"></h6>
@@ -1634,124 +1638,22 @@
         <!-- Footer closed -->
       </div>
 
-      <!-- Model Create User -->
-      <div
-        class="modal fade"
-        id="create-modal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        style="display: none"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="" id="">Tạo mới người dùng</h5>
-              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Họ:</label>
-                  <input type="text" class="form-control" id="first-name" />
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Tên:</label>
-                  <input class="form-control" id="last-name"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Email:</label>
-                  <input type="email" class="form-control" id="email"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Username:</label>
-                  <input class="form-control" id="username"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Password:</label>
-                  <input type="password" class="form-control" id="password"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Số điện thoại:</label>
-                  <input class="form-control" id="phone"/>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="close-1" data-bs-dismiss="modal">Đóng</button>
-              <button type="button" class="btn btn-primary" id="btn-create-user">Tạo</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Model Update Category -->
-      <div
-        class="modal fade"
-        id="update-modal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        style="display: none"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="" id="">Cập nhật thông tin người dùng</h5>
-              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Họ:</label>
-                  <input type="text" class="form-control" id="first-name-update" />
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Tên:</label>
-                  <input class="form-control" id="last-name-update"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Email:</label>
-                  <input type="email" class="form-control" id="email-update"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Username:</label>
-                  <input class="form-control" id="username-update"/>
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Số điện thoại:</label>
-                  <input class="form-control" id="phone-update"/>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="close-1" data-bs-dismiss="modal">Đóng</button>
-              <button type="button" class="btn btn-primary" id="btn-update-user">Sửa</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal Lock User -->
+      <!-- Modal Delete Post -->
       <div class="modal fade" id="modaldemo2" style="display: none" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h6 class="modal-title">Xác nhận khoá</h6>
+              <h6 class="modal-title">Xác nhận xoá</h6>
               <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
-              <p>Bạn có xác nhận muốn khoá tài khoản này ?</p>
+              <p>Bạn có xác nhận muốn xoá bài viết này ?</p>
             </div>
             <div class="modal-footer justify-content-center">
               <button class="btn ripple btn-primary" data-bs-dismiss="modal" type="button">Huỷ bỏ</button>
-              <button class="btn ripple btn-secondary" data-bs-dismiss="modal" id="lock" type="button">Khoá</button>
+              <button class="btn ripple btn-secondary" data-bs-dismiss="modal" id="lock" type="button">Xoá</button>
             </div>
           </div>
         </div>
@@ -1808,7 +1710,6 @@
       <!-- Switcher js -->
       <script src="/static/admin/switcher/js/switcher.js"></script>
 
-      
       <!-- Mirrored from spruko.com/demo/nowa/Nowa/HTML/table-data.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Apr 2022 08:11:30 GMT -->
     </div>
     <div class="main-navbar-backdrop"></div>

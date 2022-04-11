@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { categoryService } = require('../services');
+const { categoryService, postService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
   res.render('admin/dashboard');
@@ -29,9 +29,22 @@ const manageBlog = catchAsync(async (req, res) => {
   res.render('admin/manage_blog');
 });
 
-
 const createArticles = catchAsync(async (req, res) => {
   res.render('admin/manage_blog/create');
 });
 
-module.exports = { homePage, loginPage, manageProduct, manageCategory, manageUser, manageBlog ,createArticles};
+const editArticles = catchAsync(async (req, res) => {
+  const data = await postService.getPostById(req.params.id)
+  res.render('admin/manage_blog/edit', {data});
+});
+
+module.exports = {
+  homePage,
+  loginPage,
+  manageProduct,
+  manageCategory,
+  manageUser,
+  manageBlog,
+  createArticles,
+  editArticles,
+};

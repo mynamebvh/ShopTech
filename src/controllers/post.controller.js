@@ -49,7 +49,23 @@ const getPosts = catchAsync(async (req, res) => {
 });
 
 const updatePost = catchAsync(async (req, res, next) => {
-  const post = await postService.updatePostById(req.params.postId, req.body);
+  const body = await formDataService.parseForm(req);
+  const { url } = await imageService.uploadImg(body.thumbnail?.filepath);
+  const { title, content, tag } = body.fields;
+
+  const updateBody = {
+    title,
+    content,
+    tag,
+    thumbnail: url,
+    user: req.userId,
+  };
+
+  if(!url){
+    delete updateBody.thumbnail;
+  }
+
+  const post = await postService.updatePostById(req.params.postId, updateBody);
 
   res.locals = {
     category: 'post',

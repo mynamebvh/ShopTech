@@ -38,9 +38,11 @@ const createImage = async (req) => {
   return Image.insertMany(images);
 };
 
-const uploadImg = async(path) => {
+const uploadImg = async (path) => {
+  if (!path) return { url: null };
+
   return await cloudinary.uploader.upload(path, { folder: 'blog', tags: 'basic_sample' });
-}
+};
 
 /**
  * Get image by id
@@ -71,5 +73,4 @@ module.exports = {
   createImage,
   deleteImageByProductId,
   uploadImg,
-  
 };

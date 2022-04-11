@@ -1795,20 +1795,59 @@
       </script>
       <script>
         $('#submit').on('click', async () => {
-          let formData = new FormData();
-          formData.append('title', $('#title').val());
-          formData.append('content', $('#summernote').summernote('code'));
-          formData.append('tag', $('#tag').val());
-          formData.append('thumbnail', $('input[type=file]')[0].files[0]);
 
-          const response = fetch('/api/v1/posts', {
-            body: formData,
-            method: 'POST',
-          });
+          $('#submit').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang đăng... `)
 
-          const data = response.json();
+          try{
+            let formData = new FormData();
+            formData.append('title', $('#title').val());
+            formData.append('content', $('#summernote').summernote('code'));
+            formData.append('tag', $('#tag').val());
+            formData.append('thumbnail', $('input[type=file]')[0].files[0]);
+  
+            const response = await fetch('/api/v1/posts', {
+              body: formData,
+              method: 'POST',
+            });
+  
+            const data = await response.json();
+  
+            setTimeout(() => {
+              $("#submit").html(`<i class="fa fa-paper-plane"></i> Tạo`)
+            },500)
+            
 
-          console.log(data)
+            if (data.code == 201) {
+              notif({
+                msg: 'Tạo thành công, bạn sẽ được chuyển hướng sau 2s nữa',
+                position: 'right',
+                bottom: '10',
+              });
+      
+              setTimeout(() => {
+                window.location.href = "/admin/manage-blog"
+              },2000)
+              return;
+            }
+            else {
+              notif({
+                msg: data.message,
+                type: 'error',
+                position: 'right',
+                zindex: 99999999,
+              });
+              return;
+            }
+          }catch(error){
+            notif({
+              msg: error,
+              type: 'error',
+              position: 'right',
+              zindex: 99999999,
+            });
+            
+          }
+         
         });
       </script>
     </div>
