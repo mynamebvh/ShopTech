@@ -12,7 +12,7 @@
           <div class="col-12">
             <div class="row ec_breadcrumb_inner">
               <div class="col-md-6 col-sm-12">
-                <h2 class="ec-breadcrumb-title">Single Products</h2>
+                <h2 class="ec-breadcrumb-title">Chi tiết sản phẩm</h2>
               </div>
               <div class="col-md-6 col-sm-12">
                 <!-- ec-breadcrumb-list start -->
@@ -42,43 +42,49 @@
                     <div class="single-product-scroll">
                       <div class="single-product-cover">
                         <div class="single-slide zoom-image-hover">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_1.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[4] %>" alt="" />
                         </div>
                         <div class="single-slide zoom-image-hover">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_2.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[3] %>" alt="" />
                         </div>
                         <div class="single-slide zoom-image-hover">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_3.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[2] %>" alt="" />
+                        
                         </div>
                         <div class="single-slide zoom-image-hover">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_4.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[1] %>" alt="" />
+
                         </div>
                         <div class="single-slide zoom-image-hover">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_5.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[0] %>" alt="" />
+
                         </div>
                       </div>
                       <div class="single-nav-thumb">
                         <div class="single-slide">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_1.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[4] %>" alt="" />
                         </div>
                         <div class="single-slide">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_2.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[3] %>" alt="" />
                         </div>
                         <div class="single-slide">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_3.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[2] %>" alt="" />
+
                         </div>
                         <div class="single-slide">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_4.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[1] %>" alt="" />
+
                         </div>
                         <div class="single-slide">
-                          <img class="img-responsive" src="/static/client/images/product-360/1_5.jpg" alt="" />
+                          <img class="img-responsive" src="<%= product.images[0] %>" alt="" />
+
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="single-pro-desc single-pro-desc-no-sidebar">
                     <div class="single-pro-content">
-                      <h5 class="ec-single-title">Women Leather Heels Sandal</h5>
+                      <h5 class="ec-single-title"><%=  product.name %></h5>
                       <div class="ec-single-rating-wrap">
                         <div class="ec-single-rating">
                           <i class="ecicon eci-star fill"></i>
@@ -87,40 +93,24 @@
                           <i class="ecicon eci-star fill"></i>
                           <i class="ecicon eci-star-o"></i>
                         </div>
-                        <span class="ec-read-review"
-                          ><a href="#ec-spt-nav-review">Be the first to review this product</a></span
-                        >
+                       
                       </div>
                       <div class="ec-single-desc">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1990
+                        <%= product.shortDesc %>
                       </div>
 
-                      <div class="ec-single-sales">
-                        <div class="ec-single-sales-inner">
-                          <div class="ec-single-sales-title">sales accelerators</div>
-                          <div class="ec-single-sales-visitor">real time <span>24</span> visitor right now!</div>
-                          <div class="ec-single-sales-progress">
-                            <span class="ec-single-progress-desc">Hurry up!left 29 in stock</span>
-                            <span class="ec-single-progressbar"></span>
-                          </div>
-                          <div class="ec-single-sales-countdown">
-                            <div class="ec-single-countdown"><span id="ec-single-countdown"></span></div>
-                            <div class="ec-single-count-desc">Time is Running Out!</div>
-                          </div>
-                        </div>
-                      </div>
+                     
                       <div class="ec-single-price-stoke">
                         <div class="ec-single-price">
-                          <span class="ec-single-ps-title">As low as</span>
-                          <span class="new-price">$68.00</span>
+                          <span class="ec-single-ps-title"></span>
+                          <span class="new-price"><%= product.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) %></span>
                         </div>
                         <div class="ec-single-stoke">
                           <span class="ec-single-ps-title">IN STOCK</span>
                           <span class="ec-single-sku">SKU#: WH12</span>
                         </div>
                       </div>
-                      <div class="ec-pro-variation">
+                      <!-- <div class="ec-pro-variation">
                         <div class="ec-pro-variation-inner ec-pro-variation-size">
                           <span>SIZE</span>
                           <div class="ec-pro-variation-content">
@@ -164,32 +154,8 @@
                             ><img src="/static/client/images/icons/quickview.svg" class="svg_img pro_svg" alt=""
                           /></a>
                         </div>
-                      </div>
-                      <div class="ec-single-social">
-                        <ul class="mb-0">
-                          <li class="list-inline-item facebook">
-                            <a href="#"><i class="ecicon eci-facebook"></i></a>
-                          </li>
-                          <li class="list-inline-item twitter">
-                            <a href="#"><i class="ecicon eci-twitter"></i></a>
-                          </li>
-                          <li class="list-inline-item instagram">
-                            <a href="#"><i class="ecicon eci-instagram"></i></a>
-                          </li>
-                          <li class="list-inline-item youtube-play">
-                            <a href="#"><i class="ecicon eci-youtube-play"></i></a>
-                          </li>
-                          <li class="list-inline-item behance">
-                            <a href="#"><i class="ecicon eci-behance"></i></a>
-                          </li>
-                          <li class="list-inline-item whatsapp">
-                            <a href="#"><i class="ecicon eci-whatsapp"></i></a>
-                          </li>
-                          <li class="list-inline-item plus">
-                            <a href="#"><i class="ecicon eci-plus"></i></a>
-                          </li>
-                        </ul>
-                      </div>
+                      </div> -->
+                      
                     </div>
                   </div>
                 </div>
@@ -203,43 +169,27 @@
                   <ul class="nav nav-tabs">
                     <li class="nav-item">
                       <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details" role="tablist"
-                        >Detail</a
+                        >Chi tiết</a
                       >
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-info" role="tablist"
-                        >More Information</a
+                        >Thông tin thêm</a
                       >
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review" role="tablist">Reviews</a>
-                    </li>
+                    
                   </ul>
                 </div>
                 <div class="tab-content ec-single-pro-tab-content">
                   <div id="ec-spt-nav-details" class="tab-pane fade show active">
                     <div class="ec-single-pro-tab-desc">
-                      <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                        and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                        leap into electronic typesetting, remaining essentially unchanged.
-                      </p>
-                      <ul>
-                        <li>Any Product types that You want - Simple, Configurable</li>
-                        <li>Downloadable/Digital Products, Virtual Products</li>
-                        <li>Inventory Management with Backordered items</li>
-                        <li>Flatlock seams throughout.</li>
-                      </ul>
+                      <%-  product.detail %>
                     </div>
                   </div>
                   <div id="ec-spt-nav-info" class="tab-pane fade">
                     <div class="ec-single-pro-tab-moreinfo">
-                      <ul>
-                        <li><span>Weight</span> 1000 g</li>
-                        <li><span>Dimensions</span> 35 × 30 × 7 cm</li>
-                        <li><span>Color</span> Black, Pink, Red, White</li>
-                      </ul>
+                      <%-  product.desc %>
+                     
                     </div>
                   </div>
 

@@ -18,6 +18,8 @@
       content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"
     />
     <!-- Title -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" />
+
     <title>Nowa - Premium dashboard ui bootstrap rwd admin html5 template</title>
     <!-- Favicon -->
     <link rel="icon" href="/static/admin/img/brand/favicon.png" type="image/x-icon" />
@@ -26,10 +28,8 @@
     <!--  bootstrap css-->
     <link href="/static/admin/plugins/notify/css/notifIt.css" rel="stylesheet" />
     <link href="/static/admin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Data table css -->
-    <link href="/static/admin/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
-    <link href="/static/admin/plugins/datatable/css/buttons.bootstrap5.min.css" rel="stylesheet" />
-    <link href="/static/admin/plugins/datatable/responsive.bootstrap5.css" rel="stylesheet" />
+    <!-- Summernote editor css -->
+    <link href="/static/admin/plugins/summernote-editor/summernote1.css" rel="stylesheet" />
     <!--  Right-sidemenu css -->
     <link href="/static/admin/plugins/sidebar/sidebar.css" rel="stylesheet" />
     <!-- P-scroll bar css-->
@@ -569,11 +569,11 @@
           <div class="main-container container-fluid">
             <!-- breadcrumb -->
             <div class="breadcrumb-header justify-content-between">
-              <div class="left-content"><span class="main-content-title mg-b-0 mg-b-lg-1">Quản lý sản phẩm</span></div>
+              <div class="left-content"><span class="main-content-title mg-b-0 mg-b-lg-1">Tạo sản phẩm</span></div>
               <div class="justify-content-center mt-2">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Quản lý sản phẩm</li>
+                  <li class="breadcrumb-item active" aria-current="page">Viết bài</li>
                 </ol>
               </div>
             </div>
@@ -584,55 +584,63 @@
               <div class="col-lg-12">
                 <div class="card custom-card overflow-hidden">
                   <div class="card-body">
-                    <a href="/admin/manage-product/create" rel="noopener noreferrer">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-w-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#create-modal"
-                      >
-                        <i class="fa fa-paper-plane"></i> Tạo sản phẩm mới
-                      </button>
-                    </a>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="main-content-label mg-b-5">Tên sản phẩm</div>
+                        <input type="text" class="form-control" placeholder="Tiêu đề" id="name" />
+                      </div>
 
-                    <div>
-                      <h6 class="main-content-label mb-1"></h6>
-                      <p class="text-muted card-sub-title"></p>
-                    </div>
-                    <div class="table-responsive export-table">
-                      <div id="file-datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <table
-                              id="file-datatable"
-                              class="
-                                table table-bordered
-                                text-nowrap
-                                key-buttons
-                                border-bottom
-                                dataTable
-                                no-footer
-                                dtr-inline
-                              "
-                              role="grid"
-                              aria-describedby="file-datatable_info"
-                              style="width: 959px"
-                            >
-                              <thead>
-                                <tr role="row">
-                                  <th>#</th>
-                                  <th>Ảnh sản phẩm</th>
-                                  <th>Tên</th>
-                                  <th>Hãng SX</th>
-                                  <th>Số lượng</th>
-                                  <th>Giá bán</th>
-                                  <th>Chức năng</th>
-                                </tr>
-                              </thead>
-                              <tbody></tbody>
-                            </table>
-                          </div>
-                        </div>
+                      <div class="col-lg-6">
+                        <div class="main-content-label mg-b-5">Danh mục</div>
+                        <select name="" class="form-control form-select" data-bs-placeholder="Select Country" id="category">
+                          <% categorys.forEach(function(cate){%>
+                          <option value="<%= cate.id %>"><%= cate.name %></option>
+                          <%}) %>
+                        </select>
+                      </div>
+
+                      <div class="col-lg-6 mt-3">
+                        <div class="main-content-label mg-b-5">Hãng sản xuất</div>
+                        <input type="text" class="form-control" placeholder="Hãng sản xuất" id="manufacturer" />
+                      </div>
+
+                      <div class="col-lg-6 mt-3">
+                        <div class="main-content-label mg-b-5">Số lượng</div>
+                        <input type="text" class="form-control" placeholder="Số lượng" id="quantity" />
+                      </div>
+
+                      <div class="col-lg-6 mt-3">
+                        <div class="main-content-label mg-b-5">Giá bán</div>
+                        <input type="text" class="form-control" placeholder="Giá bán" id="price" />
+                    
+                      </div>
+
+                     
+
+                      <div class="col-lg-12 mt-3">
+                        <div class="main-content-label mg-b-5">Mô tả ngắn</div>
+                        <input type="text" class="form-control" placeholder="Mô tả ngắn" id="shortDesc" />
+                      </div>
+
+                      <div class="col-lg-12 mt-3">
+                        <div class="main-content-label mg-b-5">Mô tả sản phẩm</div>
+                        <div id="summernote"></div>
+                      </div>
+
+                      <div class="col-lg-12">
+                        <div class="main-content-label mg-b-5 mt-3">Thông tin chi tiết</div>
+                        <div id="summernote1"></div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="main-content-label mg-b-5 mt-3">Ảnh sản phẩm (5 ảnh)</div>
+                        <input class="form-control" type="file" id="images" accept="image/*" multiple/>
+                      </div>
+
+                      <div class="col-lg-12 mt-3" style="text-align: right">
+                        <button type="button" class="btn btn-primary btn-w-sm" style="padding: 10px 90px" id="submit">
+                          <i class="fa fa-paper-plane"></i> Tạo
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -1638,22 +1646,124 @@
         <!-- Footer closed -->
       </div>
 
-      <!-- Modal Delete Product -->
-      <div class="modal fade" id="modaldemo2" style="display: none" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+      <!-- Model Create User -->
+      <div
+        class="modal fade"
+        id="create-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        style="display: none"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h6 class="modal-title">Xác nhận xoá</h6>
+              <h5 class="" id="">Tạo mới người dùng</h5>
               <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
-              <p>Bạn có xác nhận muốn xoá sản phẩm này ?</p>
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Họ:</label>
+                  <input type="text" class="form-control" id="first-name" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Tên:</label>
+                  <input class="form-control" id="last-name" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Email:</label>
+                  <input type="email" class="form-control" id="email" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Username:</label>
+                  <input class="form-control" id="username" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Password:</label>
+                  <input type="password" class="form-control" id="password" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Số điện thoại:</label>
+                  <input class="form-control" id="phone" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close-1" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary" id="btn-create-user">Tạo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model Update Category -->
+      <div
+        class="modal fade"
+        id="update-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        style="display: none"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="" id="">Cập nhật thông tin người dùng</h5>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Họ:</label>
+                  <input type="text" class="form-control" id="first-name-update" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Tên:</label>
+                  <input class="form-control" id="last-name-update" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Email:</label>
+                  <input type="email" class="form-control" id="email-update" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Username:</label>
+                  <input class="form-control" id="username-update" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Số điện thoại:</label>
+                  <input class="form-control" id="phone-update" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close-1" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary" id="btn-update-user">Sửa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Lock User -->
+      <div class="modal fade" id="modaldemo2" style="display: none" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title">Xác nhận khoá</h6>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn có xác nhận muốn khoá tài khoản này ?</p>
             </div>
             <div class="modal-footer justify-content-center">
               <button class="btn ripple btn-primary" data-bs-dismiss="modal" type="button">Huỷ bỏ</button>
-              <button class="btn ripple btn-secondary" data-bs-dismiss="modal" id="lock" type="button">Xoá</button>
+              <button class="btn ripple btn-secondary" data-bs-dismiss="modal" id="lock" type="button">Khoá</button>
             </div>
           </div>
         </div>
@@ -1678,15 +1788,15 @@
       <!-- Internal Data tables -->
       <script src="/static/admin/plugins/datatable/js/jquery.dataTables.min.js"></script>
       <script src="/static/admin/plugins/datatable/js/dataTables.bootstrap5.js"></script>
-      <script src="/static/admin/plugins/datatable/js/dataTables.buttons.min.js"></script>
-      <script src="/static/admin/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
+      <!-- <script src="/static/admin/plugins/datatable/js/dataTables.buttons.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.bootstrap5.min.js"></script> -->
       <!-- <script src="/static/admin/plugins/datatable/js/jszip.min.js"></script> -->
       <!-- <script src="/static/admin/plugins/datatable/pdfmake/pdfmake.min.js"></script> -->
       <!-- <script src="/static/admin/plugins/datatable/pdfmake/vfs_fonts.js"></script> -->
       <!-- <script src="/static/admin/plugins/datatable/js/buttons.html5.min.js"></script> -->
       <!-- <script src="/static/admin/plugins/datatable/js/buttons.print.min.js"></script> -->
-      <!-- <script src="/static/admin/plugins/datatable/js/buttons.colVis.min.js"></script> -->
-      <!-- <script src="/static/admin/plugins/datatable/dataTables.responsive.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.colVis.min.js"></script>  -->
+      <script src="/static/admin/plugins/datatable/dataTables.responsive.min.js"></script>
       <script src="/static/admin/plugins/datatable/responsive.bootstrap5.min.js"></script>
       <script src="/static/admin/js/manage_product.js"></script>
       <!-- INTERNAL Select2 js -->
@@ -1709,8 +1819,82 @@
       <script src="/static/admin/js/custom.js"></script>
       <!-- Switcher js -->
       <script src="/static/admin/switcher/js/switcher.js"></script>
+      <script src="/static/admin/plugins/summernote-editor/summernote1.js"></script>
+      <script>
+        $(document).ready(function () {
+          $('#summernote').summernote();
+        });
 
-      <!-- Mirrored from spruko.com/demo/nowa/Nowa/HTML/table-data.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Apr 2022 08:11:30 GMT -->
+        $(document).ready(function () {
+          $('#summernote1').summernote();
+          $('#summernote').summernote(
+            'code',
+            '<div type="body" class="css-ivgpor" style="margin: 0px; padding: 0px; border-width: 1px; border-style: none; border-color: unset; border-image: initial; border-radius: 0px; opacity: 1; color: rgb(51, 51, 51); text-decoration-line: unset; font-size: 13px; line-height: 20px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: unset; max-width: unset; min-width: unset; transition: color 0.3s ease 0s; font-family: Roboto, sans-serif; flex: 2 1 0%;"><br></div><table class="table table-bordered"><tbody><tr><td>Thương hiệu</td><td><br></td></tr><tr><td><div type="body" class="css-ivgpor" style="margin: 0px; padding: 0px; border-width: 1px; border-style: none; border-color: unset; border-image: initial; border-radius: 0px; opacity: 1; background-color: transparent; color: rgb(51, 51, 51); text-decoration-line: unset; line-height: 20px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: unset; max-width: unset; min-width: unset; transition: color 0.3s ease 0s; font-family: Roboto, sans-serif; flex: 2 1 0%;">Bảo hành</div></td><td><br></td></tr><tr><td><div type="body" class="css-ivgpor" style="margin: 0px; padding: 0px; border-width: 1px; border-style: none; border-color: unset; border-image: initial; border-radius: 0px; opacity: 1; background-color: transparent; color: rgb(51, 51, 51); text-decoration-line: unset; line-height: 20px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: unset; max-width: unset; min-width: unset; transition: color 0.3s ease 0s; font-family: Roboto, sans-serif; flex: 2 1 0%;">Màu sắc</div></td><td><br></td></tr><tr><td><span style="color: rgb(51, 51, 51); font-family: Roboto, sans-serif; background-color: rgb(246, 246, 246);">CPU</span></td><td><br></td></tr><tr><td><span style="color: rgb(51, 51, 51); font-family: Roboto, sans-serif; background-color: rgb(246, 246, 246);">RAM</span></td><td><br></td></tr><tr><td><div type="body" class="css-ivgpor" style="margin: 0px; padding: 0px; border-width: 1px; border-style: none; border-color: unset; border-image: initial; border-radius: 0px; opacity: 1; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); text-decoration-line: unset; line-height: 20px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: unset; max-width: unset; min-width: unset; transition: color 0.3s ease 0s; font-family: Roboto, sans-serif; flex: 2 1 0%;">Màn hình</div></td><td><br></td></tr><tr><td><div type="body" class="css-ivgpor" style="margin: 0px; padding: 0px; border-width: 1px; border-style: none; border-color: unset; border-image: initial; border-radius: 0px; opacity: 1; background-color: transparent; color: rgb(51, 51, 51); text-decoration-line: unset; line-height: 20px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: unset; max-width: unset; min-width: unset; transition: color 0.3s ease 0s; font-family: Roboto, sans-serif; flex: 2 1 0%;">Lưu trữ</div></td><td><br></td></tr><tr><td><div type="body" class="css-ivgpor" style="margin: 0px; padding: 0px; border-width: 1px; border-style: none; border-color: unset; border-image: initial; border-radius: 0px; opacity: 1; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); text-decoration-line: unset; line-height: 20px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: unset; max-width: unset; min-width: unset; transition: color 0.3s ease 0s; font-family: Roboto, sans-serif; flex: 2 1 0%;">Số cổng lưu trữ tối đa</div></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p>'
+          );
+        });
+      </script>
+      <script>
+        $('#submit').on('click', async () => {
+          $('#submit').html(
+            `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang đăng... `
+          );
+
+          try {
+            let formData = new FormData();
+            formData.append('name', $('#name').val());
+            formData.append('shortDesc', $('#shortDesc').val());
+            formData.append('desc', $('#summernote').summernote('code'));
+            formData.append('quantity', parseInt($('#quantity').val()));
+            formData.append('category', ($('#category').val()));
+            formData.append('manufacturer', ($('#manufacturer').val()));
+            formData.append('detail', $('#summernote1').summernote('code'));
+            formData.append('price', parseInt($('#price').val()));
+          
+
+            for (const file of $('#images')[0].files) {
+              formData.append('images', file)
+          }
+            const response = await fetch('/api/v1/products', {
+              body: formData,
+              method: 'POST',
+            });
+
+            const data = await response.json();
+
+            setTimeout(() => {
+              $('#submit').html(`<i class="fa fa-paper-plane"></i> Tạo`);
+            }, 500);
+
+            if (data.code == 201) {
+              notif({
+                msg: 'Tạo thành công, bạn sẽ được chuyển hướng sau 2s nữa',
+                position: 'right',
+                bottom: '10',
+              });
+
+              setTimeout(() => {
+                window.location.href = '/admin/manage-product';
+              }, 2000);
+              return;
+            } else {
+              notif({
+                msg: data.message,
+                type: 'error',
+                position: 'right',
+                zindex: 99999999,
+              });
+              return;
+            }
+          } catch (error) {
+            notif({
+              msg: error,
+              type: 'error',
+              position: 'right',
+              zindex: 99999999,
+            });
+          }
+        });
+      </script>
     </div>
     <div class="main-navbar-backdrop"></div>
   </body>

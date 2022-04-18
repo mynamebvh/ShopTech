@@ -44,6 +44,16 @@ const uploadImg = async (path) => {
   return await cloudinary.uploader.upload(path, { folder: 'blog', tags: 'basic_sample' });
 };
 
+
+const uploadImgs = async (fileArr) => {
+  if (!fileArr) return { url: null };
+
+  if(fileArr.length == 0 || fileArr.length > 5){
+    return { url: null };
+  }
+  const result = fileArr.map(file => cloudinary.uploader.upload(file.filepath, { folder: 'products', tags: 'basic_sample' }))
+  return await Promise.all(result);
+};
 /**
  * Get image by id
  * @param {ObjectId} id
@@ -73,4 +83,5 @@ module.exports = {
   createImage,
   deleteImageByProductId,
   uploadImg,
+  uploadImgs
 };

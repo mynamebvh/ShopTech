@@ -152,36 +152,37 @@ const createUser = () => {
 };
 
 const lockUser = () => {
+  let user;
   $('#file-datatable tbody').on('click', 'button#btnDelete', function () {
-    const user = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
+    user = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
+  });
 
-    $('#lock').on('click', async function () {
-      const response = await fetch(`/api/v1/users/${user.id}`, {
-        method: 'LOCK',
-      });
-
-      const data = await response.json();
-
-      if (data.code == 200) {
-        $('#modaldemo2').modal('hide');
-        notif({
-          msg: 'Thành công',
-          position: 'right',
-          bottom: '10',
-        });
-        updateData();
-        return;
-      }
-
-      if (data.message) {
-        notif({
-          type: 'error',
-          msg: data.message,
-          position: 'right',
-          bottom: '10',
-        });
-      }
+  $('#lock').on('click', async function () {
+    const response = await fetch(`/api/v1/users/${user.id}`, {
+      method: 'LOCK',
     });
+
+    const data = await response.json();
+
+    if (data.code == 200) {
+      $('#modaldemo2').modal('hide');
+      notif({
+        msg: 'Thành công',
+        position: 'right',
+        bottom: '10',
+      });
+      updateData();
+      return;
+    }
+
+    if (data.message) {
+      notif({
+        type: 'error',
+        msg: data.message,
+        position: 'right',
+        bottom: '10',
+      });
+    }
   });
 };
 

@@ -10,6 +10,12 @@ const productSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    shortDesc: {
+      type: String,
+      required: true,
+      trim: true,
+      minLength: [20, 'Mô tả phải có ít nhất 20 từ'],
+    },
     desc: {
       type: String,
       required: true,
@@ -38,9 +44,12 @@ const productSchema = mongoose.Schema(
       ref: 'Category',
       required: true,
     },
+    price: {
+      type: Number,
+      require: [true, "Giá tiền là bắt buộc"]
+    },
     images: {
-      type: [mongoose.SchemaTypes.ObjectId],
-      ref: 'Image',
+      type: [String],
       required: true,
     },
   },
@@ -64,6 +73,11 @@ productSchema.pre('save', async function (next) {
     product.slug = slugify(product.name);
   }
   next();
+});
+
+productSchema.pre('find', async function (next) {
+  this.select("-desc -detail")
+  next()
 });
 
 /**

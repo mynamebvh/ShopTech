@@ -113,36 +113,37 @@ const addCategory = () => {
 };
 
 const deleteCategory = () => {
+  let category;
   $('#file-datatable tbody').on('click', 'button#btnDelete', function () {
-    const category = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
+    category = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
+  });
 
-    $('#delete').on('click', async function () {
-      const response = await fetch(`/api/v1/categorys/${category.id}`, {
-        method: 'DELETE',
-      });
-
-      const data = await response.json();
-
-      if (data.code == 200) {
-        $('#modaldemo2').modal('hide');
-        notif({
-          msg: 'Xoá thành công',
-          position: 'right',
-          bottom: '10',
-        });
-        updateData();
-        return;
-      }
-
-      if (data.message) {
-        notif({
-          type: 'error',
-          msg: data.message,
-          position: 'right',
-          bottom: '10',
-        });
-      }
+  $('#delete').on('click', async function () {
+    const response = await fetch(`/api/v1/categorys/${category.id}`, {
+      method: 'DELETE',
     });
+
+    const data = await response.json();
+
+    if (data.code == 200) {
+      $('#modaldemo2').modal('hide');
+      notif({
+        msg: 'Xoá thành công',
+        position: 'right',
+        bottom: '10',
+      });
+      updateData();
+      return;
+    }
+
+    if (data.message) {
+      notif({
+        type: 'error',
+        msg: data.message,
+        position: 'right',
+        bottom: '10',
+      });
+    }
   });
 };
 

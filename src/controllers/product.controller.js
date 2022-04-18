@@ -5,10 +5,19 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const response = require('../utils/response');
 
-const { productService } = require('../services');
+const { productService, formDataService, imageService } = require('../services');
 
 const createProduct = catchAsync(async (req, res) => {
-  const product = await productService.createProduct(req.body);
+  const body = await formDataService.parseForm(req);
+  const arr = await imageService.uploadImgs(body.images);
+
+  // console.log(body)
+  const { name, shortDesc, desc, manufacturer, quantity, detail, category, price } = body.fields;
+
+  const newBody = {
+    name, shortDesc, desc, manufacturer, quantity, detail, category, price, images: arr.map(img => img.url)
+  }
+  const product = await productService.createProduct(newBody);
   res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công', product));
 });
 
