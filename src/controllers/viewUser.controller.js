@@ -14,18 +14,19 @@ const listProduct = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
-  const category = await categoryService.getCategoryBySlug(filter, options, req.params.category)
+  const category = await categoryService.getCategoryBySlug(filter, options, req.params.category);
   // const products = await productService.getProductByCategory(category)
-  res.render('client/listProduct',{ data, products: category.products.data});
+  console.log(category);
+  res.render('client/listProduct', { data, products: category.products.data });
 });
 
 const productDetail = catchAsync(async (req, res) => {
   const data = await categoryService.getCategorys();
-  const slug = req.params.slug
+  const slug = req.params.slug;
 
-  const product = await productService.getProductBySlug(slug)
+  const product = await productService.getProductBySlug(slug);
 
-  console.log(product)
+  console.log(product);
   res.render('client/product', { data, product });
 });
 
