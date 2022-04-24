@@ -35,7 +35,9 @@ const cart = catchAsync(async (req, res) => {
 });
 
 const checkout = catchAsync(async (req, res) => {
-  res.render('client/checkout');
+  const data = await categoryService.getCategorys();
+
+  res.render('client/checkout', { data });
 });
 
 const blog = catchAsync(async (req, res) => {

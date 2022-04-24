@@ -1,3 +1,7 @@
+const isPageCheckout = () => {
+  return window.location.href.includes('checkout');
+};
+
 const renderByLocalStorage = () => {
   let data = localStorage.getItem('techCard');
 
@@ -74,6 +78,11 @@ const changeQuantityById = (id, operator) => {
   }
 
   localStorage.setItem('techCard', JSON.stringify(data));
+
+  if (isPageCheckout()) {
+    document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();
+    renderPriceCheckout();
+  }
 };
 
 const calculatorPrice = () => {
