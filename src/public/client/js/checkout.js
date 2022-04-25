@@ -89,6 +89,44 @@ const renderPriceCheckout = () => {
   document.getElementById('c-total').textContent = total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 };
 
+const submitForm = () => {
+  const order = document.getElementById('order');
+
+  order.addEventListener('click', async () => {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const customerAddress = document.getElementById('customerAddress').value;
+    const phone = document.getElementById('phone').value;
+
+    const city = document.getElementById('ec-select-city').value;
+    const district = document.getElementById('ec-select-district').value;
+    const ward = document.getElementById('ec-select-ward').value;
+
+    try {
+      const data = await (
+        await fetch('/api/v1/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            customerAddress,
+            city,
+            phone,
+            district,
+            ward,
+            products: JSON.parse(localStorage.getItem('techCard')),
+          }),
+        })
+      ).json();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', async function () {
   // Logic don vi hanh chinh
   let idCity, idDistrict;
@@ -115,4 +153,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();
 
   renderPriceCheckout();
+
+  submitForm();
 });

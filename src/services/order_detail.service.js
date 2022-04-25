@@ -29,7 +29,7 @@ const createOrderDetail = async (postBody) => {
 
   const { products, order } = postBody;
 
-  let arrQueryCreate = products.map((prod) => OrderProduct.create(prod));
+  let arrQueryCreate = products.map((prod) => OrderProduct.create({ product: prod.id, quantity: prod.quantity }));
   let orderProducts = await Promise.all(arrQueryCreate);
 
   return OrderDetail.create({ order, products: orderProducts });

@@ -26,16 +26,16 @@ const defaultRoutes = [
     path: '/categorys',
     route: categoryRoute,
   },
+  {
+    path: '/orders',
+    route: orderRoute,
+  },
 ];
 
 const userRoutes = [
   {
     path: '/users',
     route: userRoute,
-  },
-  {
-    path: '/orders',
-    route: orderRoute,
   },
   {
     path: '/comments',

@@ -7,12 +7,10 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      unique: true,
     },
     phone: {
       type: String,
       trim: true,
-      unique: true,
       required: true,
       validate(value) {
         if (!value.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
@@ -20,11 +18,23 @@ const orderSchema = mongoose.Schema(
         }
       },
     },
-    user: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'User',
-      required: true,
+    method_pay: {
+      type: String,
+      enum: ['COD', 'BANK'],
+      default: 'COD',
     },
+    status: {
+      type: String,
+      enum: ['Chờ xác nhận', 'Xác nhận', 'Giao hàng'],
+      default: 'Chờ xác nhận',
+    },
+    address: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    firstName: { type: String, required: true, trim: true },
+    lastName: { type: String, required: true, trim: true },
   },
   {
     timestamps: true,

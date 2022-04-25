@@ -5,12 +5,16 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const response = require('../utils/response');
 
-const { orderService } = require('../services');
+const { orderService, orderDetailService } = require('../services');
 
 const createOrder = catchAsync(async (req, res) => {
-  const order = await orderService.createOrder({ ...req.body, user: req.userId });
+  const order = await orderService.createOrder(req.body);
 
-  res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công', order));
+  const postBody = pick(req.body, ['products']);
+  postBody.order = order.id;
+
+  await orderDetailService.createOrderDetail(postBody);
+  res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công', null));
 });
 
 const getOrder = catchAsync(async (req, res) => {
