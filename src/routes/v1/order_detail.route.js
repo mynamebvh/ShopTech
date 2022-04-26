@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.route('/').get(orderDetailController.getOrderDetails).post(orderDetailController.createOrderDetail);
 
-router.route('/:orderDetailId');
-// .get(postController.getPost)
+router.route('/:id').get(orderDetailController.getOrdersDetailByOrderId);
 // .patch(postController.updatePost)
 
 module.exports = router;

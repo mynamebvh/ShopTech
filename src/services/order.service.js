@@ -23,10 +23,10 @@ const getOrders = async (filter, options) => {
  * @returns {Promise<Order>}
  */
 const createOrder = async (orderBody) => {
-  const { firstName, lastName, customerAddress, phone, city, district, ward } = orderBody;
+  const { fullname, customerAddress, phone, city, district, ward } = orderBody;
 
-  const order = { firstName, lastName, phone, customerAddress };
-  order.address = `${ward}, ${district}, ${city}`;
+  const order = { fullname, phone };
+  order.address = `${customerAddress}, ${ward}, ${district}, ${city}`;
   return Order.create(order);
 };
 

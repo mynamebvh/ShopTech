@@ -14,6 +14,11 @@ const createOrderDetail = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công', orderDetail));
 });
 
+const getOrdersDetailByOrderId = catchAsync(async (req, res) => {
+  const orders = await orderDetailService.getOrdersDetailByOrderId(req.params.id);
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', orders));
+});
+
 const getPost = catchAsync(async (req, res) => {
   const { postId } = req.params;
   let postCache = await redisService.getValueByField('posts', postId);
@@ -56,4 +61,5 @@ const getOrderDetails = catchAsync(async (req, res) => {
 module.exports = {
   getOrderDetails,
   createOrderDetail,
+  getOrdersDetailByOrderId,
 };

@@ -20,7 +20,7 @@ const manageProduct = catchAsync(async (req, res) => {
 const createProduct = catchAsync(async (req, res) => {
   const categorys = await categoryService.getCategorys();
 
-  console.log(categorys)
+  console.log(categorys);
   res.render('admin/manage_product/create', { categorys });
 });
 
@@ -53,6 +53,10 @@ const editProduct = catchAsync(async (req, res) => {
   res.render('admin/manage_product/edit', { categorys, product });
 });
 
+const manageCheckout = catchAsync(async (req, res) => {
+  res.render('admin/manage_checkout');
+});
+
 module.exports = {
   homePage,
   loginPage,
@@ -63,5 +67,6 @@ module.exports = {
   createArticles,
   editArticles,
   createProduct,
-  editProduct
+  editProduct,
+  manageCheckout,
 };

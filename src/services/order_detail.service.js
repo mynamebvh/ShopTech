@@ -1,4 +1,6 @@
 const httpStatus = require('http-status');
+const mongoose = require('mongoose');
+
 const { OrderProduct, OrderDetail } = require('../models/index');
 
 const ApiError = require('../utils/ApiError');
@@ -15,6 +17,27 @@ const ApiError = require('../utils/ApiError');
 const getOrderDetails = async (filter, options) => {
   const orders = await OrderDetail.paginate(filter, options);
   return orders;
+};
+
+/**
+ * get orderDetail by order id
+ * @param {ObjectID} id
+ * @returns {Promise<QueryResult>}
+ */
+const getOrdersDetailByOrderId = async (id) => {
+  let orderDetail = await OrderDetail.findOne({ order: id })
+    .populate({
+      path: 'products',
+
+      populate: { path: 'product' },
+    })
+    .lean();
+
+  orderDetail.total = orderDetail.products.reduce((a, b) => {
+    return a + b.product.price * b.product.quantity;
+  }, 0);
+
+  return orderDetail;
 };
 
 /**
@@ -80,4 +103,4 @@ const deleteOrderDetailById = async (orderDetailId) => {
   return order;
 };
 
-module.exports = { getOrderDetails, createOrderDetail };
+module.exports = { getOrderDetails, createOrderDetail, getOrdersDetailByOrderId };

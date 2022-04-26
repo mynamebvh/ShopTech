@@ -93,14 +93,13 @@ const submitForm = () => {
   const order = document.getElementById('order');
 
   order.addEventListener('click', async () => {
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
+    const fullname = document.getElementById('fullname').value;
     const customerAddress = document.getElementById('customerAddress').value;
     const phone = document.getElementById('phone').value;
 
-    const city = document.getElementById('ec-select-city').value;
-    const district = document.getElementById('ec-select-district').value;
-    const ward = document.getElementById('ec-select-ward').value;
+    const city = $('#ec-select-city option:selected').text();
+    const district = $('#ec-select-district option:selected').text();
+    const ward = $('#ec-select-ward option:selected').text();
 
     try {
       const data = await (
@@ -110,8 +109,7 @@ const submitForm = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            firstName,
-            lastName,
+            fullname,
             customerAddress,
             city,
             phone,

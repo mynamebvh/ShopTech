@@ -19,6 +19,7 @@ router.route('/manage-blog/edit/:id').get(viewAdminController.editArticles);
 
 router.route('/manage-blog').get(viewAdminController.manageBlog);
 
+router.route('/manage-checkout').get(viewAdminController.manageCheckout);
 
 router.route('/').get(viewAdminController.loginPage);
 

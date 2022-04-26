@@ -3,11 +3,6 @@ const { toJSON, paginate } = require('./plugins');
 
 const orderSchema = mongoose.Schema(
   {
-    customerAddress: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     phone: {
       type: String,
       trim: true,
@@ -25,7 +20,7 @@ const orderSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Chờ xác nhận', 'Xác nhận', 'Giao hàng'],
+      enum: ['Chờ xác nhận', 'Xác nhận', 'Giao hàng', 'Huỷ bỏ'],
       default: 'Chờ xác nhận',
     },
     address: {
@@ -33,8 +28,7 @@ const orderSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    firstName: { type: String, required: true, trim: true },
-    lastName: { type: String, required: true, trim: true },
+    fullname: { type: String, required: true, trim: true },
   },
   {
     timestamps: true,
