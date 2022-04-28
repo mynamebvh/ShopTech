@@ -88,7 +88,8 @@ const changeQuantityById = (id, operator) => {
 const calculatorPrice = () => {
   let data = JSON.parse(localStorage.getItem('techCard'));
 
-  let sum = data.reduce((a, b) => a + b.price * b.quantity, 0) || 0;
+  if (!data) data = [];
+  let sum = data.reduce((a, b) => a + b?.price * b?.quantity, 0) || 0;
   let vat = sum * 0.08 || 0;
   let total = sum - vat || 0;
   return [sum, vat, total];
@@ -103,6 +104,7 @@ const renderChangePrice = (e) => {
 const renderCardNum = () => {
   let data = JSON.parse(localStorage.getItem('techCard'));
 
+  if (!data) data = [];
   document.querySelectorAll('.cart-count-lable').forEach((ele) => {
     ele.textContent = data.length || 0;
   });

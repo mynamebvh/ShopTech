@@ -119,7 +119,38 @@ const submitForm = () => {
           }),
         })
       ).json();
+
+      if (data.code == 400) {
+        notif({
+          msg: data.message,
+          type: 'error',
+          position: 'right',
+          zindex: 99999999,
+        });
+      } else {
+        notif({
+          msg: 'Đặt hàng thành công, nhân viên sẽ gọi điện cho bạn để xác nhận đơn hàng, Bạn sẽ được chuyển hướng sau 5s',
+          type: 'success',
+          position: 'right',
+          zindex: 99999999,
+        });
+
+        localStorage.setItem('techCard', JSON.stringify([]));
+
+        renderByLocalStorage();
+        document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();
+        renderPriceCheckout();
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 5000);
+      }
     } catch (error) {
+      notif({
+        msg: error,
+        type: 'error',
+        position: 'right',
+        zindex: 99999999,
+      });
       console.log(error);
     }
   });

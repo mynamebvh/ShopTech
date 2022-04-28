@@ -11,8 +11,6 @@ const loadOrders = () => {
       type: 'GET',
       url: api,
       dataSrc: function (json) {
-        console.log(json.data);
-
         const result = json.data.map((data) => {
           let method = null;
 
@@ -41,9 +39,11 @@ const loadOrders = () => {
         data: 'status',
         render: function (data, type, row) {
           if (data == 'Xác nhận') {
-            return "<span class='text-info tx-bold'>Hoạt động</span>";
+            return `<span class='text-info tx-bold'>${data}</span>`;
           } else if (data == 'Chờ xác nhận') {
             return `<span class='text-warning tx-bold'>${data}</span>`;
+          } else if (data == 'Huỷ bỏ') {
+            return `<span class='text-secondary tx-bold'>${data}</span>`;
           }
         },
       },
@@ -106,7 +106,6 @@ const viewDetailOrder = () => {
 
     const divRender = document.getElementById('r-products');
     products = products.map((p) => {
-      console.log(p.product.images[0]);
       return `<div class="d-flex border-bottom main-cart-item">
       <div>
          <a class="d-flex p-3" href="product-details.html">
@@ -166,8 +165,6 @@ const createUser = () => {
         });
         return;
       }
-
-      console.log(response);
     });
   } catch (error) {
     console.log('error');
@@ -180,17 +177,20 @@ const createUser = () => {
   }
 };
 
-const lockUser = () => {
-  let user;
+const orderCancel = () => {
+  let order;
   $('#file-datatable tbody').on('click', 'button#btnDelete', function () {
-    user = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
+    order = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
   });
 
   $('#lock').on('click', async function () {
-    const response = await fetch(`/api/v1/users/${user.id}`, {
-      method: 'LOCK',
-    });
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'Huỷ bỏ' }),
+    };
 
+    const response = await fetch(`/api/v1/orders/${order.id}`, requestOptions);
     const data = await response.json();
 
     if (data.code == 200) {
@@ -215,39 +215,29 @@ const lockUser = () => {
   });
 };
 
-const updateUser = () => {
+const updateStatusOrder = () => {
   let category;
   $('#file-datatable tbody').on('click', 'button#btnEdit', function () {
-    user = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
+    order = $('#file-datatable').DataTable().row($(this).parents('tr')).data();
 
-    $('#first-name-update').val(user.firstName);
-    $('#last-name-update').val(user.lastName);
-    $('#email-update').val(user.email);
-    $('#phone-update').val(user.phone);
-    $('#username-update').val(user.username);
+    // $('#first-name-update').val(user.firstName);
+    // $('#last-name-update').val(user.lastName);
+    // $('#email-update').val(user.email);
+    // $('#phone-update').val(user.phone);
+    // $('#username-update').val(user.username);
   });
 
   // TODO: Handle submit update user
   $('#btn-update-user').on('click', async function () {
-    const dataUpdate = {
-      firstName: $('#first-name-update').val(),
-      lastName: $('#last-name-update').val(),
-      email: $('#email-update').val(),
-      phone: $('#phone-update').val(),
-      username: $('#username-update').val(),
-    };
-
     try {
       const requestOptions = {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dataUpdate),
+        body: JSON.stringify({ status: 'Xác nhận' }),
       };
 
-      const response = await fetch(`/api/v1/users/${user.id}`, requestOptions);
+      const response = await fetch(`/api/v1/orders/${order.id}`, requestOptions);
       const data = await response.json();
-
-      console.log('RESPONSE', data);
 
       if (data.code == 200) {
         $('#update-modal').modal('hide');
@@ -281,4 +271,6 @@ const updateUser = () => {
 $(document).ready(function () {
   loadOrders();
   viewDetailOrder();
+  updateStatusOrder();
+  orderCancel();
 });

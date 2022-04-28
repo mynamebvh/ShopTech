@@ -32,7 +32,7 @@ const getOrders = catchAsync(async (req, res) => {
 });
 
 const updateOrder = catchAsync(async (req, res) => {
-  const order = await orderService.updateOrderById(req.params.orderId, req.body);
+  const order = await orderService.updateStatusOrderById(req.params.orderId, req.body.status);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', order));
 });
 

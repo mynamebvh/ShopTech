@@ -40,19 +40,19 @@ const getOrderById = async (id) => {
 };
 
 /**
- * Update order by id
+ * Update order status by id
  * @param {ObjectId} orderId
- * @param {Object} updateBody
+ * @param {String} status
  * @returns {Promise<Order>}
  */
-const updateOrderById = async (orderId, updateBody) => {
+const updateStatusOrderById = async (orderId, status) => {
   const order = await getOrderById(orderId);
 
   if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Thông tin không tồn tại');
   }
 
-  Object.assign(order, updateBody);
+  Object.assign(order, { status });
   await order.save();
   return order;
 };
@@ -72,4 +72,4 @@ const deleteOrderById = async (orderId) => {
   return order;
 };
 
-module.exports = { getOrders, createOrder, getOrderById, updateOrderById, deleteOrderById };
+module.exports = { getOrders, createOrder, getOrderById, updateStatusOrderById, deleteOrderById };

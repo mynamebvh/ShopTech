@@ -7,4 +7,36 @@
     ("shop_page")%> <%- include ("../components/modal")%> <%- include ("../components/footer")%> <%- include
     ("../components/link_js")%>
   </body>
+
+  <script>
+    document.getElementById('ec-select').addEventListener('change', (e) => {
+      const value = document.getElementById('ec-select').value;
+
+      const origin = window.location.origin;
+      const path = window.location.pathname;
+      const sortParams = new URLSearchParams(window.location.search);
+
+      switch (value) {
+        case '2':
+          // window.location.href= url;
+          sortParams.set('sortBy', 'name:asc');
+          window.location.href = `${origin}${path}?${sortParams.toString()}`;
+          break;
+        case '3':
+          sortParams.set('sortBy', 'name:desc');
+          window.location.href = `${origin}${path}?${sortParams.toString()}`;
+          break;
+        case '4':
+          sortParams.set('sortBy', 'price:asc');
+          window.location.href = `${origin}${path}?${sortParams.toString()}`;
+          break;
+        case '5':
+          sortParams.set('sortBy', 'price:desc');
+          window.location.href = `${origin}${path}?${sortParams.toString()}`;
+          break;
+        default:
+          break;
+      }
+    });
+  </script>
 </html>

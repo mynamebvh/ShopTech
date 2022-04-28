@@ -6,7 +6,7 @@ const orderSchema = mongoose.Schema(
     phone: {
       type: String,
       trim: true,
-      required: true,
+      required: [true, 'Số điện thoại là bắt buộc'],
       validate(value) {
         if (!value.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
           throw new Error('Số điện thoại không đúng định dạng');
@@ -25,10 +25,10 @@ const orderSchema = mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
+      required: [true, 'Địa chỉ là bắt buộc'],
       trim: true,
     },
-    fullname: { type: String, required: true, trim: true },
+    fullname: { type: String, required: [true, 'Họ tên là bắt buộc'], trim: true },
   },
   {
     timestamps: true,
