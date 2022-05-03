@@ -30,10 +30,14 @@ const auth = (req, res, next) => {
   }
 };
 
-const authorize = (role) => async (req, res, next) => {
+const authorize = (role, type) => async (req, res, next) => {
   const user = await User.findById(req.userId);
 
   if (user) if (user.role === role) return next();
+
+  if (type === 'render') {
+    return res.redirect('/admin');
+  }
 
   next(new ApiError(httpStatus.FORBIDDEN, 'Không có quyền'));
 };

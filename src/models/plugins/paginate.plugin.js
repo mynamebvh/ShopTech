@@ -60,7 +60,8 @@ const paginate = (schema) => {
         data,
         page,
         limit,
-        totalPages,
+        recordsTotal: totalPages,
+        recordsFiltered: totalPages,
         totalResults,
       };
       return Promise.resolve(result);

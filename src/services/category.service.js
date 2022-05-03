@@ -9,8 +9,8 @@ const ApiError = require('../utils/ApiError');
  * Query for category
  * @returns {Promise<Category>}
  */
-const getCategorys = async () => {
-  const category = await Category.find();
+const getCategorys = async (filter, options) => {
+  const category = await Category.paginate(filter, options);
   return category;
 };
 
