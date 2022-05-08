@@ -229,9 +229,9 @@ function ecCheckCookie() {
     });
   new Swiper('.ec-slider.swiper-container', {
     loop: !0,
-    speed: 2e3,
+    // speed: 2e3,
     effect: 'slide',
-    autoplay: { delay: 7e3, disableOnInteraction: !1 },
+    // autoplay: { delay: 7e3, disableOnInteraction: !1 },
     pagination: { el: '.swiper-pagination', clickable: !0 },
     navigation: {
       nextEl: '.swiper-button-next',

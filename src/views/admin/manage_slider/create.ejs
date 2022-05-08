@@ -14,13 +14,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="Description" content="" />
-  <meta name="Author" content="Nhom 8" />
   
   <!-- Title -->
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" />
 
-  <title>Tạo bài viết</title>
+  <title>Tạo mới slider</title>
   <!-- Favicon -->
   <link rel="icon" href="/static/admin/img/brand/favicon.png" type="image/x-icon" />
   <!-- Icons css -->
@@ -59,7 +57,11 @@
 
   <style type="text/css"
     id="s./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./package/src/animation.scss-0">
-
+    /**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
     .eva-animation {
       animation-duration: 1s;
       animation-fill-mode: both;
@@ -533,14 +535,15 @@
               <div class="card custom-card overflow-hidden">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="main-content-label mg-b-5">Tiêu đề</div>
                       <input type="text" class="form-control" placeholder="Tiêu đề" id="title" />
                     </div>
 
-                    <div class="col-lg-6">
-                      <div class="main-content-label mg-b-5">Tag</div>
-                      <input type="text" class="form-control" placeholder="Tag" id="tag" />
+                    <div class="col-lg-12">
+                      <div class="main-content-label mg-b-5">Mô tả</div>
+                      <textarea class="form-control" placeholder="" id="description"></textarea>
+
                     </div>
 
                     <div class="col-lg-6">
@@ -548,11 +551,6 @@
                       <!-- <input class="form-control" type="file" id="thumbnail" /> -->
                       <button type="button" class="btn btn-primary" id="btnEdit" data-bs-toggle="modal"
                         data-bs-target="#full-screen"><i class="fa fa-arrow-up"></i> Upload ảnh</button>
-                    </div>
-
-                    <div class="col-lg-12">
-                      <div class="main-content-label mg-b-5 mt-3">Nội dung</div>
-                      <div id="summernote"></div>
                     </div>
 
                     <div class="col-lg-12 mt-3" style="text-align: right">
@@ -1384,8 +1382,13 @@
       </div>
       <!-- modal -->
       <!-- Footer opened -->
-      <%- include ("../components/footer")%>
-
+      <div class="main-footer">
+        <div class="container-fluid pd-t-0-f ht-100p">
+          Copyright © 2022 <a href="javascript:void(0);" class="text-primary">nowa</a>. Designed with
+          <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0);"> Spruko </a> All rights
+          reserved
+        </div>
+      </div>
       <!-- Footer closed -->
     </div>
 
@@ -1487,25 +1490,9 @@
     <script src="/static/admin/js/custom.js"></script>
     <!-- Switcher js -->
     <script src="/static/admin/switcher/js/switcher.js"></script>
-    <script src="/static/admin/plugins/summernote-editor/summernote1.js"></script>
-    <script>
-      $(document).ready(function () {
-        $('#summernote').summernote({
-          toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']],
-          ],
-        });
-      });
-    </script>
+    
     <script src="/static/admin/js/cropper.js"></script>
-    <script src="/static/admin/js/cropper_custom.js"></script>
+    <script src="/static/admin/js/cropper_slider.js"></script>
     <script>
 
       $('#submit').on('click', async () => {
@@ -1516,11 +1503,10 @@
         try {
           let formData = new FormData();
           formData.append('title', $('#title').val());
-          formData.append('content', $('#summernote').summernote('code'));
-          formData.append('tag', $('#tag').val());
-          formData.append('thumbnail',blobImg, "crop.png");
+          formData.append('description', $('#title').val());
+          formData.append('img',blobImg, "crop.png");
 
-          const response = await fetch('/api/v1/posts', {
+          const response = await fetch('/api/v1/sliders', {
             body: formData,
             method: 'POST',
           });
@@ -1539,7 +1525,7 @@
             });
 
             setTimeout(() => {
-              window.location.href = '/admin/manage-blog';
+              window.location.href = '/admin/manage-slider';
             }, 2000);
             return;
           } else {
@@ -1563,11 +1549,5 @@
     </script>
   </div>
   <div class="main-navbar-backdrop"></div>
-
-
-
-
 </body>
-
-
 </html>

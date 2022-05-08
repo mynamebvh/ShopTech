@@ -2,11 +2,12 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { categoryService, postService, productService } = require('../services');
+const { categoryService, postService, productService, sliderService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
-  res.render('client/home', { data });
+  const result = await Promise.all([categoryService.getCategorys(), sliderService.getSliders()]);
+
+  res.render('client/home', { data: result[0], sliders: result[1] });
 });
 
 const listProduct = catchAsync(async (req, res) => {
@@ -16,7 +17,6 @@ const listProduct = catchAsync(async (req, res) => {
 
   const category = await categoryService.getCategoryBySlug(filter, options, req.params.category);
   // const products = await productService.getProductByCategory(category)
-  console.log(category);
   res.render('client/listProduct', { data, products: category.products.data });
 });
 
@@ -47,6 +47,7 @@ const blog = catchAsync(async (req, res) => {
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const articles = await postService.getPosts(filter, options);
 
+  console.log(articles);
   res.render('client/blog', { data, articles });
 });
 

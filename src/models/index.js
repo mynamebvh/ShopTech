@@ -9,4 +9,5 @@ module.exports.Product = require('./product.model');
 module.exports.Voucher = require('./voucher.model');
 module.exports.Comment = require('./comment.model');
 module.exports.OrderDetail = require('./order_detail.model');
+module.exports.Slider = require('./slider.model');
 module.exports.OrderProduct = require('./order_product.model').OrderProduct;

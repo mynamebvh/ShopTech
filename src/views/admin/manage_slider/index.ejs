@@ -11,13 +11,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="Description" content="" />
-    <meta name="Author" content="Nhom 8" />
     
     <!-- Title -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" />
-
-    <title>Sửa bài viết</title>
+    <title>Quản lý slider</title>
     <!-- Favicon -->
     <link rel="icon" href="/static/admin/img/brand/favicon.png" type="image/x-icon" />
     <!-- Icons css -->
@@ -25,8 +21,10 @@
     <!--  bootstrap css-->
     <link href="/static/admin/plugins/notify/css/notifIt.css" rel="stylesheet" />
     <link href="/static/admin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Summernote editor css -->
-    <link href="/static/admin/plugins/summernote-editor/summernote1.css" rel="stylesheet" />
+    <!-- Data table css -->
+    <link href="/static/admin/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="/static/admin/plugins/datatable/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+    <link href="/static/admin/plugins/datatable/responsive.bootstrap5.css" rel="stylesheet" />
     <!--  Right-sidemenu css -->
     <link href="/static/admin/plugins/sidebar/sidebar.css" rel="stylesheet" />
     <!-- P-scroll bar css-->
@@ -44,8 +42,6 @@
     <!-- INTERNAL Switcher css -->
     <link href="/static/admin/switcher/css/switcher.css" rel="stylesheet" />
     <link href="/static/admin/switcher/demo.css" rel="stylesheet" />
-    <link href="/static/admin/css/cropper.css" rel="stylesheet" />
-
     <meta http-equiv="imagetoolbar" content="no" />
 
     <style type="text/css" media="print">
@@ -57,7 +53,11 @@
       type="text/css"
       id="s./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./package/src/animation.scss-0"
     >
-
+      /**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
       .eva-animation {
         animation-duration: 1s;
         animation-fill-mode: both;
@@ -564,11 +564,11 @@
           <div class="main-container container-fluid">
             <!-- breadcrumb -->
             <div class="breadcrumb-header justify-content-between">
-              <div class="left-content"><span class="main-content-title mg-b-0 mg-b-lg-1">Sửa bài bài</span></div>
+              <div class="left-content"><span class="main-content-title mg-b-0 mg-b-lg-1">Quản lý slider</span></div>
               <div class="justify-content-center mt-2">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Sửa bài viết</li>
+                  <li class="breadcrumb-item active" aria-current="page">Quản lý slider</li>
                 </ol>
               </div>
             </div>
@@ -579,36 +579,55 @@
               <div class="col-lg-12">
                 <div class="card custom-card overflow-hidden">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="main-content-label mg-b-5">Tiêu đề</div>
-                        <input type="text" class="form-control" placeholder="Tiêu đề" id="title" value="<%= data.title %>"/>
-                      </div>
+                    <a href="/admin/manage-slider/create" rel="noopener noreferrer">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-w-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#create-modal"
+                      >
+                        <i class="fa fa-paper-plane"></i> Tạo slider
+                      </button>
+                    </a>
 
-                      <div class="col-lg-6">
-                        <div class="main-content-label mg-b-5">Tag</div>
-                        <input type="text" class="form-control" placeholder="Tag" id="tag" value="<%= data.tag %>"/>
-                      </div>
-
-                      <div class="col-lg-6">
-                        <div class="main-content-label mg-b-5 mt-3">Ảnh thumbnail</div>
-                        <!-- <input class="form-control" type="file" id="thumbnail" />
-                         -->
-                         <button type="button" class="btn btn-primary" id="btnEdit" data-bs-toggle="modal"
-                        data-bs-target="#full-screen"><i class="fa fa-arrow-up"></i> Upload ảnh</button>
-                      </div>
-
-                      <div class="col-lg-12">
-                        <div class="main-content-label mg-b-5 mt-3">Nội dung</div>
-                        <div id="summernote">
-                          <%- data.content %>
+                    <div>
+                      <h6 class="main-content-label mb-1"></h6>
+                      <p class="text-muted card-sub-title"></p>
+                    </div>
+                    <div class="table-responsive export-table">
+                      <div id="file-datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <table
+                              id="file-datatable"
+                              class="
+                                table table-bordered
+                                text-nowrap
+                                key-buttons
+                                border-bottom
+                                dataTable
+                                no-footer
+                                dtr-inline
+                              "
+                              role="grid"
+                              aria-describedby="file-datatable_info"
+                              style="width: 959px"
+                            >
+                              <thead>
+                                <tr role="row">
+                                  <th>#</th>
+                                  <th>Ảnh thumbnail</th>
+                                  <th>Tiêu đề</th>
+                                  <th>Mô tả</th>
+                                  <th>Thời gian đăng</th>
+                                  <th>Trạng thái</th>
+                                  <th>Chức năng</th>
+                                </tr>
+                              </thead>
+                              <tbody></tbody>
+                            </table>
+                          </div>
                         </div>
-                      </div>
-
-                      <div class="col-lg-12 mt-3" style="text-align: right">
-                        <button type="button" post-id="<%= data.id %>" class="btn btn-primary btn-w-sm" style="padding: 10px 90px" id="submit">
-                          <i class="fa fa-paper-plane"></i> Cập nhật
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -1560,52 +1579,6 @@
           <!-- modal-dialog -->
         </div>
         <!-- modal -->
-        <!-- Model Upload Image -->
-    <div class="modal fade" id="full-screen" style="display: none;" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen" role="document">
-        <div class="modal-content modal-content-demo">
-          <div class="modal-header">
-            <h6 class="modal-title">Upload ảnh thumbnail</h6><button aria-label="Close" class="btn-close"
-              data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <div class="row">
-                <div class="col-8">
-                  <img id="image-crop" src="/static/client/images/product-image/1_1.jpg">
-                </div>
-                <div class="col-4" id="actions">
-
-                  <div class="docs-buttons">
-                    
-
-                    <div>
-                      <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-                      <button style="margin-left: 30px" id="btnUpload" type="button" class="btn btn-primary mb-1"
-                      ><i class="fa fa-arrow-up"></i> Upload ảnh</button>
-                    </div>
-
-                    <div>
-                      <button style="margin: 10px 0 10px 30px;" type="button" class="btn btn-primary mb-1" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
-                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.getCroppedCanvas({ maxWidth: 4096, maxHeight: 4096 })">
-                          <i class="fa fa-cut"></i> Cắt ảnh
-                        </span>
-                      </button>
-                    </div>
-                    
-                  </div>
-                  
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">  <button
-              class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Huỷ</button> </div>
-        </div>
-      </div>
-    </div>
-
         <!-- Audio Modal -->
         <div id="audiomodal" class="modal fade">
           <div class="modal-dialog" role="document">
@@ -1651,10 +1624,35 @@
         </div>
         <!-- modal -->
         <!-- Footer opened -->
-        <%- include ("../components/footer")%>
+        <div class="main-footer">
+          <div class="container-fluid pd-t-0-f ht-100p">
+            Copyright © 2022 <a href="javascript:void(0);" class="text-primary">nowa</a>. Designed with
+            <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0);"> Spruko </a> All rights reserved
+          </div>
+        </div>
         <!-- Footer closed -->
       </div>
 
+      <!-- Modal Delete Post -->
+      <div class="modal fade" id="modaldemo2" style="display: none" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title">Xác nhận xoá</h6>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn có xác nhận muốn xoá slider này ?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <button class="btn ripple btn-primary" data-bs-dismiss="modal" type="button">Huỷ bỏ</button>
+              <button class="btn ripple btn-secondary" data-bs-dismiss="modal" id="lock" type="button">Xoá</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- End Page -->
       <!-- Back-to-top -->
@@ -1673,19 +1671,19 @@
       <script src="/static/admin/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
       <script src="/static/admin/plugins/perfect-scrollbar/p-scroll.js"></script>
       <!-- Internal Data tables -->
-      <!-- <script src="/static/admin/plugins/datatable/js/jquery.dataTables.min.js"></script>
+      <script src="/static/admin/plugins/datatable/js/jquery.dataTables.min.js"></script>
       <script src="/static/admin/plugins/datatable/js/dataTables.bootstrap5.js"></script>
-      <script src="/static/admin/plugins/datatable/js/dataTables.buttons.min.js"></script>
-      <script src="/static/admin/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
-      <script src="/static/admin/plugins/datatable/js/jszip.min.js"></script>
-      <script src="/static/admin/plugins/datatable/pdfmake/pdfmake.min.js"></script>
-      <script src="/static/admin/plugins/datatable/pdfmake/vfs_fonts.js"></script>
-      <script src="/static/admin/plugins/datatable/js/buttons.html5.min.js"></script>
-      <script src="/static/admin/plugins/datatable/js/buttons.print.min.js"></script>
-      <script src="/static/admin/plugins/datatable/js/buttons.colVis.min.js"></script>
+      <!-- <script src="/static/admin/plugins/datatable/js/dataTables.buttons.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.bootstrap5.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/jszip.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/pdfmake/pdfmake.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/pdfmake/vfs_fonts.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.html5.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.print.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.colVis.min.js"></script> -->
       <script src="/static/admin/plugins/datatable/dataTables.responsive.min.js"></script>
       <script src="/static/admin/plugins/datatable/responsive.bootstrap5.min.js"></script>
-      <script src="/static/admin/js/manage_blog.js"></script> -->
+      <script src="/static/admin/js/manage_slider.js"></script>
       <!-- INTERNAL Select2 js -->
       <script src="/static/admin/plugins/select2/js/select2.full.min.js"></script>
       <!-- Sidebar js -->
@@ -1706,63 +1704,8 @@
       <script src="/static/admin/js/custom.js"></script>
       <!-- Switcher js -->
       <script src="/static/admin/switcher/js/switcher.js"></script>
-      <script src="/static/admin/plugins/summernote-editor/summernote1.js"></script>
-      <script>
-        $(document).ready(function () {
-          $('#summernote').summernote();
-        });
-      </script>
-      <script src="/static/admin/js/cropper.js"></script>
-      <script src="/static/admin/js/cropper_custom.js"></script>
-      <script>
-        $('#submit').on('click', async () => {
 
-          $('#submit').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang cập nhật... `)
-
-
-          let formData = new FormData();
-          formData.append('title', $('#title').val());
-          formData.append('content', $('#summernote').summernote('code'));
-          formData.append('tag', $('#tag').val());
-          formData.append('thumbnail',blobImg, "crop.png");
-
-          const postId = $("#submit").attr("post-id")
-
-          const response = await fetch(`/api/v1/posts/${postId}`, {
-            body: formData,
-            method: 'PATCH',
-          });
-
-          const data = await response.json();
-
-          setTimeout(() => {
-            $("#submit").html(`<i class="fa fa-paper-plane"></i> Tạo`)
-          },500)
-          
-          if (data.code == 200) {
-            notif({
-              msg: 'Cập nhật thành công, bạn sẽ được chuyển hướng sau 2s nữa',
-              position: 'right',
-              bottom: '10',
-            });
-    
-            setTimeout(() => {
-              window.location.href = "/admin/manage-blog"
-            },2000)
-            return;
-          }
-    
-          else {
-            notif({
-              msg: data.message,
-              type: 'error',
-              position: 'right',
-              zindex: 99999999,
-            });
-            return;
-          }
-        });
-      </script>
+      <!-- Mirrored from spruko.com/demo/nowa/Nowa/HTML/table-data.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Apr 2022 08:11:30 GMT -->
     </div>
     <div class="main-navbar-backdrop"></div>
   </body>

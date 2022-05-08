@@ -57,6 +57,14 @@ const manageCheckout = catchAsync(async (req, res) => {
   res.render('admin/manage_checkout');
 });
 
+const manageSlider = catchAsync(async (req, res) => {
+  res.render('admin/manage_slider');
+});
+
+const createSlider = catchAsync(async (req, res) => {
+  res.render('admin/manage_slider/create');
+});
+
 module.exports = {
   homePage,
   loginPage,
@@ -69,4 +77,6 @@ module.exports = {
   createProduct,
   editProduct,
   manageCheckout,
+  manageSlider,
+  createSlider
 };

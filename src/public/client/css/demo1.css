@@ -19688,9 +19688,8 @@ body.ec-open:before {
   overflow: auto;
 }
 
-.ec-slide-1 {
+.ec-slide {
   width: 100%;
-  background-image: url('../images/main-slider-banner/1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

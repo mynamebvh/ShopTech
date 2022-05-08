@@ -10,7 +10,7 @@ const router = express.Router();
 router.route('/dashboard').get(auth, authorize('admin', 'render'), viewAdminController.homePage);
 router.route('/manage-product').get(auth, authorize('admin', 'render'), viewAdminController.manageProduct);
 router.route('/manage-product/create').get(auth, authorize('admin', 'render'), viewAdminController.createProduct);
-router.route('/manage-product/edit/:id').getauth, authorize('admin', 'render'), viewAdminController.editProduct;
+router.route('/manage-product/edit/:id').get(auth, authorize('admin', 'render'), viewAdminController.editProduct);
 
 router.route('/manage-category').get(auth, authorize('admin', 'render'), viewAdminController.manageCategory);
 router.route('/manage-user').get(auth, authorize('admin', 'render'), viewAdminController.manageUser);
@@ -20,6 +20,8 @@ router.route('/manage-blog/edit/:id').get(auth, authorize('admin', 'render'), vi
 router.route('/manage-blog').get(auth, authorize('admin', 'render'), viewAdminController.manageBlog);
 
 router.route('/manage-checkout').get(auth, authorize('admin', 'render'), viewAdminController.manageCheckout);
+router.route('/manage-slider').get(auth, authorize('admin', 'render'), viewAdminController.manageSlider);
+router.route('/manage-slider/create').get(auth, authorize('admin', 'render'), viewAdminController.createSlider);
 
 router.route('/').get(viewAdminController.loginPage);
 

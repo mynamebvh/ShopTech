@@ -9,6 +9,8 @@ const orderRoute = require('./order.route');
 const imageRoute = require('./image.route');
 const commentRoute = require('./comment.route');
 const orderDetailRoute = require('./order_detail.route');
+const sliderRoute = require('./slider.route');
+
 
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
@@ -60,6 +62,10 @@ const adminRoutes = [
   {
     path: '/images',
     route: imageRoute,
+  },
+  {
+    path: '/sliders',
+    route: sliderRoute,
   },
 ];
 

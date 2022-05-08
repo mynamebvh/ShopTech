@@ -8851,7 +8851,7 @@ textarea.custom-file-input.parsley-error:focus~.custom-file-label {
 .modal-dialog {
     position: relative;
     width: auto;
-    margin: 0.5rem;
+    /* margin: 0.5rem; */
     pointer-events: none;
 }
 
@@ -8985,8 +8985,9 @@ textarea.custom-file-input.parsley-error:focus~.custom-file-label {
 
 @media (min-width: 576px) {
     .modal-dialog {
-        max-width: 500px;
-        margin: 1.75rem auto;
+        /* max-width: 500px; */
+        max-width: initial;
+        /* margin: 1.75rem auto; */
     }
 
     .modal-dialog-centered {
