@@ -34,7 +34,7 @@ const loadOrders = () => {
       { data: 'address' },
       { data: 'phone' },
 
-      { data: 'method_pay' },
+      { data: 'methodPay' },
       {
         data: 'status',
         render: function (data, type, row) {

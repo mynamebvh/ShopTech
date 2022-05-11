@@ -5,9 +5,11 @@ const catchAsync = require('../utils/catchAsync');
 const { categoryService, postService, productService, sliderService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
-  const result = await Promise.all([categoryService.getCategorys(), sliderService.getSliders()]);
+  const filter = pick(req.query, ['name', 'role']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await Promise.all([categoryService.getCategorys(), sliderService.getSliders(filter, options)]);
 
-  res.render('client/home', { data: result[0], sliders: result[1] });
+  res.render('client/home', { data: result[0], sliders: result[1].data });
 });
 
 const listProduct = catchAsync(async (req, res) => {
@@ -69,4 +71,23 @@ const profile = catchAsync(async (req, res) => {
 
   res.render('client/profile', { data });
 });
-module.exports = { homePage, listProduct, productDetail, cart, checkout, blog, blogDetail, login, profile };
+
+const payment = catchAsync(async (req, res) => {
+  const data = await categoryService.getCategorys();
+
+  res.render('client/payment', { data });
+});
+
+module.exports =
+{
+  homePage,
+  listProduct,
+  productDetail, 
+  cart, 
+  checkout, 
+  blog, 
+  blogDetail, 
+  login, 
+  profile,
+  payment
+};

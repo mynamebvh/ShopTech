@@ -23,9 +23,12 @@ const getOrders = async (filter, options) => {
  * @returns {Promise<Order>}
  */
 const createOrder = async (orderBody) => {
-  const { fullname, customerAddress, phone, city, district, ward } = orderBody;
+  const { fullname, customerAddress, phone, city, district, ward, methodPay } = orderBody;
 
-  const order = { fullname, phone };
+  console.log(orderBody)
+  const order = { fullname, phone, methodPay};
+
+  console.log(order)
   order.address = `${customerAddress}, ${ward}, ${district}, ${city}`;
   return Order.create(order);
 };

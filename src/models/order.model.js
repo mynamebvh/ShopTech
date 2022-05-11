@@ -13,7 +13,7 @@ const orderSchema = mongoose.Schema(
         }
       },
     },
-    method_pay: {
+    methodPay: {
       type: String,
       enum: ['COD', 'BANK'],
       default: 'COD',
@@ -29,6 +29,7 @@ const orderSchema = mongoose.Schema(
       trim: true,
     },
     fullname: { type: String, required: [true, 'Họ tên là bắt buộc'], trim: true },
+    note: { type: String, trim: true },
   },
   {
     timestamps: true,

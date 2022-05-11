@@ -87,6 +87,8 @@ const renderPriceCheckout = () => {
   document.getElementById('c-price').textContent = tPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   document.getElementById('c-vat').textContent = vat.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   document.getElementById('c-total').textContent = total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+  document.getElementById('p-price').value = total;
+  
 };
 
 const submitForm = () => {
@@ -165,25 +167,27 @@ const submitForm = () => {
 
 document.addEventListener('DOMContentLoaded', async function () {
   // Logic don vi hanh chinh
-  let idCity, idDistrict;
-  const selectCity = document.getElementById('ec-select-city');
+  // let idCity, idDistrict;
+  const selectBank = document.getElementById('ec-select-bank');
+  const note = document.getElementById('ec-text-note');
+  // await renderOption('ec-select-city', 'city', 'https://provinces.open-api.vn/api/p/');
 
-  await renderOption('ec-select-city', 'city', 'https://provinces.open-api.vn/api/p/');
+  selectBank.addEventListener('change', async ({ target }) => {
+    console.log($('#ec-select-bank option:selected').val());
+    $("#ec-text-note").val($('#ec-select-bank option:selected').val())
+    
+  })
+   
 
-  selectCity.addEventListener('change', async ({ target }) => {
-    idCity = target.value;
-    emptySelect('ec-select-ward');
-    emptySelect('ec-select-district');
+  //   await renderOption('ec-select-district', 'district', `https://provinces.open-api.vn/api/p/${idCity}?depth=2`);
+  // });
 
-    await renderOption('ec-select-district', 'district', `https://provinces.open-api.vn/api/p/${idCity}?depth=2`);
-  });
+  // document.getElementById('ec-select-district').addEventListener('change', async ({ target }) => {
+  //   idDistrict = target.value;
+  //   emptySelect('ec-select-ward');
 
-  document.getElementById('ec-select-district').addEventListener('change', async ({ target }) => {
-    idDistrict = target.value;
-    emptySelect('ec-select-ward');
-
-    await renderOption('ec-select-ward', 'ward', `https://provinces.open-api.vn/api/d/${idDistrict}?depth=2`);
-  });
+  //   await renderOption('ec-select-ward', 'ward', `https://provinces.open-api.vn/api/d/${idDistrict}?depth=2`);
+  // });
 
   // render product by localstorage
   document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();

@@ -26,6 +26,10 @@ const envVarsSchema = Joi.object()
     CLOUD_NAME: Joi.string().description('type string'),
     API_KEY: Joi.string().description('type string'),
     API_SECRET: Joi.string().description('type string'),
+    VNP_TMNCODE: Joi.string().description('type string'),
+    VNP_HASHSECRET: Joi.string().description('type string'),
+    VNP_URL: Joi.string().description('type string'),
+    VNP_RETURNURL: Joi.string().description('type string')
   })
   .unknown();
 
@@ -69,4 +73,10 @@ module.exports = {
     apiKey: envVars.API_KEY,
     apiSecret: envVars.API_SECRET,
   },
+  vnpay: {
+    vnpTmnCode: envVars.VNP_TMNCODE,
+    vnpHashSecret: envVars.VNP_HASHSECRET,
+    vnpUrl: envVars.VNP_URL,
+    vnpReturnUrl: envVars.VNP_RETURNURL
+  }
 };

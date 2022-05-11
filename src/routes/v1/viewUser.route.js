@@ -11,6 +11,8 @@ router.route('/').get(viewUserController.homePage);
 router.route('/login').get(viewUserController.login);
 router.route('/checkout').get(viewUserController.checkout);
 router.route('/blogs').get(viewUserController.blog);
+router.route('/payment').get(viewUserController.payment);
+
 router.route('/blogs/:slug').get(viewUserController.blogDetail);
 
 router.route('/product/:slug').get(viewUserController.productDetail);

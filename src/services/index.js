@@ -13,5 +13,7 @@ module.exports.commentService = require('./comment.service');
 module.exports.orderDetailService = require('./order_detail.service');
 module.exports.formDataService = require('./formData.service');
 module.exports.sliderService = require('./slider.service');
+module.exports.paymentService = require('./payment.service');
+
 
 
