@@ -86,7 +86,7 @@ defaultRoutes.forEach((route) => {
 });
 
 userRoutes.forEach((route) => {
-  router.use(route.path, auth, route.route);
+  router.use(route.path, route.route);
 });
 
 adminRoutes.forEach((route) => {
