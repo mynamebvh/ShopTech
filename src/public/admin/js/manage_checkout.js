@@ -44,6 +44,8 @@ const loadOrders = () => {
             return `<span class='text-warning tx-bold'>${data}</span>`;
           } else if (data == 'Huỷ bỏ') {
             return `<span class='text-secondary tx-bold'>${data}</span>`;
+          }else {
+            return `<span class='text-info tx-bold'>${data}</span>`;
           }
         },
       },
@@ -97,7 +99,11 @@ const viewDetailOrder = () => {
     $('#address').val(order.address);
     $('#phone').val(order.phone);
     $('#status').val(order.status);
-    $('#method-pay').val(order.method_pay);
+    $('#method-pay').val(order.methodPay);
+    $('#txnRef').val(order.txnRef);
+    $('#note').val(order?.note);
+
+
 
     const data = await (await fetch(`/api/v1/order-detail/${order.id}`)).json();
     let products = data.data.products;

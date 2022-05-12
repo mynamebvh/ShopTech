@@ -20,7 +20,7 @@ const orderSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Chờ xác nhận', 'Xác nhận', 'Giao hàng', 'Huỷ bỏ'],
+      enum: ['Chờ xác nhận', 'Xác nhận', 'Giao hàng', 'Huỷ bỏ', 'Thanh toán thành công'],
       default: 'Chờ xác nhận',
     },
     address: {
@@ -30,6 +30,7 @@ const orderSchema = mongoose.Schema(
     },
     fullname: { type: String, required: [true, 'Họ tên là bắt buộc'], trim: true },
     note: { type: String, trim: true },
+    txnRef: { type: String, trim: true },
   },
   {
     timestamps: true,

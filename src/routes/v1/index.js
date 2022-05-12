@@ -10,6 +10,8 @@ const imageRoute = require('./image.route');
 const commentRoute = require('./comment.route');
 const orderDetailRoute = require('./order_detail.route');
 const sliderRoute = require('./slider.route');
+const paymentRoute = require('./payment.route');
+
 
 
 const docsRoute = require('./docs.route');
@@ -44,6 +46,8 @@ const userRoutes = [
     route: commentRoute,
   },
   { path: '/order-detail', route: orderDetailRoute },
+  { path: '/payments', route: paymentRoute },
+
 ];
 
 const adminRoutes = [

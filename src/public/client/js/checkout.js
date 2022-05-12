@@ -103,53 +103,65 @@ const submitForm = () => {
     const methodPay = $('#ec-select-methodpay option:selected').val();
 
     try {
-      const data = await (
-        await fetch('/api/v1/orders', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
+      if (methodPay == 'BANK') {
+        window.location.href = '/order';
+
+        localStorage.setItem(
+          'techOrder',
+          JSON.stringify({
             fullname,
+            phone,
             customerAddress,
             city,
-            phone,
             district,
             ward,
-            methodPay: methodPay,
-            products: JSON.parse(localStorage.getItem('techCard')),
-          }),
-        })
-      ).json();
-
-      if (data.code == 400) {
-        notif({
-          msg: data.message,
-          type: 'error',
-          position: 'right',
-          zindex: 99999999,
-        });
+          })
+        );
       } else {
-        notif({
-          msg: 'Đặt hàng thành công, nhân viên sẽ gọi điện cho bạn để xác nhận đơn hàng, Bạn sẽ được chuyển hướng sớm',
-          type: 'success',
-          position: 'right',
-          zindex: 99999999,
-        });
+        const data = await (
+          await fetch('/api/v1/orders', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              fullname,
+              customerAddress,
+              city,
+              phone,
+              district,
+              ward,
+              methodPay: methodPay,
+              products: JSON.parse(localStorage.getItem('techCard')),
+            }),
+          })
+        ).json();
 
-        // localStorage.setItem('techCard', JSON.stringify([]));
+        if (data.code == 400) {
+          notif({
+            msg: data.message,
+            type: 'error',
+            position: 'right',
+            zindex: 99999999,
+          });
+        } else {
+          notif({
+            msg: 'Đặt hàng thành công, nhân viên sẽ gọi điện cho bạn để xác nhận đơn hàng, Bạn sẽ được chuyển hướng sớm',
+            type: 'success',
+            position: 'right',
+            zindex: 99999999,
+          });
 
-        renderByLocalStorage();
-        document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();
-        renderPriceCheckout();
+          localStorage.setItem('techCard', JSON.stringify([]));
 
-        if(methodPay == "BANK"){
-          window.location.href = '/payment';
+          renderByLocalStorage();
+          document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();
+          renderPriceCheckout();
+
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 3000);
         }
-
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 5000);
       }
     } catch (error) {
       notif({

@@ -95,30 +95,24 @@ const submitForm = () => {
   const order = document.getElementById('order');
 
   order.addEventListener('click', async () => {
-    const fullname = document.getElementById('fullname').value;
-    const customerAddress = document.getElementById('customerAddress').value;
-    const phone = document.getElementById('phone').value;
+    // const fullname = document.getElementById('fullname').value;
+    // const phone = document.getElementById('phone').value;
 
-    const city = $('#ec-select-city option:selected').text();
-    const district = $('#ec-select-district option:selected').text();
-    const ward = $('#ec-select-ward option:selected').text();
-    const methodPay = $('#ec-select-methodpay option:selected').val();
+    // const methodPay = $('#ec-select-methodpay option:selected').val();
+    const note = $('#ec-text-note').val();
+    const order = JSON.parse(localStorage.getItem('techOrder'))
 
     try {
       const data = await (
-        await fetch('/api/v1/orders', {
+        await fetch('/api/v1/payments', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            fullname,
-            customerAddress,
-            city,
-            phone,
-            district,
-            ward,
-            methodPay: methodPay,
+           ...order,
+            methodPay: "BANK",
+            note,
             products: JSON.parse(localStorage.getItem('techCard')),
           }),
         })
@@ -132,26 +126,28 @@ const submitForm = () => {
           zindex: 99999999,
         });
       } else {
-        notif({
-          msg: 'Đặt hàng thành công, nhân viên sẽ gọi điện cho bạn để xác nhận đơn hàng, Bạn sẽ được chuyển hướng sớm',
-          type: 'success',
-          position: 'right',
-          zindex: 99999999,
-        });
+        // notif({
+        //   msg: 'Đặt hàng thành công, nhân viên sẽ gọi điện cho bạn để xác nhận đơn hàng, Bạn sẽ được chuyển hướng sớm',
+        //   type: 'success',
+        //   position: 'right',
+        //   zindex: 99999999,
+        // });
+
 
         // localStorage.setItem('techCard', JSON.stringify([]));
+        // localStorage.setItem('techAddress', JSON.stringify([]));
+
 
         renderByLocalStorage();
         document.querySelector('.ec-checkout-pro').innerHTML = renderCheckoutByLocalStorage();
         renderPriceCheckout();
 
-        if(methodPay == "BANK"){
-          window.location.href = '/payment';
-        }
-
         setTimeout(() => {
-          window.location.href = '/';
-        }, 5000);
+          window.location.href = data.data;
+        }, 1000);
+
+        // console.log(data)
+
       }
     } catch (error) {
       notif({
@@ -173,8 +169,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   // await renderOption('ec-select-city', 'city', 'https://provinces.open-api.vn/api/p/');
 
   selectBank.addEventListener('change', async ({ target }) => {
-    console.log($('#ec-select-bank option:selected').val());
-    $("#ec-text-note").val($('#ec-select-bank option:selected').val())
+    let note = "bank:" + $('#ec-select-bank option:selected').val();
+
+    let dateNow = Date.now()
+
+    note += "|time:"+dateNow;
+    $("#ec-text-note").val(note);
     
   })
    

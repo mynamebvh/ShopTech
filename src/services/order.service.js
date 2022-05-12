@@ -23,12 +23,19 @@ const getOrders = async (filter, options) => {
  * @returns {Promise<Order>}
  */
 const createOrder = async (orderBody) => {
-  const { fullname, customerAddress, phone, city, district, ward, methodPay } = orderBody;
+  const { fullname, 
+    customerAddress, 
+    phone, 
+    city, 
+    district, 
+    ward, 
+    methodPay, 
+    txnRef,
+    note
+  } = orderBody;
 
-  console.log(orderBody)
-  const order = { fullname, phone, methodPay};
+  const order = { fullname, phone, methodPay, txnRef, note};
 
-  console.log(order)
   order.address = `${customerAddress}, ${ward}, ${district}, ${city}`;
   return Order.create(order);
 };
@@ -61,6 +68,19 @@ const updateStatusOrderById = async (orderId, status) => {
 };
 
 /**
+ * Update order status by txnRef (VNPAY)
+ * @param {String} txnRef
+ * @returns {Promise<Order>}
+ */
+const updateStatusByTxnRef = async (txnRef) => {
+  const order = await Order.findOne({txnRef});
+
+  Object.assign(order, { status: "Thanh toán thành công" });
+  await order.save();
+  return order;
+}
+
+/**
  * Delete order by id
  * @param {ObjectId} orderId
  * @returns {Promise<order>}
@@ -75,4 +95,4 @@ const deleteOrderById = async (orderId) => {
   return order;
 };
 
-module.exports = { getOrders, createOrder, getOrderById, updateStatusOrderById, deleteOrderById };
+module.exports = { getOrders, createOrder, getOrderById, updateStatusOrderById, deleteOrderById, updateStatusByTxnRef};

@@ -9,10 +9,9 @@ const response = require('../utils/response');
 const { paymentService } = require('../services');
 
 const createPaymentUrl = catchAsync(async (req, res) => {
-  res.redirect(paymentService.createPaymentUrl(req))
+  let url = await paymentService.createPaymentUrl(req);
+  res.status(httpStatus.OK).json(response(httpStatus.OK,'Thành công', url));
 });
-
-
 
 module.exports = {
   createPaymentUrl
