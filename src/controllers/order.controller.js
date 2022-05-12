@@ -26,8 +26,13 @@ const getOrder = catchAsync(async (req, res) => {
 const getOrders = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-
+  const { length, start } = req.query;
+  options.page = start / length + 1;
+  options.limit = length;
+  
   const data = await orderService.getOrders(filter, options);
+
+  data.draw = parseInt(req.query.draw);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', data));
 });
 

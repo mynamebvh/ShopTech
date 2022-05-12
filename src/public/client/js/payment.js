@@ -134,8 +134,8 @@ const submitForm = () => {
         // });
 
 
-        // localStorage.setItem('techCard', JSON.stringify([]));
-        // localStorage.setItem('techAddress', JSON.stringify([]));
+        localStorage.setItem('techCard', JSON.stringify([]));
+        localStorage.setItem('techOrder', JSON.stringify([]));
 
 
         renderByLocalStorage();

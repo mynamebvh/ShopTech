@@ -7,7 +7,7 @@ const sortObject = require('../utils/sortObject');
 const pick = require('../utils/pick');
 
 const config = require('../config/config');
-const {orderService, orderDetailService }= require('./index');
+const { orderService, orderDetailService } = require('./index');
 
 /**
  * Generate url payment
@@ -39,6 +39,8 @@ const createPaymentUrl = async (req) => {
   postBody.order = order.id;
   await orderDetailService.createOrderDetail(postBody);
 
+  const { total } = await orderDetailService.getOrdersDetailByOrderId(order.id);
+
   const orderType = 'billpayment';
   const locale = 'vn';
   const currCode = 'VND';
@@ -53,11 +55,11 @@ const createPaymentUrl = async (req) => {
   vnp_Params['vnp_TxnRef'] = orderId;
   vnp_Params['vnp_OrderInfo'] = orderInfo;
   vnp_Params['vnp_OrderType'] = orderType;
-  vnp_Params['vnp_Amount'] = 27600000 * 100;
+  vnp_Params['vnp_Amount'] = (total - (total * 0.08)) * 100;
   vnp_Params['vnp_ReturnUrl'] = returnUrl;
   vnp_Params['vnp_IpAddr'] = ipAddr;
   vnp_Params['vnp_CreateDate'] = createDate;
-  vnp_Params['vnp_BankCode'] = "NCB";
+  vnp_Params['vnp_BankCode'] = 'NCB';
 
   // if (bankCode !== null && bankCode !== '') {
   //   vnp_Params['vnp_BankCode'] = bankCode;
@@ -100,9 +102,9 @@ const vnpReturn = async (req) => {
 
   if (secureHash === signed) {
     await orderService.updateStatusByTxnRef(vpnParams['vnp_TxnRef']);
-    return "Thanh cong";
+    return 'Giao dịch thành công';
   } else {
-    return "That bai";
+    return 'Giao dịch thất bại';
   }
 };
 

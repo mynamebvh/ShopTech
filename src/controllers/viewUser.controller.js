@@ -2,13 +2,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { 
-  categoryService, 
-  postService, 
-  productService, 
-  sliderService,
-  paymentService
-} = require('../services');
+const { categoryService, postService, productService, sliderService, paymentService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
@@ -85,24 +79,22 @@ const payment = catchAsync(async (req, res) => {
 });
 
 const paymentReturn = catchAsync(async (req, res) => {
-  // const data = await categoryService.getCategorys();
+  const data = await categoryService.getCategorys();
 
   let msg = await paymentService.vnpReturn(req);
-  // res.render('client/payment', { data });
-  res.send("thành công")
+  res.render('client/payment/result', { msg, data });
 });
 
-module.exports =
-{
+module.exports = {
   homePage,
   listProduct,
-  productDetail, 
-  cart, 
-  checkout, 
-  blog, 
-  blogDetail, 
-  login, 
+  productDetail,
+  cart,
+  checkout,
+  blog,
+  blogDetail,
+  login,
   profile,
   payment,
-  paymentReturn
+  paymentReturn,
 };

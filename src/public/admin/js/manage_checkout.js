@@ -103,12 +103,11 @@ const viewDetailOrder = () => {
     $('#txnRef').val(order.txnRef);
     $('#note').val(order?.note);
 
-
-
     const data = await (await fetch(`/api/v1/order-detail/${order.id}`)).json();
     let products = data.data.products;
 
-    $('#total').text(data.data.total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
+    const total = (data.data.total)
+    $('#total').text((total - (total * 0.08)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
 
     const divRender = document.getElementById('r-products');
     products = products.map((p) => {

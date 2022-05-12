@@ -21,7 +21,7 @@ const paginate = (schema) => {
    */
   schema.statics.paginate = async function (filter, options) {
     let sort = '';
-    if (options.sortBy) {
+    if (options?.sortBy) {
       const sortingCriteria = [];
       options.sortBy.split(',').forEach((sortOption) => {
         const [key, order] = sortOption.split(':');
@@ -60,8 +60,8 @@ const paginate = (schema) => {
         data,
         page,
         limit,
-        recordsTotal: totalPages,
-        recordsFiltered: totalPages,
+        recordsTotal: totalResults,
+        recordsFiltered: totalResults,
         totalResults,
       };
       return Promise.resolve(result);

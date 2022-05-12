@@ -7,7 +7,6 @@ const viewUserController = require('../../controllers/viewUser.controller');
 
 const router = express.Router();
 
-router.route('/').get(viewUserController.homePage);
 router.route('/login').get(viewUserController.login);
 router.route('/checkout').get(viewUserController.checkout);
 router.route('/blogs').get(viewUserController.blog);
@@ -20,5 +19,6 @@ router.route('/product/:slug').get(viewUserController.productDetail);
 router.route('/cart').get(viewUserController.cart);
 router.route('/profile').get(viewUserController.profile);
 router.route('/:category').get(viewUserController.listProduct);
+router.route('/').get(viewUserController.homePage);
 
 module.exports = router;

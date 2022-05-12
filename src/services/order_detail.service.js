@@ -28,7 +28,6 @@ const getOrdersDetailByOrderId = async (id) => {
   let orderDetail = await OrderDetail.findOne({ order: id })
     .populate({
       path: 'products',
-
       populate: { path: 'product' },
     })
     .lean();
