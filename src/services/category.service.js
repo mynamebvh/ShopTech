@@ -10,7 +10,7 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Category>}
  */
 const getCategorys = async () => {
-  const category = await Category.find();
+  const category = await Category.find().lean();
   return category;
 };
 

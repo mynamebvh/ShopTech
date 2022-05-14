@@ -7,9 +7,14 @@ const { categoryService, postService, productService, sliderService, paymentServ
 const homePage = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await Promise.all([categoryService.getCategorys(), sliderService.getSliders(filter, options)]);
 
-  res.render('client/home', { data: result[0], sliders: result[1].data });
+  const result = await Promise.all([
+    categoryService.getCategorys(),
+    sliderService.getSliders(filter, options),
+    productService.queryClassification(),
+  ]);
+
+  res.render('client/home', { data: result[0], sliders: result[1].data, tab: result[2] });
 });
 
 const listProduct = catchAsync(async (req, res) => {
@@ -28,7 +33,6 @@ const productDetail = catchAsync(async (req, res) => {
 
   const product = await productService.getProductBySlug(slug);
 
-  console.log(product);
   res.render('client/product', { data, product });
 });
 

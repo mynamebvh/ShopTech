@@ -50,8 +50,17 @@ const getProductById = async (id) => {
  * @param {String} slug
  * @returns {Promise<Product>}
  */
- const getProductBySlug = async (slug) => {
-  return Product.findOne({slug});
+const getProductBySlug = async (slug) => {
+  const product = await Product.findOneAndUpdate(
+    { slug },
+    {
+      $inc: {
+        viewCount: 1,
+      },
+    }
+  );
+
+  return product;
 };
 
 /**
@@ -91,11 +100,24 @@ const deleteProductById = async (productId) => {
   return product;
 };
 
+// Query proudct hot, new, best seller
+const queryClassification = async () => {
+  const result = await Promise.all([
+    Product.find().sort({ viewCount: -1 }).limit(8).lean(),
+    Product.find().sort({ viewCount: -1 }).limit(8).lean(),
+    Product.find().sort({ createdAt: -1 }).limit(8).lean(),
+  ]);
+
+  
+  return {hots: result[0], bestSellers: result[1], news: result[2]};
+};
+
 module.exports = {
   getProducts,
   getProductById,
   createProduct,
   updateProductById,
   deleteProductById,
-  getProductBySlug
+  getProductBySlug,
+  queryClassification,
 };
