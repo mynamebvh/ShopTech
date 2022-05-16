@@ -112,6 +112,12 @@ const queryClassification = async () => {
   return {hots: result[0], bestSellers: result[1], news: result[2]};
 };
 
+// Query random product
+const queryRandom = async () => {
+  const result = await Product.aggregate([{ $sample: { size: 4 } }])
+  return result;
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -120,4 +126,5 @@ module.exports = {
   deleteProductById,
   getProductBySlug,
   queryClassification,
+  queryRandom
 };

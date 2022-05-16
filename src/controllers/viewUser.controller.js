@@ -12,9 +12,11 @@ const homePage = catchAsync(async (req, res) => {
     categoryService.getCategorys(),
     sliderService.getSliders(filter, options),
     productService.queryClassification(),
+    productService.queryRandom(),
   ]);
 
-  res.render('client/home', { data: result[0], sliders: result[1].data, tab: result[2] });
+  console.log(result[3])
+  res.render('client/home', { data: result[0], sliders: result[1].data, tab: result[2], random: result[3] });
 });
 
 const listProduct = catchAsync(async (req, res) => {
