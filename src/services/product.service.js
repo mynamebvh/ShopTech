@@ -63,6 +63,14 @@ const getProductBySlug = async (slug) => {
   return product;
 };
 
+
+const getRelatedProducts = async(slug) => {
+  const {category = null} = await Product.findOne({slug})
+
+  const productRelateds = await Product.find({category}).sort("-createdAt").limit(4)
+  return productRelateds 
+}
+
 /**
  * Update product by id
  * @param {ObjectId} productId
@@ -118,6 +126,12 @@ const queryRandom = async () => {
   return result;
 };
 
+
+const searchProduct = async(text) => {
+  // console.log(await Product.find({ $text: { $search: text } }))
+  return Product.find({ $text: { $search: text } });
+}
+
 module.exports = {
   getProducts,
   getProductById,
@@ -126,5 +140,7 @@ module.exports = {
   deleteProductById,
   getProductBySlug,
   queryClassification,
-  queryRandom
+  queryRandom,
+  getRelatedProducts,
+  searchProduct
 };

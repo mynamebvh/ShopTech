@@ -35,6 +35,11 @@ const getProducts = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', data));
 });
 
+const searchProduct = catchAsync(async (req, res) => {
+  let result = await productService.searchProduct(req.query.text);
+  res.status(httpStatus.OK).json(result)
+})
+
 const getProduct = catchAsync(async (req, res) => {
   const product = await productService.getProductById(req.params.productId);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', product));
@@ -56,4 +61,5 @@ module.exports = {
   getProduct,
   updateProduct,
   deleteProduct,
+  searchProduct
 };

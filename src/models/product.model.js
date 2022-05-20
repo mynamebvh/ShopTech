@@ -66,6 +66,9 @@ const productSchema = mongoose.Schema(
 productSchema.plugin(toJSON);
 productSchema.plugin(paginate);
 
+//Create index
+productSchema.index({ name: 1, shortDesc: 1 });
+
 productSchema.statics.isNameDuplicate = async function (name) {
   const category = await this.findOne({ name });
   return !!category;

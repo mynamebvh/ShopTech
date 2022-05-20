@@ -14,7 +14,7 @@ const renderByLocalStorage = () => {
       let htmlProduct = `<li data-id=${e.id}>
       <a href="" class="sidekka_pro_img"><img src="${e.img}" alt="product"></a>
       <div class="ec-pro-content">
-         <a href="" class="cart_pro_title">${e.name}</a><span class="cart-price"><span> ${e.price} &nbsp;VND</span> x 1</span>
+         <a href="/product/${e.slug}" class="cart_pro_title">${e.name}</a><span class="cart-price"><span> ${e.price} &nbsp;VND</span> x 1</span>
          <div class="qty-plus-minus">
             <div class="dec ec_qtybtn">-</div>
             <input class="qty-input" type="text" name="ec_qtybtn" value="${e.quantity}">
@@ -30,13 +30,13 @@ const renderByLocalStorage = () => {
   return listProduct;
 };
 
-const appedProduct = (img, id, name, price, quantity) => {
+const appedProduct = (img, id, name, price, quantity, slug) => {
   let data = localStorage.getItem('techCard');
 
   if (!data) {
     data = [];
 
-    data.push({ img, id, name, price, quantity });
+    data.push({ img, id, name, price, quantity, slug });
 
     localStorage.setItem('techCard', JSON.stringify(data));
     return;
@@ -48,9 +48,9 @@ const appedProduct = (img, id, name, price, quantity) => {
     let index = data.findIndex((ele) => ele.id === id);
 
     if (index != -1) {
-      data[index].quantity++;
+      data[index].quantity = parseInt(data[index].quantity) + parseInt(quantity);
     } else {
-      data.push({ img, id, name, price, quantity });
+      data.push({ img, id, name, price, quantity, slug });
     }
     localStorage.setItem('techCard', JSON.stringify(data));
   }
@@ -136,7 +136,7 @@ const renderCardNum = () => {
     e(this).closest('li').remove();
     deleteProductById(e(this).attr('data-id'));
     renderChangePrice(e);
-    1 == t && e('.eccart-pro-items').html('<li><p class="emp-cart-msg">Your cart is empty!</p></li>');
+    1 == t && e('.eccart-pro-items').html('<li><p class="emp-cart-msg">Giỏ hàng trống!</p></li>');
     // var o = e('.cart-count-lable').html();
     // o--;
     // e('.cart-count-lable').html(o);
@@ -158,24 +158,17 @@ const renderCardNum = () => {
       e('.ec-cart-float').fadeOut();
     }, 5e3);
 
-    let img = e(this).parents().parents().children('.image').find('.main-image').attr('src');
-    let name = e(this).parents().parents().parents().children('.ec-pro-content').children('h5').children('a').html();
-    let price = parseInt(
-      e(this)
-        .parents()
-        .parents()
-        .parents()
-        .children('.ec-pro-content')
-        .children('.ec-price')
-        .children('.new-price')
-        .text()
-        .split('VND')[0]
-        .replaceAll('.', '')
-    );
-    let quantity = 1;
-    let id = e(this).attr('data-id');
+    let img = e(this).attr('data-img');
+    let name = e(this).attr('data-name');
+    let price = parseInt(e(this).attr('data-price'));
+    let slug = e(this).attr('data-slug');
+    let quantity = e(this).attr('data-quantity');
 
-    appedProduct(img, id, name, price, quantity);
+    // let quantity = 1;
+    let id = e(this).attr('data-id');
+    console.log('id', e(this).attr('data-id'));
+
+    appedProduct(img, id, name, price, quantity, slug);
     renderChangePrice(e);
     renderCardNum();
 

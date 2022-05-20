@@ -15,7 +15,6 @@ const homePage = catchAsync(async (req, res) => {
     productService.queryRandom(),
   ]);
 
-  console.log(result[3])
   res.render('client/home', { data: result[0], sliders: result[1].data, tab: result[2], random: result[3] });
 });
 
@@ -30,12 +29,15 @@ const listProduct = catchAsync(async (req, res) => {
 });
 
 const productDetail = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
   const slug = req.params.slug;
 
-  const product = await productService.getProductBySlug(slug);
+  const result = await Promise.all([
+    categoryService.getCategorys(),
+    productService.getProductBySlug(slug),
+    productService.getRelatedProducts(slug)
+  ])
 
-  res.render('client/product', { data, product });
+  res.render('client/product', { data: result[0], product: result[1], relateds: result[2] });
 });
 
 const cart = catchAsync(async (req, res) => {
@@ -55,7 +57,6 @@ const blog = catchAsync(async (req, res) => {
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const articles = await postService.getPosts(filter, options);
 
-  console.log(articles);
   res.render('client/blog', { data, articles });
 });
 

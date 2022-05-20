@@ -27,3 +27,24 @@
 <script src="/static/client/js/vendor/index.js"></script>
 <script src="/static/client/js/main.js"></script>
 <script src="/static/client/js/cart.js"></script>
+
+<script>
+  const resultSearch = document.querySelector('.result-search');
+  document.getElementById('input-search').addEventListener('input', async ({ target }) => {
+    const result = await (await fetch(`/s?text=${target.value}`)).json();
+
+    let listSearch = '';
+    if (result.length > 0) {
+      result.forEach((p) => {
+        listSearch += `<li>
+          <a href="/product/${p.slug}">${p.name}</a>
+          </li>`;
+      });
+      resultSearch.innerHTML = listSearch;
+      resultSearch.style.display = 'block';
+    }else {
+      resultSearch.style.display = 'none';
+
+    }
+  });
+</script>

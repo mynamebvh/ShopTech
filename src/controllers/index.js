@@ -8,4 +8,5 @@ module.exports.orderController = require('./order.controller');
 module.exports.commentController = require('./comment.controller');
 module.exports.orderDetailController = require('./order_detail.controller');
 module.exports.sliderController = require('./slider.controller');
+module.exports.viewUserController = require('./viewUser.controller');
 

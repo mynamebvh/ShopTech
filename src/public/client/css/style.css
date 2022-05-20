@@ -23496,7 +23496,7 @@ h4.ec-faq-title::after,
   padding-bottom: 20px;
   border-bottom: 1px solid #eeeeee;
 }
-.single-pro-content .ec-single-qty .qty-plus-minus {
+.single-pro-content .ec-single-qty .qty-plus-minus1 {
   border: 1px solid #eeeeee;
   display: inline-block;
   height: 40px;
@@ -23515,7 +23515,7 @@ h4.ec-faq-title::after,
   justify-content: space-between;
   padding: 10px 0;
 }
-.single-pro-content .ec-single-qty .qty-plus-minus .ec_qtybtn {
+.single-pro-content .ec-single-qty .qty-plus-minus1 .ec_qtybtn {
   width: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23531,7 +23531,7 @@ h4.ec-faq-title::after,
   font-size: 22px;
   color: #777777;
 }
-.single-pro-content .ec-single-qty .qty-plus-minus input.qty-input {
+.single-pro-content .ec-single-qty .qty-plus-minus1 input.qty-input {
   background: transparent none repeat scroll 0 0;
   border: medium none;
   color: #444444;
