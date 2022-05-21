@@ -30,6 +30,26 @@ const auth = (req, res, next) => {
   }
 };
 
+const authProduct = (req, res, next) => {
+  let tokens = req.signedCookies?.tokens;
+
+  if (!tokens) {
+    req.auth = false;
+    return next();
+  }
+
+  let { access } = tokens;
+
+  const payload = jwt.verify(access.token, config.jwt.secret);
+
+  if (payload) {
+    req.userId = payload.sub;
+    req.auth = true;
+
+    return next();
+  }
+};
+
 const authorize = (role, type) => async (req, res, next) => {
   const user = await User.findById(req.userId);
 
@@ -42,4 +62,4 @@ const authorize = (role, type) => async (req, res, next) => {
   next(new ApiError(httpStatus.FORBIDDEN, 'Không có quyền'));
 };
 
-module.exports = { auth, authorize };
+module.exports = { auth, authorize, authProduct };

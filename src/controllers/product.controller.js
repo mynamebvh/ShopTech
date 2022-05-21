@@ -5,7 +5,7 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const response = require('../utils/response');
 
-const { productService, formDataService, imageService } = require('../services');
+const { productService, formDataService, imageService, categoryService} = require('../services');
 
 const createProduct = catchAsync(async (req, res) => {
   const body = await formDataService.parseForm(req);
@@ -41,6 +41,7 @@ const searchProduct = catchAsync(async (req, res) => {
 })
 
 const getProduct = catchAsync(async (req, res) => {
+  
   const product = await productService.getProductById(req.params.productId);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', product));
 });
@@ -55,11 +56,22 @@ const deleteProduct = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Xoá thành công'));
 });
 
+const searchProductView = catchAsync(async (req, res) => {
+  const data = await categoryService.getCategorys();
+  const filter = pick(req.query, ['name', 'role']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+
+  let products = await productService.searchProduct(req.query.text, filter, options);
+
+  res.render('client/listProduct', { data, products});
+})
+
 module.exports = {
   createProduct,
   getProducts,
   getProduct,
   updateProduct,
   deleteProduct,
-  searchProduct
+  searchProduct,
+  searchProductView
 };

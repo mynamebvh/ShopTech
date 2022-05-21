@@ -802,8 +802,15 @@ function ecCheckCookie() {
           c(), 1 === i && o.removeClass('rotateForward').toggleClass('rotateBackward'), (i = 0);
         });
     }),
-    e('body').on('change', '.ec-image-upload', function (t) {
+    e('body').on('change', '.ec-image-upload', async function (t) {
       var o = e(this);
+      
+      let formData = new FormData();
+      formData.append('img', this.files[0]);
+
+      
+      
+
       if (this.files && this.files[0]) {
         var s = new FileReader();
         (s.onload = function (e) {
@@ -811,6 +818,16 @@ function ecCheckCookie() {
           t.hide(), t.fadeIn(650);
         }),
           s.readAsDataURL(this.files[0]);
+          try {
+            const data = await (
+              await fetch('/api/v1/users/update-avatar', {
+                body: formData,
+                method: 'post',
+              })
+            ).json();
+          } catch (error) {
+            alert(error);
+          }
       }
     }),
     e().appendTo(e('body')),

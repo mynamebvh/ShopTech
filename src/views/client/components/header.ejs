@@ -23,8 +23,8 @@
           <!-- Ec Header Search Start -->
           <div class="align-self-center">
             <div class="header-search">
-              <form class="ec-btn-group-form" action="#" style="position: relative">
-                <input id="input-search" class="form-control ec-search-bar" placeholder="Tìm kiếm sản phẩm" type="text" />
+              <form class="ec-btn-group-form" action="/q" style="position: relative">
+                <input id="input-search" class="form-control ec-search-bar" placeholder="Tìm kiếm sản phẩm" type="text" name="text"/>
                 <button class="submit" type="submit">
                   <img src="/static/client/images/icons/search.svg" class="svg_img header_svg" alt="" />
                 </button>
@@ -58,14 +58,15 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
-                    <a class="dropdown-item" href="register.html">Register</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="checkout.html">Checkout</a>
-                  </li>
-                  <li>
                     <a class="dropdown-item" href="/login">Đăng nhập</a>
                   </li>
+                  <li>
+                    <a class="dropdown-item" href="/">Đăng ký</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/log-out">Đăng xuất</a>
+                  </li>
+                  
                 </ul>
               </div>
               <!-- Header User End -->
@@ -112,11 +113,13 @@
         <!-- Ec Header Search Start -->
         <div class="col">
           <div class="header-search">
-            <form class="ec-btn-group-form" action="#">
-              <input class="form-control ec-search-bar" placeholder="Search products..." type="text" />
+            <form class="ec-btn-group-form" action="q">
+              <input id="input-search-mobi" class="form-control ec-search-bar" placeholder="Tìm kiếm sản phẩm" type="text" name="text"/>
               <button class="submit" type="submit">
                 <img src="/static/client/images/icons/search.svg" class="svg_img header_svg" alt="icon" />
               </button>
+
+              <ul class="result-search-mobi"></ul>
             </form>
           </div>
         </div>

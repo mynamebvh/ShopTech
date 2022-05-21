@@ -67,7 +67,7 @@ productSchema.plugin(toJSON);
 productSchema.plugin(paginate);
 
 //Create index
-productSchema.index({ name: 1, shortDesc: 1 });
+productSchema.index({ name: "text", shortDesc: "text" });
 
 productSchema.statics.isNameDuplicate = async function (name) {
   const category = await this.findOne({ name });

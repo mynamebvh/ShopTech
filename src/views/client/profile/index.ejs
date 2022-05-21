@@ -135,13 +135,8 @@
                               </div> -->
                   <div class="ec-vendor-block-items">
                     <ul>
-                      <li><a href="user-profile.html">User Profile</a></li>
-                      <li><a href="user-history.html">History</a></li>
-                      <li><a href="wishlist.html">Wishlist</a></li>
-                      <li><a href="cart.html">Cart</a></li>
-                      <li><a href="checkout.html">Checkout</a></li>
-                      <li><a href="track-order.html">Track Order</a></li>
-                      <li><a href="user-invoice.html">Invoice</a></li>
+                      <li><a href="/profile">Trang cá nhân</a></li>
+                     
                     </ul>
                   </div>
                 </div>
@@ -163,27 +158,26 @@
                             title="Edit Detail"
                             data-bs-toggle="modal"
                             data-bs-target="#edit_modal"
-                            >Edit Detail</a
+                            >Chỉnh sửa</a
                           >
                         </div>
                         <div class="ec-vendor-block-detail">
-                          <img class="v-img" src="/static/client/images/user/1.jpg" alt="vendor image" />
-                          <h5 class="name">Mariana Johns</h5>
-                          <p>( Business Man )</p>
+                          <img class="v-img" src="<%= user.avatar %>" alt="vendor image" />
+                          <h5 class="name"><%= user.firstName %> <%= user.lastName %></h5>
+                          <p>( <%= user.career %> )</p>
                         </div>
-                        <p>Hello <span>Mariana Johns!</span></p>
+                        <p>Xin chào <span><%= user.firstName %> <%= user.lastName %>!</span></p>
                         <p>
-                          From your account you can easily view and track orders. You can manage and change your account
-                          information like address, contact information and history of orders.
+                          
                         </p>
                       </div>
-                      <h5>Account Information</h5>
+                      <h5>Thông tin tài khoản</h5>
 
                       <div class="row">
                         <div class="col-md-6 col-sm-12">
                           <div class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
                             <h6>
-                              E-mail address
+                              Địa chỉ email
                               <a
                                 href="javasript:void(0)"
                                 data-link-action="editmodal"
@@ -206,15 +200,14 @@
                               ></a>
                             </h6>
                             <ul>
-                              <li><strong>Email 1 : </strong>support1@exapmle.com</li>
-                              <li><strong>Email 2 : </strong>support2@exapmle.com</li>
+                              <li><strong>Email : </strong><%= user.email %></li>
                             </ul>
                           </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                           <div class="ec-vendor-detail-block ec-vendor-block-contact space-bottom-30">
                             <h6>
-                              Contact nubmer<a
+                              SĐT <a
                                 href="javasript:void(0)"
                                 data-link-action="editmodal"
                                 title="Edit Detail"
@@ -236,15 +229,14 @@
                               ></a>
                             </h6>
                             <ul>
-                              <li><strong>Phone Nubmer 1 : </strong>(123) 123 456 7890</li>
-                              <li><strong>Phone Nubmer 2 : </strong>(123) 123 456 7890</li>
+                              <li><strong>SĐT: </strong><%= user.phone %></li>
                             </ul>
                           </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                           <div class="ec-vendor-detail-block ec-vendor-block-address mar-b-30">
                             <h6>
-                              Address<a
+                              Giới tính<a
                                 href="javasript:void(0)"
                                 data-link-action="editmodal"
                                 title="Edit Detail"
@@ -267,8 +259,7 @@
                             </h6>
                             <ul>
                               <li>
-                                <strong>Home : </strong>123, 2150 Sycamore Street, dummy text of the, San Jose, California -
-                                95131.
+                                <strong>Giới tính : </strong><%= user.gender %>
                               </li>
                             </ul>
                           </div>
@@ -276,7 +267,7 @@
                         <div class="col-md-6 col-sm-12">
                           <div class="ec-vendor-detail-block ec-vendor-block-address">
                             <h6>
-                              Shipping Address<a
+                              Địa chỉ<a
                                 href="javasript:void(0)"
                                 data-link-action="editmodal"
                                 title="Edit Detail"
@@ -299,8 +290,7 @@
                             </h6>
                             <ul>
                               <li>
-                                <strong>Office : </strong>123, 2150 Sycamore Street, dummy text of the, San Jose, California
-                                - 95131.
+                                <strong>Địa chỉ : </strong><%= user.address %>
                               </li>
                             </ul>
                           </div>
@@ -379,7 +369,7 @@
                       <div class="image-thumb-preview">
                         <img
                           class="image-thumb-preview ec-image-preview v-img"
-                          src="/static/client/images/user/1.jpg"
+                          src="<%= user.avatar %>"
                           alt="edit"
                         />
                       </div>
@@ -387,47 +377,45 @@
                   </div>
                 </div>
                 <div class="ec-vendor-upload-detail">
-                  <form class="row g-3">
+                  <form class="row g-3" id="form-update">
                     <div class="col-md-6 space-t-15">
-                      <label class="form-label">First name</label>
-                      <input type="text" class="form-control" />
+                      <label class="form-label">Họ, tên đệm</label>
+                      <input type="text" class="form-control" id="first-name" value="<%= user.firstName %>"/>
                     </div>
                     <div class="col-md-6 space-t-15">
-                      <label class="form-label">Last name</label>
-                      <input type="text" class="form-control" />
+                      <label class="form-label">Tên</label>
+                      <input type="text" class="form-control" id="last-name" value="<%= user.lastName %>"/>
                     </div>
                     <div class="col-md-12 space-t-15">
-                      <label class="form-label">Address 1</label>
-                      <input type="text" class="form-control" />
+                      <label class="form-label">Email</label>
+                      <input type="text" class="form-control" id="email" value="<%= user.email %>"/>
                     </div>
                     <div class="col-md-12 space-t-15">
-                      <label class="form-label">Address 2</label>
-                      <input type="text" class="form-control" />
+                      <label class="form-label">SĐT</label>
+                      <input type="text" class="form-control" id="phone" value="<%= user.phone %>"/>
                     </div>
                     <div class="col-md-12 space-t-15">
-                      <label class="form-label">Address 3</label>
-                      <input type="text" class="form-control" />
-                    </div>
-                    <div class="col-md-6 space-t-15">
-                      <label class="form-label">Email id 1</label>
-                      <input type="text" class="form-control" />
-                    </div>
-                    <div class="col-md-6 space-t-15">
-                      <label class="form-label">Email id 2</label>
-                      <input type="text" class="form-control" />
-                    </div>
-                    <div class="col-md-6 space-t-15">
-                      <label class="form-label">Phone number 1</label>
-                      <input type="text" class="form-control" />
-                    </div>
-                    <div class="col-md-6 space-t-15">
-                      <label class="form-label">Phone number 2</label>
-                      <input type="text" class="form-control" />
+                      <label class="form-label">Giới tính</label>
+                      <select name="ec_select_city" id="gender" class="w-100">
+                        <% let gender = user.gender %>
+                        <option <%= (gender == "nam") ? "selected" : "" %> value="nam">Nam</option>
+                        <option <%= (gender == "nữ") ? "selected" : "" %> value="nữ">Nữ</option>
+                      </select>
+                      <!-- <input type="text" class="form-control" value="<%= user.gender %>"/> -->
                     </div>
                     <div class="col-md-12 space-t-15">
-                      <button type="submit" class="btn btn-primary">Update</button>
+                      <label class="form-label">Địa chỉ</label>
+                      <input type="text" class="form-control" id="address" value="<%= user.address %>"/>
+                    </div>
+                    <div class="col-md-12 space-t-15">
+                      <label class="form-label">Nghề nghiệp</label>
+                      <input type="text" class="form-control" id="career" value="<%= user.career %>"/>
+                    </div>
+                   
+                    <div class="col-md-12 space-t-15">
+                      <button type="submit" class="btn btn-primary">Cập nhật</button>
                       <a href="#" class="btn btn-lg btn-secondary qty_close" data-bs-dismiss="modal" aria-label="Close"
-                        >Close</a
+                        >Huỷ</a
                       >
                     </div>
                   </form>
@@ -465,53 +453,51 @@
 
     <%- include ("../components/footer")%> <%- include ("../components/link_js")%>
 
+    <script>
+      document.getElementById('form-update').addEventListener("submit", async( e ) => {
+        e.preventDefault();
+
+        const firstName = document.getElementById("first-name").value
+        const lastName = document.getElementById("last-name").value
+        const email = document.getElementById("email").value
+        const phone = document.getElementById("phone").value
+        const gender = document.getElementById("gender").value
+        const address = document.getElementById("address").value
+        const career = document.getElementById("career").value
+
+        const data = {
+          firstName,
+          lastName,
+          email,
+          phone,
+          gender,
+          address,
+          career
+        }
+
+        try{
+          const result = await (await
+          fetch('/api/v1/users', {
+            method: 'PATCH', 
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })).json()
+
+         
+          if(result.code == 200){
+            alert("Cập nhật thành công")
+            location.reload();
+          }
+        }catch(err){
+          alert(err)
+        }
+        
+      })
+    </script>
     <!-- Main Js -->
     <!-- <script src="/static/client/js/main.js"></script> -->
-    <a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647"
-      ><i class="ecicon eci-arrow-up" aria-hidden="true"></i
-    ></a>
-    <div id="goog-gt-tt" class="skiptranslate" dir="ltr">
-      <div style="padding: 8px">
-        <div>
-          <div class="logo">
-            <img
-              src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png"
-              width="20"
-              height="20"
-              alt="Google Translate"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="top" style="padding: 8px; float: left; width: 100%"><h1 class="title gray">Original text</h1></div>
-      <div class="middle" style="padding: 8px"><div class="original-text"></div></div>
-      <div class="bottom" style="padding: 8px">
-        <div class="activity-links">
-          <span class="activity-link">Contribute a better translation</span><span class="activity-link"></span>
-        </div>
-        <div class="started-activity-container">
-          <hr style="color: #ccc; background-color: #ccc; height: 1px; border: none" />
-          <div class="activity-root"></div>
-        </div>
-      </div>
-      <div class="status-message" style="display: none"></div>
-    </div>
-
-    <div class="goog-te-spinner-pos">
-      <div class="goog-te-spinner-animation">
-        <svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66">
-          <circle
-            class="goog-te-spinner-path"
-            fill="none"
-            stroke-width="6"
-            stroke-linecap="round"
-            cx="33"
-            cy="33"
-            r="30"
-          ></circle>
-        </svg>
-      </div>
-    </div>
+    
   </body>
-  <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
 </html>

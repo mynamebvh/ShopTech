@@ -5372,4 +5372,3 @@
 		}
 	})
 }));
-//# sourceMappingURL=summernote.min.js.map

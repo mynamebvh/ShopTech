@@ -167,60 +167,37 @@
                   <div id="ec-spt-nav-review" class="tab-pane fade">
                     <div class="row">
                       <div class="ec-t-review-wrapper">
-                        <div class="ec-t-review-item">
-                          <div class="ec-t-review-avtar">
-                            <img src="/static/client/images/review-image/1.jpg" alt="" />
-                          </div>
-                          <div class="ec-t-review-content">
-                            <div class="ec-t-review-top">
-                              <div class="ec-t-review-name">Jeny Doe</div>
-                              <div class="ec-t-review-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star-o"></i>
+                        <% comments.forEach(function(cmt){%>
+                          <% if(cmt){%> 
+                            <div class="ec-t-review-item">
+                              <div class="ec-t-review-avtar">
+                                <img src="<%= cmt.user.avatar %>" alt="" />
+                              </div>
+                              <div class="ec-t-review-content">
+                                <div class="ec-t-review-top">
+                                  <div class="ec-t-review-name"><%= cmt.user.firstName %> <%= cmt.user.lastName %></div>
+                                  <div class="ec-t-review-rating">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                  </div>
+                                </div>
+                                <div class="ec-t-review-bottom">
+                                  <p><%= cmt.content %></p>
+                                </div>
                               </div>
                             </div>
-                            <div class="ec-t-review-bottom">
-                              <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                                been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                                galley of type and scrambled it to make a type specimen.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ec-t-review-item">
-                          <div class="ec-t-review-avtar">
-                            <img src="/static/client/images/review-image/2.jpg" alt="" />
-                          </div>
-                          <div class="ec-t-review-content">
-                            <div class="ec-t-review-top">
-                              <div class="ec-t-review-name">Linda Morgus</div>
-                              <div class="ec-t-review-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star-o"></i>
-                                <i class="ecicon eci-star-o"></i>
-                              </div>
-                            </div>
-                            <div class="ec-t-review-bottom">
-                              <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                                been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                                galley of type and scrambled it to make a type specimen.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                          <%} %>
+                       
+                        <%}) %>
                       </div>
                       <div class="ec-ratting-content">
-                        <h3>Add a Review</h3>
+                        <h3>Đánh giá sản phẩm</h3>
                         <div class="ec-ratting-form">
-                          <form action="#">
-                            <div class="ec-ratting-star">
+                          <form action="#" id="form-comment">
+                            <!-- <div class="ec-ratting-star">
                               <span>Your rating:</span>
                               <div class="ec-t-review-rating">
                                 <i class="ecicon eci-star fill"></i>
@@ -229,17 +206,37 @@
                                 <i class="ecicon eci-star-o"></i>
                                 <i class="ecicon eci-star-o"></i>
                               </div>
-                            </div>
-                            <div class="ec-ratting-input">
+                            </div> -->
+                            <!-- <div class="ec-ratting-input">
                               <input name="your-name" placeholder="Name" type="text" />
                             </div>
                             <div class="ec-ratting-input">
                               <input name="your-email" placeholder="Email*" type="email" required />
-                            </div>
+                            </div> -->
+                            <% if(auth){%>
                             <div class="ec-ratting-input form-submit">
-                              <textarea name="your-commemt" placeholder="Enter Your Comment"></textarea>
-                              <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+                              <textarea name="" id="content" placeholder="Viết đánh giá của bạn về sản phẩm"></textarea>
+                              <button
+                                class="btn btn-primary"
+                                id="btn-comment"
+                                type="submit"
+                                value="Submit"
+                                data-product="<%= product.id %>"
+                                data-name="<%= user.firstName%> <%= user.lastName %>"
+                                data-avatar="<%= user.avatar %>"
+                              >
+                                Đánh giá
+                              </button>
                             </div>
+                            <%}else {%>
+                            <div class="ec-ratting-input form-submit">
+                              <textarea
+                                name="your-commemt"
+                                disabled
+                                placeholder="Vui lòng đăng nhập để sử dụng tính năng này"
+                              ></textarea>
+                            </div>
+                            <%} %>
                           </form>
                         </div>
                       </div>
@@ -297,7 +294,7 @@
                 </div>
               </div>
               <div class="ec-pro-content">
-                <h5 class="ec-pro-title"><a href="product-left-sidebar.html"><%= product.name %></a></h5>
+                <h5 class="ec-pro-title"><a href="/product/<%= product.slug %>"><%= product.name %></a></h5>
                 <div class="ec-pro-rating">
                   <i class="ecicon eci-star fill"></i>
                   <i class="ecicon eci-star fill"></i>
@@ -558,6 +555,54 @@
       document.getElementById('inc').addEventListener('click', () => {
         inputQuantity.value = parseInt(inputQuantity.value) + 1;
         btnAddToCart.setAttribute('data-quantity', inputQuantity.value);
+      });
+    </script>
+
+    <script>
+      document.getElementById('form-comment').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const product = document.getElementById('btn-comment').getAttribute('data-product');
+        const content = document.getElementById('content').value;
+        const name =  document.getElementById('btn-comment').getAttribute('data-name');
+        const avatar =  document.getElementById('btn-comment').getAttribute('data-avatar');
+
+
+        fetch('/api/v1/comments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ product, content }),
+        });
+
+        document.getElementById('content').value = '';
+
+        let element = `<div class="ec-t-review-item">
+                    <div class="ec-t-review-avtar">
+                        <img src="${avatar}" alt="" />
+                    </div>
+                    <div class="ec-t-review-content">
+                        <div class="ec-t-review-top">
+                          <div class="ec-t-review-name">${name}</div>
+                          <div class="ec-t-review-rating">
+                              <i class="ecicon eci-star fill"></i>
+                              <i class="ecicon eci-star fill"></i>
+                              <i class="ecicon eci-star fill"></i>
+                              <i class="ecicon eci-star fill"></i>
+                              <i class="ecicon eci-star-o"></i>
+                          </div>
+                        </div>
+                        <div class="ec-t-review-bottom">
+                          <p>
+                              ${content}
+                          </p>
+                        </div>
+                    </div>
+                  </div>`;
+      
+          document.querySelector(".ec-t-review-wrapper").insertAdjacentHTML('afterend',element)
+                  
       });
     </script>
   </body>

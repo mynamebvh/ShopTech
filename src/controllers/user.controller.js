@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { userService } = require('../services');
+const { userService,formDataService, imageService } = require('../services');
 const response = require('../utils/response');
 
 
@@ -34,7 +34,15 @@ const getUser = catchAsync(async (req, res) => {
 });
 
 const updateUser = catchAsync(async (req, res) => {
-  const user = await userService.updateUserById(req.params.userId, req.body);
+  const user = await userService.updateUserById(req.userId, req.body);
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
+});
+
+const updateAvatarUser = catchAsync(async (req, res) => {
+  const body = await formDataService.parseForm(req);
+  const { url } = await imageService.uploadImg(body.img.filepath);
+  
+  const user = await userService.updateAvatarUserById(req.userId, url);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công'));
 });
 
@@ -54,5 +62,6 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
-  lockUser
+  lockUser,
+  updateAvatarUser
 };

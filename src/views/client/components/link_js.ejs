@@ -30,6 +30,9 @@
 
 <script>
   const resultSearch = document.querySelector('.result-search');
+  const resultSearchMobi = document.querySelector('.result-search-mobi');
+
+
   document.getElementById('input-search').addEventListener('input', async ({ target }) => {
     const result = await (await fetch(`/s?text=${target.value}`)).json();
 
@@ -37,7 +40,7 @@
     if (result.length > 0) {
       result.forEach((p) => {
         listSearch += `<li>
-          <a href="/product/${p.slug}">${p.name}</a>
+          <a href=/product/${p.slug}>${p.name}</a>
           </li>`;
       });
       resultSearch.innerHTML = listSearch;
@@ -47,4 +50,25 @@
 
     }
   });
+
+
+  document.getElementById('input-search-mobi').addEventListener('input', async ({ target }) => {
+    const result = await (await fetch(`/s?text=${target.value}`)).json();
+
+    let listSearch = '';
+    if (result.length > 0) {
+      result.forEach((p) => {
+        listSearch += `<li class="result-search-mobi">
+          <a href=/product/${p.slug}>${p.name}</a>
+          </li>`;
+      });
+      resultSearchMobi.innerHTML = listSearch;
+      resultSearchMobi.style.display = 'block';
+    }else {
+      resultSearchMobi.style.display = 'none';
+
+    }
+  });
+
+  
 </script>

@@ -10,12 +10,14 @@ const router = express.Router();
 router
   .route('/')
   .post(auth, validate(userValidation.createUser), userController.createUser)
-  .get(auth, authorize('admin'), userController.getUsers);
+  .get(auth, authorize('admin'), userController.getUsers)
+  .patch(auth, userController.updateUser);
+
+router.post('/update-avatar', auth, userController.updateAvatarUser);
 
 router
   .route('/:userId')
   .get(validate(userValidation.getUser), userController.getUser)
-  .patch(userController.updateUser)
   .delete(validate(userValidation.deleteUser), userController.deleteUser)
   .lock(userController.lockUser);
 

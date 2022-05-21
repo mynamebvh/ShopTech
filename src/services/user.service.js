@@ -66,6 +66,24 @@ const updateUserById = async (userId, updateBody) => {
 };
 
 /**
+ * Update user by id
+ * @param {ObjectId} userId
+ * @param {String} avatar
+ * @returns {Promise<User>}
+ */
+const updateAvatarUserById = async (userId, avatar) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  Object.assign(user, { avatar });
+  await user.save();
+  return user;
+};
+
+/**
  * Lock user by id
  * @param {ObjectId} userId
  * @returns {Promise<User>}
@@ -102,5 +120,6 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
-  lockUserById
+  lockUserById,
+  updateAvatarUserById
 };

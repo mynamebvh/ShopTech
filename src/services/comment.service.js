@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const { Comment } = require('../models/index');
-
+const productService = require("./product.service")
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -17,6 +17,17 @@ const getComments = async (filter, options) => {
   return comments;
 };
 
+
+const getCommentsByProductSlug = async (slug) => {
+
+  const product = await productService.getProductBySlug(slug)
+
+  // console.log(product)
+  const comments = await Comment.find({product: product._id}).populate({path: "user", select: "firstName lastName avatar"});
+
+  // console.log(comments)
+  return comments;
+};
 /**
  * Create a comment
  * @param {Object} commentBody
@@ -74,4 +85,5 @@ module.exports = {
   createComment,
   updateCommentById,
   deleteCommentById,
+  getCommentsByProductSlug
 };

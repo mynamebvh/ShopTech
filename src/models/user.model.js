@@ -77,6 +77,18 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    avatar: {
+      type: String,
+    },
+    address: {
+      type: String,
+      trim: true
+    },
+    career: {
+      type: String,
+      trim: true,
+      default: "Người dùng"
+    }
   },
   {
     timestamps: true,
@@ -113,6 +125,14 @@ userSchema.pre('save', async function (next) {
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8);
   }
+  // if (user.isModified('gender')) {
+  //   if(user.gender == "nam"){
+  //     user.avatar = "/static/client/images/user/men.jpg"
+  //   }else {
+  //     user.avatar = "/static/client/images/user/woman.jpg"
+  //   }
+  // }
+
   next();
 });
 

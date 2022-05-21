@@ -19,6 +19,7 @@ const getCategorys = async () => {
  * @returns {Promise<Category>}
  */
 const getCategoryBySlug = async (filter, options, slug) => {
+  console.log(slug)
   const category = await Category.findOne({ slug });
   const products = await Product.paginate({ category: category._id }, options);
 

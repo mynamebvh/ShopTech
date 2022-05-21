@@ -65,9 +65,11 @@ const getProductBySlug = async (slug) => {
 
 
 const getRelatedProducts = async(slug) => {
+
+  console.log("slug")
   const {category = null} = await Product.findOne({slug})
 
-  const productRelateds = await Product.find({category}).sort("-createdAt").limit(4)
+  const productRelateds = await Product.find({category}).sort("-createdAt").limit(4).lean()
   return productRelateds 
 }
 
@@ -127,9 +129,20 @@ const queryRandom = async () => {
 };
 
 
-const searchProduct = async(text) => {
-  // console.log(await Product.find({ $text: { $search: text } }))
-  return Product.find({ $text: { $search: text } });
+const searchProduct = async(text, filter, options) => {
+  let sort = "";
+
+  if(options?.sortBy){
+    let [field , con] = options?.sortBy.split(':');
+
+    if(con == "asc"){
+      sort = `${field}`
+    }else {
+      sort = `-${field}`
+
+    }
+  }  
+  return Product.find( { $text: { $search: text } } ).sort(sort).limit(5).lean();
 }
 
 module.exports = {

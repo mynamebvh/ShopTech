@@ -2,7 +2,15 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { categoryService, postService, productService, sliderService, paymentService } = require('../services');
+const {
+  categoryService,
+  postService,
+  productService,
+  sliderService,
+  paymentService,
+  userService,
+  commentService,
+} = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
@@ -30,14 +38,15 @@ const listProduct = catchAsync(async (req, res) => {
 
 const productDetail = catchAsync(async (req, res) => {
   const slug = req.params.slug;
-
   const result = await Promise.all([
     categoryService.getCategorys(),
     productService.getProductBySlug(slug),
-    productService.getRelatedProducts(slug)
-  ])
+    productService.getRelatedProducts(slug),
+    commentService.getCommentsByProductSlug(slug),
+    userService.getUserById(req.userId)
+  ]);
 
-  res.render('client/product', { data: result[0], product: result[1], relateds: result[2] });
+  res.render('client/product', { data: result[0], product: result[1], relateds: result[2], auth: req.auth, comments: result[3], user: result[4]});
 });
 
 const cart = catchAsync(async (req, res) => {
@@ -74,9 +83,9 @@ const login = catchAsync(async (req, res) => {
 });
 
 const profile = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await Promise.all([categoryService.getCategorys(), userService.getUserById(req.userId)]);
 
-  res.render('client/profile', { data });
+  res.render('client/profile', { data: data[0], user: data[1] });
 });
 
 const payment = catchAsync(async (req, res) => {
@@ -92,6 +101,12 @@ const paymentReturn = catchAsync(async (req, res) => {
   res.render('client/payment/result', { msg, data });
 });
 
+const logOut = catchAsync(async (req, res) => {
+  res.clearCookie("tokens");
+
+  res.redirect("/")
+});
+
 module.exports = {
   homePage,
   listProduct,
@@ -104,4 +119,5 @@ module.exports = {
   profile,
   payment,
   paymentReturn,
+  logOut
 };
