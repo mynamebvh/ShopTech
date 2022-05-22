@@ -18,10 +18,7 @@ router.route('/order').get(viewUserController.payment);
 router.route('/payment_return').get(viewUserController.paymentReturn);
 router.route('/s').get(productController.searchProduct)
 router.route('/q').get(productController.searchProductView)
-
-
 router.route('/blogs/:slug').get(viewUserController.blogDetail);
-
 router.route('/product/:slug').get(authProduct, viewUserController.productDetail);
 router.route('/cart').get(viewUserController.cart);
 router.route('/profile').get(auth, viewUserController.profile);

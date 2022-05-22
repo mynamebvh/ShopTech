@@ -11,7 +11,7 @@ router.route('/').get(sliderController.getSliders).post(sliderController.createS
 router
   .route('/:sliderId')
   // .get(cache('post', 'postId'), postController.getPost)
-  // .patch(postController.updatePost, clearCache)
+  .patch(sliderController.updateSlider)
   .delete(sliderController.deleteSlider);
 
 module.exports = router;

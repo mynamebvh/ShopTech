@@ -28,16 +28,12 @@ const getSlider = catchAsync(async (req, res) => {
   //   return;
   // }
 
-  
-  
   const post = await postService.getPostById(postId);
   // await redisService.saveTypeHashes('posts', post._id.toString(), post);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', post));
 });
 
 const getSliders = catchAsync(async (req, res) => {
- 
-
   // const postCache = await redisService.getValueByKey('posts');
 
   // if (postCache) {
@@ -50,38 +46,33 @@ const getSliders = catchAsync(async (req, res) => {
   const { length, start } = req.query;
   options.page = start / length + 1;
   options.limit = length;
-  
+
   const data = await sliderService.getSliders(filter, options);
   data.draw = parseInt(req.query.draw);
 
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', data));
 });
 
-const updatePost = catchAsync(async (req, res, next) => {
+const updateSlider = catchAsync(async (req, res, next) => {
   const body = await formDataService.parseForm(req);
-  const { url } = await imageService.uploadImg(body.thumbnail?.filepath);
-  const { title, content, tag } = body.fields;
+  const { url } = await imageService.uploadImg(body.img.filepath);
+  const { title, description, link } = body.fields;
+  const { sliderId } = req.params;
 
   const updateBody = {
     title,
-    content,
-    tag,
-    thumbnail: url,
-    user: req.userId,
+    description,
+    link,
+    thumbnail
   };
 
-  if(!url){
+  if (!url) {
     delete updateBody.thumbnail;
   }
 
-  const post = await postService.updatePostById(req.params.postId, updateBody);
+  const slider = await sliderService.updateSliderById(sliderId, updateBody);
 
-  res.locals = {
-    category: 'post',
-    id: req.params.postId,
-  };
-
-  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', post));
+  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', slider));
   next();
 });
 
@@ -93,5 +84,6 @@ const deleteSlider = catchAsync(async (req, res) => {
 module.exports = {
   createSlider,
   deleteSlider,
-  getSliders
+  getSliders,
+  updateSlider,
 };

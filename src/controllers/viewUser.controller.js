@@ -31,6 +31,7 @@ const listProduct = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
+  console.log("cate", req.params)
   const category = await categoryService.getCategoryBySlug(filter, options, req.params.category);
   // const products = await productService.getProductByCategory(category)
   res.render('client/listProduct', { data, products: category.products.data });

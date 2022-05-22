@@ -142,7 +142,10 @@ const searchProduct = async(text, filter, options) => {
 
     }
   }  
-  return Product.find( { $text: { $search: text } } ).sort(sort).limit(5).lean();
+  return Product.find({ $or: [{ $text: { $search: text } }, { name: { $regex: new RegExp(text, 'gi') } }] })
+    .sort(sort)
+    .limit(5)
+    .lean();
 }
 
 module.exports = {

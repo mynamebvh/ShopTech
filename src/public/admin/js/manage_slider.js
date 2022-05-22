@@ -13,7 +13,7 @@ const loadUsers = () => {
       dataSrc: function (json) {
         json.data.forEach((element) => {
           element.method = `
-          <a href="/admin/manage-blog/edit/${element.id}">
+          <a href="/admin/manage-slider/edit/${element.id}">
             <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> Sửa</button>
           </a>
 					

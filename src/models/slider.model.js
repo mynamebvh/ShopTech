@@ -22,6 +22,10 @@ const sliderSchema = mongoose.Schema(
     isShow: {
       type: Boolean,
       default: true
+    },
+    link: {
+      type: String,
+      trim: true
     }
   },
   {

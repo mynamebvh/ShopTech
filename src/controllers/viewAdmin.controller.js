@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { categoryService, postService, productService } = require('../services');
+const { categoryService, postService, productService, sliderService } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
   res.render('admin/dashboard');
@@ -65,6 +65,13 @@ const createSlider = catchAsync(async (req, res) => {
   res.render('admin/manage_slider/create');
 });
 
+const editSlider = catchAsync(async (req, res) => {
+  const data = await sliderService.getSliderById(req.params.id)
+
+  console.log(data)
+  res.render('admin/manage_slider/edit', { data });
+});
+
 module.exports = {
   homePage,
   loginPage,
@@ -78,5 +85,6 @@ module.exports = {
   editProduct,
   manageCheckout,
   manageSlider,
-  createSlider
+  createSlider,
+  editSlider
 };

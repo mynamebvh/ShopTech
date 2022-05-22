@@ -45,7 +45,8 @@ const getSliderById = async (id) => {
  * @returns {Promise<Slider>}
  */
 const updateSliderById = async (sliderId, updateBody) => {
-  const slider = await getSliderById(postId);
+  console.log("id" ,sliderId )
+  const slider = await getSliderById(sliderId);
   
   if (!slider) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Slider không tồn tại');
@@ -76,5 +77,6 @@ module.exports = {
   getSliders,
   createSlider,
   updateSliderById,
-  deleteSliderById
+  deleteSliderById,
+  getSliderById
 };

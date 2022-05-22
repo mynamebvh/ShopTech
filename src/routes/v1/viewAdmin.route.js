@@ -22,6 +22,7 @@ router.route('/manage-blog').get(auth, authorize('admin', 'render'), viewAdminCo
 router.route('/manage-checkout').get(auth, authorize('admin', 'render'), viewAdminController.manageCheckout);
 router.route('/manage-slider').get(auth, authorize('admin', 'render'), viewAdminController.manageSlider);
 router.route('/manage-slider/create').get(auth, authorize('admin', 'render'), viewAdminController.createSlider);
+router.route('/manage-slider/edit/:id').get(auth, authorize('admin', 'render'), viewAdminController.editSlider);
 
 router.route('/').get(viewAdminController.loginPage);
 
