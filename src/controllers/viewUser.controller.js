@@ -17,7 +17,7 @@ const homePage = catchAsync(async (req, res) => {
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
   const result = await Promise.all([
-    categoryService.getCategorys(),
+    categoryService.getAllCategorys(),
     sliderService.getSliders(filter, options),
     productService.queryClassification(),
     productService.queryRandom(),
@@ -27,11 +27,11 @@ const homePage = catchAsync(async (req, res) => {
 });
 
 const listProduct = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
-  console.log("cate", req.params)
+  console.log('cate', req.params);
   const category = await categoryService.getCategoryBySlug(filter, options, req.params.category);
   // const products = await productService.getProductByCategory(category)
   res.render('client/listProduct', { data, products: category.products.data });
@@ -44,10 +44,17 @@ const productDetail = catchAsync(async (req, res) => {
     productService.getProductBySlug(slug),
     productService.getRelatedProducts(slug),
     commentService.getCommentsByProductSlug(slug),
-    userService.getUserById(req.userId)
+    userService.getUserById(req.userId),
   ]);
 
-  res.render('client/product', { data: result[0], product: result[1], relateds: result[2], auth: req.auth, comments: result[3], user: result[4]});
+  res.render('client/product', {
+    data: result[0],
+    product: result[1],
+    relateds: result[2],
+    auth: req.auth,
+    comments: result[3],
+    user: result[4],
+  });
 });
 
 const cart = catchAsync(async (req, res) => {
@@ -102,11 +109,11 @@ const paymentReturn = catchAsync(async (req, res) => {
   res.render('client/payment/result', { msg, data });
 });
 
-const logOut = catchAsync(async (req, res) => {
-  res.clearCookie("tokens");
+const logout = (req, res) => {
+  res.clearCookie('tokens');
 
-  res.redirect("/")
-});
+  res.redirect('/');
+};
 
 module.exports = {
   homePage,
@@ -120,5 +127,5 @@ module.exports = {
   profile,
   payment,
   paymentReturn,
-  logOut
+  logout,
 };

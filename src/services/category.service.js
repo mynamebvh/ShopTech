@@ -9,7 +9,12 @@ const ApiError = require('../utils/ApiError');
  * Query for category
  * @returns {Promise<Category>}
  */
-const getCategorys = async () => {
+const getCategorys = async (filter, options) => {
+  const category = await Category.paginate(filter, options);
+  return category;
+};
+
+const getAllCategorys = async () => {
   const category = await Category.find().lean();
   return category;
 };
@@ -19,7 +24,7 @@ const getCategorys = async () => {
  * @returns {Promise<Category>}
  */
 const getCategoryBySlug = async (filter, options, slug) => {
-  console.log(slug)
+  // console.log(slug)
   const category = await Category.findOne({ slug });
   const products = await Product.paginate({ category: category._id }, options);
 
@@ -88,4 +93,5 @@ module.exports = {
   createCategory,
   updateCategoryById,
   deleteCategoryById,
+  getAllCategorys,
 };

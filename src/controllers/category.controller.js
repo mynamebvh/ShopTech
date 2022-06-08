@@ -13,7 +13,9 @@ const createCategory = catchAsync(async (req, res) => {
 });
 
 const getCategorys = catchAsync(async (req, res) => {
-  const result = await categoryService.getCategorys();
+  const filter = pick(req.query, ['name', 'role']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await categoryService.getCategorys(filter, options);
   result.draw = parseInt(req.query.draw);
 
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', result));

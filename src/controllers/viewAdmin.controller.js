@@ -18,7 +18,7 @@ const manageProduct = catchAsync(async (req, res) => {
 });
 
 const createProduct = catchAsync(async (req, res) => {
-  const categorys = await categoryService.getCategorys();
+  const categorys = await categoryService.getAllCategorys();
 
   console.log(categorys);
   res.render('admin/manage_product/create', { categorys });
@@ -46,7 +46,7 @@ const editArticles = catchAsync(async (req, res) => {
 });
 
 const editProduct = catchAsync(async (req, res) => {
-  const categorys = await categoryService.getCategorys();
+  const categorys = await categoryService.getAllCategorys();
 
   const product = await productService.getProductById(req.params.id);
   // console.log(data)

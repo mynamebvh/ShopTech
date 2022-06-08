@@ -11,10 +11,9 @@ const { sliderService, redisService, formDataService, imageService } = require('
 const createSlider = catchAsync(async (req, res) => {
   const body = await formDataService.parseForm(req);
   const { url } = await imageService.uploadImg(body.img.filepath);
-  const { title, description } = body.fields;
+  const { title, description, link } = body.fields;
 
-  // // console.log(body)
-  const slider = await sliderService.createSlider({ title, description, url: url });
+  const slider = await sliderService.createSlider({ title, description, url: url, link });
 
   res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công'));
 });
@@ -63,7 +62,7 @@ const updateSlider = catchAsync(async (req, res, next) => {
     title,
     description,
     link,
-    thumbnail
+    thumbnail,
   };
 
   if (!url) {
