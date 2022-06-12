@@ -1,9 +1,12 @@
 const httpStatus = require('http-status');
 const mongoose = require('mongoose');
+const voucherService = require("./voucher.service")
+const orderService = require("./order.service")
 
 const { OrderProduct, OrderDetail } = require('../models/index');
 
 const ApiError = require('../utils/ApiError');
+const calculatorVoucher =  require('../utils/calculatorVoucher');
 
 /**
  * Query for order detail
@@ -25,17 +28,25 @@ const getOrderDetails = async (filter, options) => {
  * @returns {Promise<QueryResult>}
  */
 const getOrdersDetailByOrderId = async (id) => {
-  let orderDetail = await OrderDetail.findOne({ order: id })
-    .populate({
-      path: 'products',
-      populate: { path: 'product' },
-    })
-    .lean();
+  let result = await Promise.all([
+    OrderDetail.findOne({ order: id })
+      .populate({
+        path: 'products',
+        populate: { path: 'product' },
+      })
+      .lean(),
+    orderService.getOrderById(id)
+  ]);
 
+  const [orderDetail, order] = result;
+
+  const { type, max, discount } = await voucherService.getVoucherByCode(order.code)
   orderDetail.total = orderDetail.products.reduce((a, b) => {
     return a + b.product.price * b.product.quantity;
   }, 0);
 
+  orderDetail.total += orderDetail.total * 0.08;
+  orderDetail.discount = calculatorVoucher(type, discount, max, orderDetail.total) ;
   return orderDetail;
 };
 

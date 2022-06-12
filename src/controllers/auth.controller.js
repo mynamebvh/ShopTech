@@ -1,4 +1,6 @@
 const httpStatus = require('http-status');
+const axios = require('axios');
+
 const catchAsync = require('../utils/catchAsync');
 const response = require('../utils/response');
 const { authService, userService, tokenService, emailService } = require('../services');
@@ -33,7 +35,16 @@ const refreshTokens = catchAsync(async (req, res) => {
 
 const forgotPassword = catchAsync(async (req, res) => {
   const resetPasswordToken = await tokenService.generateResetPasswordToken(req.body.email);
-  await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
+
+  const data = await axios.post('http://localhost:5000/forgot-email', {
+    type: 'FORGOT_PASSWORD',
+    options: {
+      email: req.body.email,
+      subject: 'ShopTech - Khôi phục mật khẩu',
+    },
+    link: `localhost:3000/api/auth/forgot-password?=token=${resetPasswordToken}`,
+  });
+  // await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

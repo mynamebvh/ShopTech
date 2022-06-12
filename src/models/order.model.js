@@ -31,7 +31,9 @@ const orderSchema = mongoose.Schema(
     fullname: { type: String, required: [true, 'Họ tên là bắt buộc'], trim: true },
     note: { type: String, trim: true },
     txnRef: { type: String, trim: true },
+    code: { type: String, trim: true },
   },
+
   {
     timestamps: true,
   }

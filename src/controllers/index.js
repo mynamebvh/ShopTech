@@ -9,4 +9,6 @@ module.exports.commentController = require('./comment.controller');
 module.exports.orderDetailController = require('./order_detail.controller');
 module.exports.sliderController = require('./slider.controller');
 module.exports.viewUserController = require('./viewUser.controller');
+module.exports.voucherUserController = require('./voucher_user.controller');
+
 

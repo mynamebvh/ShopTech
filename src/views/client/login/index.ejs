@@ -32,9 +32,9 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <div class="section-title">
-              <h2 class="ec-bg-title">Log In</h2>
-              <h2 class="ec-title">Log In</h2>
-              <p class="sub-title mb-3">Best place to buy and sell digital products</p>
+              <h2 class="ec-bg-title">Đăng nhập</h2>
+              <h2 class="ec-title">Đăng nhập</h2>
+              <p class="sub-title mb-3"></p>
             </div>
           </div>
           <div class="ec-login-wrapper">
@@ -43,18 +43,18 @@
                 <form action="#" method="post" class="form-login">
                   <span class="ec-login-wrap">
                     <label>Email*</label>
-                    <input id="email" type="text" name="name" placeholder="Enter your email add..." required="" value=""/>
+                    <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
                   </span>
                   <span class="ec-login-wrap">
                     <label>Mật khẩu*</label>
-                    <input id="password" type="password" name="password" placeholder="Enter your password" required="" value=""/>
+                    <input id="password" type="password" name="password" placeholder="Nhập mật khẩu" required="" value=""/>
                   </span>
                   <span class="ec-login-wrap ec-login-fp">
-                    <label><a href="#">Forgot Password?</a></label>
+                    <label><a href="#">Quên mật khẩu?</a></label>
                   </span>
                   <span class="ec-login-wrap ec-login-btn">
-                    <button class="btn btn-primary" type="submit">Login</button>
-                    <a href="register.html" class="btn btn-secondary">Register</a>
+                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                    <a href="register.html" class="btn btn-secondary">Đăng ký</a>
                   </span>
                 </form>
               </div>
@@ -80,7 +80,13 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.code == 200) window.location.href = '/profile';
+            console.log(data)
+            localStorage.setItem('techSession', JSON.stringify(data));
+            if (data.code == 200) {
+              setTimeout(() => {
+              }, 200);
+              window.location.href = '/profile';
+            }
             else {
               alert('Tài khoản hoặc mật khẩu sai');
             }
@@ -89,6 +95,7 @@
             alert('Tài khoản hoặc mật khẩu sai');
           });
       });
+
     </script>
   </body>
 </html>

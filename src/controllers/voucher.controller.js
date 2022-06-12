@@ -8,7 +8,8 @@ const response = require('../utils/response');
 const { voucherService } = require('../services');
 
 const createVoucher = catchAsync(async (req, res) => {
-  const voucher = await voucherService.createVoucher(req.body);
+  const {name, desc, type,timeStart, timeEnd, discount,max, quantity} = req.body;
+  const voucher = await voucherService.createVoucher({name, desc, type,timeStart, timeEnd, discount,max, quantity});
   res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công', voucher));
 });
 
@@ -20,7 +21,9 @@ const getVouchers = catchAsync(async (req, res) => {
 });
 
 const updateVoucher = catchAsync(async (req, res) => {
-  const voucher = await voucherService.updateVoucherById(req.params.voucherId, req.body);
+  const {name, desc, type,timeStart, timeEnd, discount,max, quantity} = req.body;
+
+  const voucher = await voucherService.updateVoucherById(req.params.voucherId, {name, desc, type,timeStart, timeEnd, discount,max, quantity});
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', voucher));
 });
 

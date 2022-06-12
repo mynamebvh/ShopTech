@@ -12,6 +12,9 @@ router.route('/manage-product').get(auth, authorize('admin', 'render'), viewAdmi
 router.route('/manage-product/create').get(auth, authorize('admin', 'render'), viewAdminController.createProduct);
 router.route('/manage-product/edit/:id').get(auth, authorize('admin', 'render'), viewAdminController.editProduct);
 
+router.route('/manage-voucher').get(auth, authorize('admin', 'render'), viewAdminController.manageVoucher);
+
+
 router.route('/manage-category').get(auth, authorize('admin', 'render'), viewAdminController.manageCategory);
 router.route('/manage-user').get(auth, authorize('admin', 'render'), viewAdminController.manageUser);
 router.route('/manage-blog/create').get(auth, authorize('admin', 'render'), viewAdminController.createArticles);

@@ -1,0 +1,1491 @@
+<html lang="en" style="--primary02: rgba(56, 202, 179, 0.2); --primary05: rgba(56, 202, 179, 0.5)">
+  <!-- Mirrored from spruko.com/demo/nowa/Nowa/HTML/table-data.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Apr 2022 08:11:16 GMT --><head>
+    <style data-styles="">
+      ion-icon {
+        visibility: hidden;
+      }
+      .hydrated {
+        visibility: inherit;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template" />
+    <meta name="Author" content="Spruko Technologies Private Limited" />
+    <meta
+      name="Keywords"
+      content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"
+    />
+    <!-- Title -->
+    <title>Quản lý mã giảm giá</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/static/admin/img/brand/favicon.png" type="image/x-icon" />
+    <!-- Icons css -->
+    <!-- <link href="/static/admin/css/icons.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="/static/admin/plugins/line-awesome/css/line-awesome.css" async />
+    <link rel="stylesheet" href="/static/admin/plugins/feather/feather.css" async />
+    <link rel="stylesheet" href="/static/admin/plugins/fontawesome-free/css/all.min.css" async />
+
+    <!--  bootstrap css-->
+    <link href="/static/admin/plugins/notify/css/notifIt.css" rel="stylesheet" async />
+    <link href="/static/admin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" async />
+    <!-- Data table css -->
+    <link href="/static/admin/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" async />
+    <link href="/static/admin/plugins/datatable/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+    <!-- <link href="/static/admin/plugins/datatable/responsive.bootstrap5.css" rel="stylesheet" async/> -->
+    <!--  Right-sidemenu css -->
+    <!-- <link href="/static/admin/plugins/sidebar/sidebar.css" rel="stylesheet" async/> -->
+    <!-- P-scroll bar css-->
+    <!-- <link href="/static/admin/plugins/perfect-scrollbar/p-scrollbar.css" rel="stylesheet" /> -->
+    <!--- Style css --->
+    <link href="https://spruko.com/demo/nowa/Nowa/assets/css/style.css" rel="stylesheet" async />
+    <!-- <link href="/static/admin/css/style-dark.css" rel="stylesheet" async/> -->
+    <!-- <link href="/static/admin/css/style-transparent.css" rel="stylesheet" async/> -->
+    <!-- INTERNAL Select2 css -->
+    <!-- <link href="/static/admin/plugins/select2/css/select2.min.css" rel="stylesheet" /> -->
+    <!---Skinmodes css-->
+    <!-- <link href="/static/admin/css/skin-modes.css" rel="stylesheet" /> -->
+    <!--- Animations css-->
+    <!-- <link href="/static/admin/css/animate.css" rel="stylesheet" async/> -->
+    <!-- INTERNAL Switcher css -->
+    <!-- <link href="/static/admin/switcher/css/switcher.css" rel="stylesheet" /> -->
+    <!-- <link href="/static/admin/switcher/demo.css" rel="stylesheet" /> -->
+    <meta http-equiv="imagetoolbar" content="no" />
+  </head>
+  <body class="ltr main-body app sidebar-mini">
+    <div class="horizontalMenucontainer">
+      <!-- Loader -->
+      <div id="global-loader" style="display: none">
+        <img src="/static/admin/img/loader.svg" class="loader-img" alt="Loader" />
+      </div>
+      <!-- /Loader -->
+      <!-- Page -->
+      <div class="page">
+        <div>
+          <!-- main-header -->
+          <%- include ("../components/header")%>
+
+          <div class="jumps-prevent" style="padding-top: 63px"></div>
+          <!-- /main-header -->
+          <!-- main-sidebar -->
+          <%- include ("../components/left")%>
+
+          <div class="jumps-prevent" style="padding-top: 63px"></div>
+          <!-- main-sidebar -->
+        </div>
+        <!-- main-content -->
+        <div class="main-content app-content">
+          <!-- container -->
+          <div class="main-container container-fluid">
+            <!-- breadcrumb -->
+            <div class="breadcrumb-header justify-content-between">
+              <div class="left-content"><span class="main-content-title mg-b-0 mg-b-lg-1">Quản lí mã giảm giá</span></div>
+              <div class="justify-content-center mt-2">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Quản lí mã giảm giá</li>
+                </ol>
+              </div>
+            </div>
+            <!-- /breadcrumb -->
+
+            <!-- Row -->
+            <div class="row row-sm">
+              <div class="col-lg-12">
+                <div class="card custom-card overflow-hidden">
+                  <div class="card-body">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-w-sm"
+                      data-bs-toggle="modal"
+                      data-bs-target="#create-modal"
+                    >
+                      <i class="fa fa-paper-plane"></i> Tạo
+                    </button>
+
+                    <div>
+                      <h6 class="main-content-label mb-1"></h6>
+                      <p class="text-muted card-sub-title"></p>
+                    </div>
+                    <div class="table-responsive export-table">
+                      <div id="file-datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <table
+                              id="file-datatable"
+                              class="
+                                table table-bordered
+                                text-nowrap
+                                key-buttons
+                                border-bottom
+                                dataTable
+                                no-footer
+                                dtr-inline
+                              "
+                              role="grid"
+                              aria-describedby="file-datatable_info"
+                              style="width: 959px"
+                            >
+                              <thead>
+                                <tr role="row">
+                                  <th>#</th>
+                                  <th>Tên</th>
+                                  <th>Mô tả</th>
+                                  <th>Code</th>
+                                  <th>Thời gian bắt đầu</th>
+                                  <th>Thời gian kết thúc</th>
+                                  <!-- <th>Trạng thái</th> -->
+                                  <th>Chức năng</th>
+                                </tr>
+                              </thead>
+                              <tbody></tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- Container closed -->
+        </div>
+        <!-- main-content closed -->
+        <!-- Sidebar-right-->
+        <div class="sidebar sidebar-right sidebar-animate ps ps--active-y">
+          <div class="panel panel-primary card mb-0 box-shadow">
+            <div class="tab-menu-heading card-img-top-1 border-0 p-3">
+              <div class="card-title mb-0">Notifications</div>
+              <div class="card-options ms-auto">
+                <a href="javascript:void(0);" class="sidebar-remove"><i class="fe fe-x"></i></a>
+              </div>
+            </div>
+            <div class="panel-body tabs-menu-body latest-tasks p-0 border-0">
+              <div class="tabs-menu">
+                <!-- Tabs -->
+                <ul class="nav panel-tabs">
+                  <li class="">
+                    <a href="#side1" class="active" data-bs-toggle="tab"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="side-menu__icon"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                      >
+                        <path d="M0 0h24v24H0V0z" fill="none"></path>
+                        <path
+                          d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
+                        ></path>
+                      </svg>
+                      Chat</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#side2" data-bs-toggle="tab"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="side-menu__icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"
+                        ></path>
+                      </svg>
+                      Notifications</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#side3" data-bs-toggle="tab"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        class="side-menu__icon"
+                        height="24"
+                        version="1.1"
+                        width="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M7.07,18.28C7.5,17.38 10.12,16.5 12,16.5C13.88,16.5 16.5,17.38 16.93,18.28C15.57,19.36 13.86,20 12,20C10.14,20 8.43,19.36 7.07,18.28M18.36,16.83C16.93,15.09 13.46,14.5 12,14.5C10.54,14.5 7.07,15.09 5.64,16.83C4.62,15.5 4,13.82 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,13.82 19.38,15.5 18.36,16.83M12,6C10.06,6 8.5,7.56 8.5,9.5C8.5,11.44 10.06,13 12,13C13.94,13 15.5,11.44 15.5,9.5C15.5,7.56 13.94,6 12,6M12,11C11.17,11 10.5,10.33 10.5,9.5C10.5,8.67 11.17,8 12,8C12.83,8 13.5,8.67 13.5,9.5C13.5,10.33 12.83,11 12,11Z"
+                        ></path>
+                      </svg>
+                      Friends</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content">
+                <div class="tab-pane active" id="side1">
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-primary brround avatar-md">CH</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>New Websites is Created</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">30 mins ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-danger brround avatar-md">N</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Prepare For the Next Project</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">2 hours ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-info brround avatar-md">S</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Decide the live Discussion</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">3 hours ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-warning brround avatar-md">K</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Meeting at 3:00 pm</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">4 hours ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-success brround avatar-md">R</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Prepare for Presentation</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">1 days ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-pink brround avatar-md">MS</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Prepare for Presentation</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">1 days ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center border-bottom p-3">
+                    <div class=""><span class="avatar bg-purple brround avatar-md">L</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Prepare for Presentation</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">45 mintues ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="list d-flex align-items-center p-3">
+                    <div class=""><span class="avatar bg-blue brround avatar-md">U</span></div>
+                    <a class="wrapper w-100 ms-3" href="javascript:void(0);">
+                      <p class="mb-0 d-flex"><b>Prepare for Presentation</b></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                          <i class="mdi mdi-clock text-muted me-1 tx-11"></i>
+                          <small class="text-muted ms-auto">2 days ago</small>
+                          <p class="mb-0"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane" id="side2">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/12.jpg"
+                          style="background: url('/static/admin/img/faces/12.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Madeleine</strong> Hey! there I' am available....
+                        <div class="small text-muted">3 hours ago</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/1.jpg"
+                          style="background: url('/static/admin/img/faces/1.jpg') center center"
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Anthony</strong> New product Launching...
+                        <div class="small text-muted">5 hour ago</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/2.jpg"
+                          style="background: url('/static/admin/img/faces/2.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Olivia</strong> New Schedule Realease......
+                        <div class="small text-muted">45 mintues ago</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/8.jpg"
+                          style="background: url('/static/admin/img/faces/8.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Madeleine</strong> Hey! there I' am available....
+                        <div class="small text-muted">3 hours ago</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/11.jpg"
+                          style="background: url('/static/admin/img/faces/11.jpg') center center"
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Anthony</strong> New product Launching...
+                        <div class="small text-muted">5 hour ago</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/6.jpg"
+                          style="background: url('/static/admin/img/faces/6.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Olivia</strong> New Schedule Realease......
+                        <div class="small text-muted">45 mintues ago</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-3">
+                        <span
+                          class="avatar avatar-lg brround cover-image"
+                          data-image-src="/static/admin/img/faces/9.jpg"
+                          style="background: url('/static/admin/img/faces/9.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div>
+                        <strong>Olivia</strong> Hey! there I' am available....
+                        <div class="small text-muted">12 mintues ago</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="side3">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/9.jpg"
+                          style="background: url('/static/admin/img/faces/9.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Mozelle Belt
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/11.jpg"
+                          style="background: url('/static/admin/img/faces/11.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Florinda Carasco
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/10.jpg"
+                          style="background: url('/static/admin/img/faces/10.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Alina Bernier
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/2.jpg"
+                          style="background: url('/static/admin/img/faces/2.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Zula Mclaughin
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/13.jpg"
+                          style="background: url('/static/admin/img/faces/13.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Isidro Heide
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/12.jpg"
+                          style="background: url('/static/admin/img/faces/12.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Mozelle Belt
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-outline-light btn-rounded"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/4.jpg"
+                          style="background: url('/static/admin/img/faces/4.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Florinda Carasco
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/7.jpg"
+                          style="background: url('/static/admin/img/faces/7.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Alina Bernier
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-outline-light btn-rounded"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/2.jpg"
+                          style="background: url('/static/admin/img/faces/2.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Zula Mclaughin
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/14.jpg"
+                          style="background: url('/static/admin/img/faces/14.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Isidro Heide
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-outline-light btn-rounded"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/11.jpg"
+                          style="background: url('/static/admin/img/faces/11.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Florinda Carasco
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/9.jpg"
+                          style="background: url('/static/admin/img/faces/9.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Alina Bernier
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/15.jpg"
+                          style="background: url('/static/admin/img/faces/15.jpg') center center"
+                          ><span class="avatar-status bg-success"></span
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Zula Mclaughin
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div class="list-group-item d-flex align-items-center">
+                      <div class="me-2">
+                        <span
+                          class="avatar avatar-md brround cover-image"
+                          data-image-src="/static/admin/img/faces/4.jpg"
+                          style="background: url('/static/admin/img/faces/4.jpg') center center"
+                        ></span>
+                      </div>
+                      <div class="">
+                        <div class="font-weight-semibold" data-bs-toggle="modal" data-bs-target="#chatmodel">
+                          Isidro Heide
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm btn-outline-light btn-rounded"
+                          data-bs-toggle="modal"
+                          data-bs-target="#chatmodel"
+                          ><i class="mdi mdi-message-outline"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ps__rail-x" style="left: 0px; bottom: 0px">
+            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px"></div>
+          </div>
+          <div class="ps__rail-y" style="top: 0px; height: 577px; right: 0px">
+            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 472px"></div>
+          </div>
+        </div>
+        <!--/Sidebar-right-->
+
+        <!-- Message Modal -->
+        <div class="modal fade" id="chatmodel" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-right chatbox" role="document">
+            <div class="modal-content chat border-0">
+              <div class="card overflow-hidden mb-0 border-0">
+                <!-- action-header -->
+                <div class="action-header clearfix">
+                  <div class="float-start hidden-xs d-flex ms-2">
+                    <div class="img_cont me-3">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img" alt="img" />
+                    </div>
+                    <div class="align-items-center mt-0">
+                      <h4 class="text-white mb-0 font-weight-semibold">Daneil Scott</h4>
+                      <span class="dot-label bg-success"></span><span class="me-3 text-white">online</span>
+                    </div>
+                  </div>
+                  <ul class="ah-actions actions align-items-center">
+                    <li class="call-icon">
+                      <a href="" class="d-done d-md-block phone-button" data-bs-toggle="modal" data-bs-target="#audiomodal">
+                        <i class="fe fe-phone"></i>
+                      </a>
+                    </li>
+                    <li class="video-icon">
+                      <a href="" class="d-done d-md-block phone-button" data-bs-toggle="modal" data-bs-target="#videomodal">
+                        <i class="fe fe-video"></i>
+                      </a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="" data-bs-toggle="dropdown" aria-expanded="true"> <i class="fe fe-more-vertical"></i> </a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li><i class="fa fa-user-circle"></i> View profile</li>
+                        <li><i class="fa fa-users"></i>Add friends</li>
+                        <li><i class="fa fa-plus"></i> Add to group</li>
+                        <li><i class="fa fa-ban"></i> Block</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="" class="" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fe fe-x-circle text-white"></i></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- action-header end -->
+                <!-- msg_card_body -->
+                <div class="card-body msg_card_body">
+                  <div class="chat-box-single-line"><abbr class="timestamp">july 1st, 2021</abbr></div>
+                  <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                    <div class="msg_cotainer">Hi, how are you Jenna Side? <span class="msg_time">8:40 AM, Today</span></div>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <div class="msg_cotainer_send">
+                      Hi Connor Paige i am good tnx how about you? <span class="msg_time_send">8:55 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/9.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                    <div class="msg_cotainer">
+                      I am good too, thank you for your chat template <span class="msg_time">9:00 AM, Today</span>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <div class="msg_cotainer_send">
+                      You welcome Connor Paige <span class="msg_time_send">9:05 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/9.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                    <div class="msg_cotainer">Yo, Can you update Views? <span class="msg_time">9:07 AM, Today</span></div>
+                  </div>
+                  <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">
+                      But I must explain to you how all this mistaken born and I will give
+                      <span class="msg_time_send">9:10 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/9.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                    <div class="msg_cotainer">Yo, Can you update Views? <span class="msg_time">9:07 AM, Today</span></div>
+                  </div>
+                  <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">
+                      But I must explain to you how all this mistaken born and I will give
+                      <span class="msg_time_send">9:10 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/9.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                    <div class="msg_cotainer">Yo, Can you update Views? <span class="msg_time">9:07 AM, Today</span></div>
+                  </div>
+                  <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">
+                      But I must explain to you how all this mistaken born and I will give
+                      <span class="msg_time_send">9:10 AM, Today</span>
+                    </div>
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/9.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-start">
+                    <div class="img_cont_msg">
+                      <img src="/static/admin/img/faces/6.jpg" class="rounded-circle user_img_msg" alt="img" />
+                    </div>
+                    <div class="msg_cotainer">Okay Bye, text you later.. <span class="msg_time">9:12 AM, Today</span></div>
+                  </div>
+                </div>
+                <!-- msg_card_body end -->
+                <!-- card-footer -->
+                <div class="card-footer">
+                  <div class="msb-reply d-flex">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Typing...." />
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-primary">
+                          <i class="far fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card-footer end -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Video Modal -->
+        <div id="videomodal" class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body mx-auto text-center p-7">
+                <h5>Nowa Video call</h5>
+                <img
+                  src="/static/admin/img/faces/6.jpg"
+                  class="rounded-circle user-img-circle h-8 w-8 mt-4 mb-3"
+                  alt="img"
+                />
+                <h4 class="mb-1 font-weight-semibold">Daneil Scott</h4>
+                <h6>Calling...</h6>
+                <div class="mt-5">
+                  <div class="row">
+                    <div class="col-4">
+                      <a class="icon icon-shape rounded-circle mb-0 me-3" href="javascript:void(0);">
+                        <i class="fas fa-video-slash"></i>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <a
+                        class="icon icon-shape rounded-circle text-white mb-0 me-3"
+                        href="javascript:void(0);"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <i class="fas fa-phone bg-danger text-white"></i>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <a class="icon icon-shape rounded-circle mb-0 me-3" href="javascript:void(0);">
+                        <i class="fas fa-microphone-slash"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- modal-body -->
+            </div>
+          </div>
+          <!-- modal-dialog -->
+        </div>
+        <!-- modal -->
+        <!-- Audio Modal -->
+        <div id="audiomodal" class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body mx-auto text-center p-7">
+                <h5>Nowa Voice call</h5>
+                <img
+                  src="/static/admin/img/faces/6.jpg"
+                  class="rounded-circle user-img-circle h-8 w-8 mt-4 mb-3"
+                  alt="img"
+                />
+                <h4 class="mb-1 font-weight-semibold">Daneil Scott</h4>
+                <h6>Calling...</h6>
+                <div class="mt-5">
+                  <div class="row">
+                    <div class="col-4">
+                      <a class="icon icon-shape rounded-circle mb-0 me-3" href="javascript:void(0);">
+                        <i class="fas fa-volume-up bg-light"></i>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <a
+                        class="icon icon-shape rounded-circle text-white mb-0 me-3"
+                        href="javascript:void(0);"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <i class="fas fa-phone text-white bg-primary"></i>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <a class="icon icon-shape rounded-circle mb-0 me-3" href="javascript:void(0);">
+                        <i class="fas fa-microphone-slash bg-light"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- modal-body -->
+            </div>
+          </div>
+          <!-- modal-dialog -->
+        </div>
+        <!-- modal -->
+        <!-- Footer opened -->
+        <div class="main-footer">
+          <div class="container-fluid pd-t-0-f ht-100p">
+            Copyright © 2022 <a href="javascript:void(0);" class="text-primary">nowa</a>. Designed with
+            <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0);"> Spruko </a> All rights reserved
+          </div>
+        </div>
+        <!-- Footer closed -->
+      </div>
+
+      <!-- Model Create User -->
+      <div
+        class="modal fade"
+        id="create-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        style="display: none"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="" id="">Tạo mới mã giảm giá</h5>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Tên</label>
+                  <input type="text" style="color: black" class="form-control" id="name" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Mô tả:</label>
+                  <textarea class="form-control" style="color: black" placeholder="Nhập mô tả" id="desc" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Giảm theo:</label>
+                  <select name="" id="type" class="form-control form-select">
+                    <option value="MONEY">Thẳng</option>
+                    <option value="DISCOUNT">Phần trăm</option>
+                  </select>
+                </div>
+                <div class="mb-3 input-group">
+                  <label for="message-text" class="col-form-label">Thời gian bắt đầu:</label>
+                  <div class="input-group">
+                    <input class="form-control" style="color: black" id="time-start" placeholder="MM/DD/YYYY" type="text" />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Thời gian kết thúc:</label>
+                  <input class="form-control" style="color: black" id="time-end" placeholder="MM/DD/YYYY" type="text" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Tiền hoặc phần trăm giảm:</label>
+                  <input type="text" style="color: black" class="form-control" id="discount" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Số tiền giảm tối đa:</label>
+                  <input class="form-control" style="color: black" id="max" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Số lượng:</label>
+                  <input type="number" style="color: black" class="form-control" id="quantity" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close-1" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary" id="btn-create-voucher">Tạo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model Update Category -->
+      <div
+        class="modal fade"
+        id="update-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        style="display: none"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="" id="">Cập nhật thông tin người dùng</h5>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Tên</label>
+                  <input type="text" class="form-control" id="u-name" style="color: black" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Mô tả:</label>
+                  <textarea
+                    class="form-control"
+                    placeholder="Nhập mô tả"
+                    style="color: black"
+                    id="u-desc"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Giảm theo:</label>
+                  <select name="" id="u-type" class="form-control form-select">
+                    <option value="MONEY">Thẳng</option>
+                    <option value="DISCOUNT">Phần trăm</option>
+                  </select>
+                </div>
+                <div class="mb-3 input-group">
+                  <label for="message-text" class="col-form-label">Thời gian bắt đầu:</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      style="color: black"
+                      id="u-time-start"
+                      placeholder="MM/DD/YYYY"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Thời gian kết thúc:</label>
+                  <input class="form-control" style="color: black" id="u-time-end" placeholder="MM/DD/YYYY" type="text" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Tiền hoặc phần trăm giảm:</label>
+                  <input type="text" class="form-control" style="color: black" id="u-discount" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Số tiền giảm tối đa:</label>
+                  <input class="form-control" id="u-max" style="color: black" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Số lượng:</label>
+                  <input type="number" class="form-control" id="u-quantity" style="color: black" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close-1" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary" id="btn-update-user">Sửa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Lock User -->
+      <div class="modal fade" id="modaldemo2" style="display: none" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title">Xác nhận xoá</h6>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn có xác nhận muốn xoá mã giảm giá này? ?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <button class="btn ripple btn-primary" data-bs-dismiss="modal" type="button">Huỷ bỏ</button>
+              <button class="btn ripple btn-secondary" data-bs-dismiss="modal" id="lock" type="button">Xoá</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="datepicker datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-bottom"
+        style="top: 2723.51px; left: 321px; z-index: 10; display: block"
+      >
+        <div class="datepicker-days" style="">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th colspan="7" class="datepicker-title" style="display: none"></th>
+              </tr>
+              <tr>
+                <th class="prev">«</th>
+                <th colspan="5" class="datepicker-switch">June 2022</th>
+                <th class="next">»</th>
+              </tr>
+              <tr>
+                <th class="dow">Su</th>
+                <th class="dow">Mo</th>
+                <th class="dow">Tu</th>
+                <th class="dow">We</th>
+                <th class="dow">Th</th>
+                <th class="dow">Fr</th>
+                <th class="dow">Sa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="old day" data-date="1653782400000">29</td>
+                <td class="old day" data-date="1653868800000">30</td>
+                <td class="old day" data-date="1653955200000">31</td>
+                <td class="day" data-date="1654041600000">1</td>
+                <td class="day" data-date="1654128000000">2</td>
+                <td class="day" data-date="1654214400000">3</td>
+                <td class="day" data-date="1654300800000">4</td>
+              </tr>
+              <tr>
+                <td class="day" data-date="1654387200000">5</td>
+                <td class="day" data-date="1654473600000">6</td>
+                <td class="day" data-date="1654560000000">7</td>
+                <td class="day" data-date="1654646400000">8</td>
+                <td class="day" data-date="1654732800000">9</td>
+                <td class="day" data-date="1654819200000">10</td>
+                <td class="day" data-date="1654905600000">11</td>
+              </tr>
+              <tr>
+                <td class="day" data-date="1654992000000">12</td>
+                <td class="day" data-date="1655078400000">13</td>
+                <td class="day" data-date="1655164800000">14</td>
+                <td class="day" data-date="1655251200000">15</td>
+                <td class="day" data-date="1655337600000">16</td>
+                <td class="day" data-date="1655424000000">17</td>
+                <td class="day" data-date="1655510400000">18</td>
+              </tr>
+              <tr>
+                <td class="day" data-date="1655596800000">19</td>
+                <td class="day" data-date="1655683200000">20</td>
+                <td class="day" data-date="1655769600000">21</td>
+                <td class="day" data-date="1655856000000">22</td>
+                <td class="day" data-date="1655942400000">23</td>
+                <td class="day" data-date="1656028800000">24</td>
+                <td class="day" data-date="1656115200000">25</td>
+              </tr>
+              <tr>
+                <td class="day" data-date="1656201600000">26</td>
+                <td class="day" data-date="1656288000000">27</td>
+                <td class="day" data-date="1656374400000">28</td>
+                <td class="day" data-date="1656460800000">29</td>
+                <td class="day" data-date="1656547200000">30</td>
+                <td class="new day" data-date="1656633600000">1</td>
+                <td class="new day" data-date="1656720000000">2</td>
+              </tr>
+              <tr>
+                <td class="new day" data-date="1656806400000">3</td>
+                <td class="new day" data-date="1656892800000">4</td>
+                <td class="new day" data-date="1656979200000">5</td>
+                <td class="new day" data-date="1657065600000">6</td>
+                <td class="new day" data-date="1657152000000">7</td>
+                <td class="new day" data-date="1657238400000">8</td>
+                <td class="new day" data-date="1657324800000">9</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="7" class="today" style="display: none">Today</th>
+              </tr>
+              <tr>
+                <th colspan="7" class="clear" style="display: none">Clear</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="datepicker-months" style="display: none">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th colspan="7" class="datepicker-title" style="display: none"></th>
+              </tr>
+              <tr>
+                <th class="prev">«</th>
+                <th colspan="5" class="datepicker-switch">2022</th>
+                <th class="next">»</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="month">Jan</span><span class="month">Feb</span><span class="month">Mar</span
+                  ><span class="month">Apr</span><span class="month">May</span><span class="month focused">Jun</span
+                  ><span class="month">Jul</span><span class="month">Aug</span><span class="month">Sep</span
+                  ><span class="month">Oct</span><span class="month">Nov</span><span class="month">Dec</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="7" class="today" style="display: none">Today</th>
+              </tr>
+              <tr>
+                <th colspan="7" class="clear" style="display: none">Clear</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="datepicker-years" style="display: none">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th colspan="7" class="datepicker-title" style="display: none"></th>
+              </tr>
+              <tr>
+                <th class="prev">«</th>
+                <th colspan="5" class="datepicker-switch">2020-2029</th>
+                <th class="next">»</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="year old">2019</span><span class="year">2020</span><span class="year">2021</span
+                  ><span class="year focused">2022</span><span class="year">2023</span><span class="year">2024</span
+                  ><span class="year">2025</span><span class="year">2026</span><span class="year">2027</span
+                  ><span class="year">2028</span><span class="year">2029</span><span class="year new">2030</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="7" class="today" style="display: none">Today</th>
+              </tr>
+              <tr>
+                <th colspan="7" class="clear" style="display: none">Clear</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="datepicker-decades" style="display: none">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th colspan="7" class="datepicker-title" style="display: none"></th>
+              </tr>
+              <tr>
+                <th class="prev">«</th>
+                <th colspan="5" class="datepicker-switch">2000-2090</th>
+                <th class="next">»</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="decade old">1990</span><span class="decade">2000</span><span class="decade">2010</span
+                  ><span class="decade focused">2020</span><span class="decade">2030</span><span class="decade">2040</span
+                  ><span class="decade">2050</span><span class="decade">2060</span><span class="decade">2070</span
+                  ><span class="decade">2080</span><span class="decade">2090</span><span class="decade new">2100</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="7" class="today" style="display: none">Today</th>
+              </tr>
+              <tr>
+                <th colspan="7" class="clear" style="display: none">Clear</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="datepicker-centuries" style="display: none">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th colspan="7" class="datepicker-title" style="display: none"></th>
+              </tr>
+              <tr>
+                <th class="prev">«</th>
+                <th colspan="5" class="datepicker-switch">2000-2900</th>
+                <th class="next">»</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="century old">1900</span><span class="century focused">2000</span
+                  ><span class="century">2100</span><span class="century">2200</span><span class="century">2300</span
+                  ><span class="century">2400</span><span class="century">2500</span><span class="century">2600</span
+                  ><span class="century">2700</span><span class="century">2800</span><span class="century">2900</span
+                  ><span class="century new">3000</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="7" class="today" style="display: none">Today</th>
+              </tr>
+              <tr>
+                <th colspan="7" class="clear" style="display: none">Clear</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <!-- End Page -->
+      <!-- Back-to-top -->
+      <a href="#top" id="back-to-top"><i class="las la-arrow-up"></i></a>
+      <!-- JQuery min js -->
+      <script src="/static/admin/plugins/jquery/jquery.min.js"></script>
+      <script src="/static/admin/plugins/notify/js/notifIt.js"></script>
+      <!-- Bootstrap js -->
+      <!-- <script src="/static/admin/plugins/bootstrap/js/popper.min.js"></script> -->
+      <script src="/static/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+      <script src="/static/admin/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+      <!-- Ionicons js -->
+      <script src="/static/admin/plugins/ionicons/ionicons.js"></script>
+      <!-- Moment js -->
+      <!-- <script src="/static/admin/plugins/moment/moment.js"></script> -->
+      <!-- P-scroll js -->
+      <!-- <script src="/static/admin/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/perfect-scrollbar/p-scroll.js"></script> -->
+      <!-- Internal Data tables -->
+      <script src="/static/admin/plugins/datatable/js/jquery.dataTables.min.js"></script>
+      <script src="/static/admin/plugins/datatable/js/dataTables.bootstrap5.js"></script>
+      <!-- <script src="/static/admin/plugins/datatable/js/dataTables.buttons.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.bootstrap5.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/jszip.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/pdfmake/pdfmake.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/pdfmake/vfs_fonts.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.html5.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.print.min.js"></script> -->
+      <!-- <script src="/static/admin/plugins/datatable/js/buttons.colVis.min.js"></script> -->
+      <script src="/static/admin/plugins/datatable/dataTables.responsive.min.js"></script>
+      <script src="/static/admin/plugins/datatable/responsive.bootstrap5.min.js"></script>
+      <script src="/static/admin/js/manage_voucher.js"></script>
+      <!-- INTERNAL Select2 js -->
+      <!-- <script src="/static/admin/plugins/select2/js/select2.full.min.js"></script> -->
+      <!-- Sidebar js -->
+      <!-- <script src="/static/admin/plugins/side-menu/sidemenu.js"></script> -->
+      <!-- Sticky js -->
+      <script src="/static/admin/js/sticky.js"></script>
+      <!-- Modal -->
+      <script src="/static/admin/js/modal.js"></script>
+      <script src="/static/admin/js/jquery.mask.js"></script>
+
+      <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+
+      <!-- Right-sidebar js -->
+      <!-- <script src="/static/admin/plugins/sidebar/sidebar.js"></script> -->
+      <!-- <script src="/static/admin/plugins/sidebar/sidebar-custom.js"></script> -->
+      <!-- eva-icons js -->
+      <script src="/static/admin/js/eva-icons.min.js"></script>
+      <!-- Theme Color js -->
+      <!-- <script src="/static/admin/js/themecolor.js"></script> -->
+      <!-- custom js -->
+      <script src="/static/admin/js/custom.js"></script>
+      <!-- Switcher js -->
+      <!-- <script src="/static/admin/switcher/js/switcher.js"></script> -->
+
+      <script>
+        $('#time-start').bootstrapdatepicker({
+          format: 'dd/mm/yyyy',
+          viewMode: 'date',
+          // multidate: true,
+          todayHighlight: true,
+          // multidateSeparator: "-",
+        });
+
+        $('#u-time-start').bootstrapdatepicker({
+          format: 'dd/mm/yyyy',
+          viewMode: 'date',
+          // multidate: true,
+          todayHighlight: true,
+          // multidateSeparator: "-",
+        });
+
+        $('#time-end').bootstrapdatepicker({
+          format: 'dd/mm/yyyy',
+          viewMode: 'date',
+          // multidate: true,
+          todayHighlight: true,
+          // multidateSeparator: "-",
+        });
+
+        $('#u-time-end').bootstrapdatepicker({
+          format: 'dd/mm/yyyy',
+          viewMode: 'date',
+          // multidate: true,
+          todayHighlight: true,
+          // multidateSeparator: "-",
+        });
+
+        $('#max').mask('000.000.000.000.000', { reverse: true, placeholder: '___.___.____' });
+        $('#u-max').mask('000.000.000.000.000', { reverse: true, placeholder: '___.___.____' });
+        
+      </script>
+      <script></script>
+    </div>
+    <div class="main-navbar-backdrop"></div>
+  </body>
+</html>

@@ -17,6 +17,10 @@ const manageProduct = catchAsync(async (req, res) => {
   res.render('admin/manage_product');
 });
 
+const manageVoucher = catchAsync(async (req, res) => {
+  res.render('admin/manage_voucher');
+});
+
 const createProduct = catchAsync(async (req, res) => {
   const categorys = await categoryService.getAllCategorys();
 
@@ -86,5 +90,6 @@ module.exports = {
   manageCheckout,
   manageSlider,
   createSlider,
-  editSlider
+  editSlider,
+  manageVoucher
 };

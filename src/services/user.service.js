@@ -8,9 +8,9 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
-  if (await User.isEmailTaken(userBody.email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email đã tồn tại');
-  }
+  // if (await User.isEmailTaken(userBody.email)) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email đã tồn tại');
+  // }
   return User.create(userBody);
 };
 

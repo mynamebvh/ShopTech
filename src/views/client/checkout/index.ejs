@@ -117,7 +117,7 @@
                 <div class="ec-sb-block-content ec-sidebar-dropdown">
                   <div class="ec-checkout-summary">
                     <div>
-                      <span class="text-left">Tạm tím</span>
+                      <span class="text-left">Tạm tính</span>
                       <span class="text-right" id="c-price">0 VND</span>
                     </div>
                     <div>
@@ -128,18 +128,23 @@
                       <span class="text-left">Voucher</span>
                       <span class="text-right"><a class="ec-checkout-coupan">Nhập voucher</a></span>
                     </div>
+                    <div>
+                      <span class="text-left">Khuyến mại</span>
+                      <span class="text-right" id="c-voucher">- 0 VND</span>
+                    </div>
                     <div class="ec-checkout-coupan-content">
-                      <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form" method="post" action="#">
+                      <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form" method="post" action="#" id="voucher-form">
                         <input
                           class="ec-coupan"
                           type="text"
                           required=""
-                          placeholder="Enter Your Coupan Code"
+                          placeholder="Nhập mã giảm giá"
                           name="ec-coupan"
                           value=""
+                          id="v-code"
                         />
-                        <button class="ec-coupan-btn button btn-primary" type="submit" name="subscribe" value="">
-                          Apply
+                        <button class="ec-coupan-btn button btn-primary" type="submit" name="subscribe" value="" id="v-btn">
+                          Nhập
                         </button>
                       </form>
                     </div>

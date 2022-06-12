@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 const config = require('./config/config');
 const logger = require('./config/logger');
+const redis = require('./config/redis');
 
 let server;
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
@@ -10,6 +11,43 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
     logger.info(`Listening to port ${config.port}`);
   });
 });
+
+//redis cache
+mongoose.Query.prototype.cache = function(time = 3600){
+  this.cache = true; 
+  this.cacheTime = time;
+  return this;
+}
+
+async function clearCachedData(collectionName, op){
+  const allowedCacheOps = ["find","findById","findOne"];
+  console.log(collectionName)
+  if (!allowedCacheOps.includes(op) && await redis.EXISTS(collectionName)){
+    redis.DEL(collectionName);
+  }
+}
+
+const exec = mongoose.Query.prototype.exec;
+mongoose.Query.prototype.exec = async function () {
+  const collectionName = this.mongooseCollection.name;
+
+  if (this.cache) {
+    const key = JSON.stringify({ ...this.getOptions(), collectionName: collectionName, op: this.op });
+    const cachedResults = await redis.HGET(collectionName, key);
+
+    if (cachedResults) {
+      const result = JSON.parse(cachedResults);
+      return result;
+    }
+    const result = await exec.apply(this, arguments);
+    redis.HSET(collectionName, key, JSON.stringify(result), 'EX', this.cacheTime);
+    return {...result, ...this};
+  }
+
+  clearCachedData(collectionName, this.op);
+  return exec.apply(this, arguments);
+};
+
 
 const exitHandler = () => {
   if (server) {

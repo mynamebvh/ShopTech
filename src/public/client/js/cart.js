@@ -91,7 +91,7 @@ const calculatorPrice = () => {
   if (!data) data = [];
   let sum = data.reduce((a, b) => a + b?.price * b?.quantity, 0) || 0;
   let vat = sum * 0.08 || 0;
-  let total = sum - vat || 0;
+  let total = sum + vat || 0;
   return [sum, vat, total];
 };
 

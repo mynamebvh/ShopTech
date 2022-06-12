@@ -10,6 +10,7 @@ const {
   paymentService,
   userService,
   commentService,
+  authService
 } = require('../services');
 
 const homePage = catchAsync(async (req, res) => {
@@ -40,7 +41,7 @@ const listProduct = catchAsync(async (req, res) => {
 const productDetail = catchAsync(async (req, res) => {
   const slug = req.params.slug;
   const result = await Promise.all([
-    categoryService.getCategorys(),
+    categoryService.getAllCategorys(),
     productService.getProductBySlug(slug),
     productService.getRelatedProducts(slug),
     commentService.getCommentsByProductSlug(slug),
@@ -62,13 +63,13 @@ const cart = catchAsync(async (req, res) => {
 });
 
 const checkout = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
 
   res.render('client/checkout', { data });
 });
 
 const blog = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
 
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
@@ -78,32 +79,32 @@ const blog = catchAsync(async (req, res) => {
 });
 
 const blogDetail = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
   const article = await postService.getPostBySlug(req.params.slug);
   // console.log(post)
   res.render('client/blog_detail', { data, article });
 });
 
 const login = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
 
   res.render('client/login', { data });
 });
 
 const profile = catchAsync(async (req, res) => {
-  const data = await Promise.all([categoryService.getCategorys(), userService.getUserById(req.userId)]);
+  const data = await Promise.all([categoryService.getAllCategorys(), userService.getUserById(req.userId)]);
 
   res.render('client/profile', { data: data[0], user: data[1] });
 });
 
 const payment = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
 
   res.render('client/payment', { data });
 });
 
 const paymentReturn = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
 
   let msg = await paymentService.vnpReturn(req);
   res.render('client/payment/result', { msg, data });
@@ -114,6 +115,32 @@ const logout = (req, res) => {
 
   res.redirect('/');
 };
+
+const forgotPassword = catchAsync(async (req, res) => {
+  const data = await categoryService.getAllCategorys();
+  res.render('client/forgotPassword', { data });
+});
+
+const resetPassword = catchAsync(async (req, res) => {
+  const data = await categoryService.getAllCategorys();
+
+  let { token = null } = req.query;
+
+  if(!token)
+    return res.redirect("/");
+  
+    try{
+      await authService.resetPassword(token, '');
+    }catch(err) {
+      return res.render('client/resetPassword', {
+        data,
+        isValid: true,
+        title: 'Đường dẫn khôi phục mật khẩu của bạn đã quá hạn, vui lòng thử lại',
+      });
+    }
+
+  res.render('client/resetPassword', { data, isValid: false });
+});
 
 module.exports = {
   homePage,
@@ -128,4 +155,6 @@ module.exports = {
   payment,
   paymentReturn,
   logout,
+  forgotPassword,
+  resetPassword,
 };

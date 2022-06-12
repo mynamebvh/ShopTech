@@ -3,6 +3,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
+
 const response = require('../utils/response');
 
 const { orderDetailService, redisService } = require('../services');
@@ -19,19 +20,19 @@ const getOrdersDetailByOrderId = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', orders));
 });
 
-const getPost = catchAsync(async (req, res) => {
-  const { postId } = req.params;
-  let postCache = await redisService.getValueByField('posts', postId);
+// const getPost = catchAsync(async (req, res) => {
+//   const { postId } = req.params;
+//   let postCache = await redisService.getValueByField('posts', postId);
 
-  if (postCache) {
-    res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', JSON.parse(postCache)));
-    return;
-  }
+//   if (postCache) {
+//     res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', JSON.parse(postCache)));
+//     return;
+//   }
 
-  const post = await postService.getPostById(postId);
-  await redisService.saveTypeHashes('posts', post._id.toString(), post);
-  res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', post));
-});
+//   const post = await postService.getPostById(postId);
+//   await redisService.saveTypeHashes('posts', post._id.toString(), post);
+//   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', post));
+// });
 
 const getOrderDetails = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);

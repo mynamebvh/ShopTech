@@ -107,7 +107,10 @@ const viewDetailOrder = () => {
     let products = data.data.products;
 
     const total = (data.data.total)
-    $('#total').text((total - (total * 0.08)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
+    $('#t-total').text((total).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
+    $('#voucher').text((data.data.discount).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
+    $('#total').text((total - data.data.discount ).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
+
 
     const divRender = document.getElementById('r-products');
     products = products.map((p) => {

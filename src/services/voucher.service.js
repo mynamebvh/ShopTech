@@ -1,4 +1,7 @@
 const httpStatus = require('http-status');
+const dayjs = require('dayjs')
+
+
 const randomstring = require('randomstring');
 
 const Voucher = require('../models/voucher.model');
@@ -37,8 +40,13 @@ const generateCodeVoucher = ({ code }) => {
  * @returns {Promise<Voucher>}
  */
 const createVoucher = async (voucherBody) => {
+
   voucherBody.code = generateCodeVoucher(voucherBody);
 
+  voucherBody.timeStart = dayjs(voucherBody.timeStart.split("/").reverse().join("-")).toDate();
+  voucherBody.timeEnd = dayjs(voucherBody.timeEnd.split("/").reverse().join("-")).toDate();
+  voucherBody.max = parseInt(voucherBody.max.replaceAll(".",""))
+  
   if (await Voucher.isCodeDuplicate(voucherBody.code)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Mã khuyến mại đã tồn tại');
   }
@@ -56,6 +64,22 @@ const getVoucherById = async (id) => {
 };
 
 /**
+ * Get voucher by code
+ * @param {String} code
+ * @returns {Promise<Voucher>}
+ */
+ const getVoucherByCode = async (code) => {
+  return Voucher.findOne({
+    $and: [
+      { code },
+      { quantity: { $gte: 1 } },
+      { timeStart: { $lte: Date.now() } },
+      { timeEnd: { $gte: Date.now() }},
+    ]
+  });
+};
+
+/**
  * Update voucher by id
  * @param {ObjectId} voucherId
  * @param {Object} updateBody
@@ -68,11 +92,14 @@ const updateVoucherById = async (voucherId, updateBody) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Mã giảm giá không tồn tại');
   }
 
-  updateBody.code = generateCodeVoucher(updateBody);
+  updateBody.timeStart = dayjs(updateBody.timeStart.split("/").reverse().join("-")).toDate();
+  updateBody.timeEnd = dayjs(updateBody.timeEnd.split("/").reverse().join("-")).toDate();
+  updateBody.max = parseInt(updateBody.max.replaceAll(".",""))
+  // updateBody.code = generateCodeVoucher(updateBody);
 
-  if (updateBody.name && (await Voucher.isCodeDuplicate(updateBody.code))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Mã khuyến mại đã tồn tại');
-  }
+  // if (updateBody.name && (await Voucher.isCodeDuplicate(updateBody.code))) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Mã khuyến mại đã tồn tại');
+  // }
 
   Object.assign(voucher, updateBody);
   await voucher.save();
@@ -96,6 +123,7 @@ const deleteVoucherById = async (voucherId) => {
 
 module.exports = {
   getVouchers,
+  getVoucherByCode,
   createVoucher,
   updateVoucherById,
   deleteVoucherById,

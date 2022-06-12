@@ -31,10 +31,11 @@ const createOrder = async (orderBody) => {
     ward, 
     methodPay, 
     txnRef,
-    note
+    note,
+    code
   } = orderBody;
 
-  const order = { fullname, phone, methodPay, txnRef, note};
+  const order = { fullname, phone, methodPay, txnRef, note, code};
 
   order.address = `${customerAddress}, ${ward}, ${district}, ${city}`;
   return Order.create(order);

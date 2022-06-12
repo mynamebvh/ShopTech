@@ -33,11 +33,15 @@ categorySchema.plugin(paginate);
 /**
  * Check if name category is duplicate
  * @param {string} name - The name category
+ * @param {ObjectId} categoryId
  * @returns {Promise<boolean>}
  */
-categorySchema.statics.isNameDuplicate = async function (name) {
-  const category = await this.findOne({ name });
-  return !!category;
+categorySchema.statics.isNameDuplicate = async function (name, categoryId) {
+  console.log(categoryId)
+  console.log(name)
+
+  const category = await this.find({ name, _id: { $ne: categoryId } });
+  return !!category.length;
 };
 
 /**

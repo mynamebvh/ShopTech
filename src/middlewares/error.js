@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
+const {TokenExpiredError} = require("jsonwebtoken");
+
 const config = require('../config/config');
 const logger = require('../config/logger');
 const ApiError = require('../utils/ApiError');
@@ -19,7 +21,12 @@ const errorConverter = (err, req, res, next) => {
 const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
 
-  console.log(err);
+  // console.log();
+  console.log(err.message);
+
+  if(message === "jwt expired" || message === "Password reset failed"){
+    return res.redirect("/")
+  }
 
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;

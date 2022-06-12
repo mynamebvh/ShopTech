@@ -10,6 +10,8 @@ const router = express.Router();
 
 router.route('/login').get(viewUserController.login);
 router.route('/logout').get(viewUserController.logout);
+router.route('/forgot-password').get(viewUserController.forgotPassword);
+router.route('/reset-password').get(viewUserController.resetPassword);
 
 router.route('/checkout').get(viewUserController.checkout);
 router.route('/blogs').get(viewUserController.blog);

@@ -1,3 +1,5 @@
+let discount = 0;
+
 const renderOption = async (idSelect, type, api) => {
   let data;
 
@@ -81,12 +83,14 @@ const renderCheckoutByLocalStorage = () => {
   return listProduct;
 };
 
+
 const renderPriceCheckout = () => {
   const [tPrice, vat, total] = calculatorPrice();
 
   document.getElementById('c-price').textContent = tPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   document.getElementById('c-vat').textContent = vat.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   document.getElementById('c-total').textContent = total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+
 };
 
 const submitForm = () => {
@@ -101,7 +105,7 @@ const submitForm = () => {
     const district = $('#ec-select-district option:selected').text();
     const ward = $('#ec-select-ward option:selected').text();
     const methodPay = $('#ec-select-methodpay option:selected').val();
-
+    const code = $("#v-code").val()
     try {
       if (methodPay == 'BANK') {
         window.location.href = '/order';
@@ -132,6 +136,7 @@ const submitForm = () => {
               district,
               ward,
               methodPay: methodPay,
+              code,
               products: JSON.parse(localStorage.getItem('techCard')),
             }),
           })
@@ -175,6 +180,64 @@ const submitForm = () => {
   });
 };
 
+const calculatorVoucher = (type, discount, max) => {
+  const [tPrice, vat, total] = calculatorPrice();
+
+  switch (type) {
+    case "DISCOUNT":
+      if(total / 100 * discount >= max){
+        return max;
+      }
+      else {
+        return total - (total / 100 * discount);
+      }
+      break;
+    case "MONEY": 
+      return total - discount;
+      break;
+    default:
+      return null;
+  }
+}
+
+const checkVoucher = () => {
+  document.getElementById('voucher-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+  });
+
+  document.getElementById("v-btn").addEventListener("click", async(e) => {
+    try {
+      let code = document.getElementById('v-code');
+      const {data} = await (
+        await fetch(`/api/v1/user-vouchers?q=${code.value}`, {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      ).json();
+  
+      console.log(data)
+
+      if(!data){
+        alert("Mã khuyến mại không hợp lệ, bạn vui lòng kiểm tra lại")
+      }else {
+        const vTotal = calculatorVoucher(data.type, parseInt(data.discount), parseInt(data.max));
+        document.getElementById('c-voucher').textContent = vTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        const [tPrice, vat, total] = calculatorPrice();
+        document.getElementById('c-total').textContent = (total - vTotal).toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        localStorage.setItem('techVoucher', JSON.stringify({code: data.code, vTotal}));
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error)
+    }
+  })
+  
+};
+
+
+
 document.addEventListener('DOMContentLoaded', async function () {
   // Logic don vi hanh chinh
   let idCity, idDistrict;
@@ -203,4 +266,5 @@ document.addEventListener('DOMContentLoaded', async function () {
   renderPriceCheckout();
 
   submitForm();
+  checkVoucher()
 });

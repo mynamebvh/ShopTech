@@ -44,10 +44,11 @@ postSchema.plugin(paginate);
 /**
  * Check if title post is duplicate
  * @param {string} title - The title post
+ * @param {ObjectId} postId 
  * @returns {Promise<boolean>}
  */
-postSchema.statics.isTitleDuplicate = async function (title) {
-  const post = await this.findOne({ title });
+postSchema.statics.isTitleDuplicate = async function (title, postId) {
+  const post = await this.findOne({ title, id: {$ne: postId} });
   return !!post;
 };
 

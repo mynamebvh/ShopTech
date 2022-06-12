@@ -11,6 +11,8 @@ const commentRoute = require('./comment.route');
 const orderDetailRoute = require('./order_detail.route');
 const sliderRoute = require('./slider.route');
 const paymentRoute = require('./payment.route');
+const voucherUserRoute = require('./voucher_user.route');
+
 
 
 
@@ -34,6 +36,10 @@ const defaultRoutes = [
     path: '/orders',
     route: orderRoute,
   },
+  {
+    path: "/user-vouchers",
+    route: voucherUserRoute
+  }
 ];
 
 const userRoutes = [

@@ -63,7 +63,7 @@ const updatePostById = async (postId, updateBody) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Bài viêt không tồn tại');
   }
 
-  if (updateBody.title && (await Post.isTitleDuplicate(updateBody.title))) {
+  if (updateBody.title && (await Post.isTitleDuplicate(updateBody.title, post.id))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Tên bài viết đã tồn tại');
   }
 

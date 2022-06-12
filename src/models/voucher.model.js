@@ -16,6 +16,11 @@ const voucherSchema = mongoose.Schema(
       trim: true,
       minLength: [20, 'Mô tả phải có ít nhất 20 từ'],
     },
+    type: {
+      type: String,
+      enum: ["MONEY", "DISCOUNT"],
+      required: [true, "Kiểu của mã giảm giá là bắt buộc"],
+    },
     code: {
       type: String,
       trim: true,
@@ -28,17 +33,24 @@ const voucherSchema = mongoose.Schema(
     },
     timeEnd: {
       type: Date,
-      required: true,
+      required: [true, "Ngày hết hạn là bắt buộc"],
     },
     discount: {
       type: Number,
       required: true,
       min: [1, 'Phải lớn hơn 0'],
     },
+    quantity: {
+      type: Number,
+      required: [true, "Số lượng là bắt buộc"],
+    },
+    max: {
+      type: Number,
+      required: [true, "Hạn mức tối đa là bắt buộc"],
+    },
     category: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Category',
-      required: true,
     },
   },
   {

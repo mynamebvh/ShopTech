@@ -60,12 +60,13 @@ const getCategoryById = async (id) => {
  */
 const updateCategoryById = async (categoryId, updateBody) => {
   const category = await getCategoryById(categoryId);
+  
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Thể loại không tồn tại');
   }
-  // if (updateBody.name && (await Category.isNameDuplicate(updateBody.name))) {
-  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Tên thể loại đã tồn tại');
-  // }
+  if (updateBody.name && (await Category.isNameDuplicate(updateBody.name, category.id))) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Tên thể loại đã tồn tại');
+  }
 
   Object.assign(category, updateBody);
   await category.save();

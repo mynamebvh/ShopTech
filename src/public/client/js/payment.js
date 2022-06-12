@@ -84,11 +84,21 @@ const renderCheckoutByLocalStorage = () => {
 const renderPriceCheckout = () => {
   const [tPrice, vat, total] = calculatorPrice();
 
+  if (localStorage.getItem('techVoucher')) {
+    const [tPrice, vat, total] = calculatorPrice();
+
+    const { vTotal, code } = JSON.parse(localStorage.getItem('techVoucher'));
+    document.getElementById('c-voucher').textContent = vTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    document.getElementById('c-total').textContent = (total - vTotal).toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    document.getElementById('c-voucher').textContent = vTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    document.getElementById('p-price').value = (total - vTotal);
+  }
+  else {
+    document.getElementById('c-total').textContent = total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    document.getElementById('p-price').value = total;
+  }
   document.getElementById('c-price').textContent = tPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   document.getElementById('c-vat').textContent = vat.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-  document.getElementById('c-total').textContent = total.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-  document.getElementById('p-price').value = total;
-  
 };
 
 const submitForm = () => {
@@ -101,6 +111,12 @@ const submitForm = () => {
     // const methodPay = $('#ec-select-methodpay option:selected').val();
     const note = $('#ec-text-note').val();
     const order = JSON.parse(localStorage.getItem('techOrder'))
+    let vTotal, code;
+    if(localStorage.getItem('techVoucher')){
+      voucher = JSON.parse(localStorage.getItem('techVoucher'));
+      vTotal = voucher.vTotal;
+      code = voucher.code;
+    }
 
     try {
       const data = await (
@@ -113,6 +129,7 @@ const submitForm = () => {
            ...order,
             methodPay: "BANK",
             note,
+            code,
             products: JSON.parse(localStorage.getItem('techCard')),
           }),
         })
@@ -134,8 +151,8 @@ const submitForm = () => {
         // });
 
 
-        localStorage.setItem('techCard', JSON.stringify([]));
-        localStorage.setItem('techOrder', JSON.stringify([]));
+        // localStorage.setItem('techCard', JSON.stringify([]));
+        // localStorage.setItem('techOrder', JSON.stringify([]));
 
 
         renderByLocalStorage();

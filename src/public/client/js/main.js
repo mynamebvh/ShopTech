@@ -819,6 +819,8 @@ function ecCheckCookie() {
         }),
           s.readAsDataURL(this.files[0]);
           try {
+            const btn = document.querySelectorAll(".btn.btn-primary")[2];
+            alert("Ảnh đang trong quá trình xử lí, bạn vui lòng chờ đến khi xử lí xong rồi mới tắt bảng cập nhật này")
             const data = await (
               await fetch('/api/v1/users/update-avatar', {
                 body: formData,

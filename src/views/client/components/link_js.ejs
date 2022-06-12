@@ -70,5 +70,24 @@
     }
   });
 
-  
+  const session = localStorage.getItem('techSession');
+  if(session){
+    document.querySelector(".dropdown-menu.dropdown-menu-right").innerHTML = `
+    <li>
+      <a class="dropdown-item" href="/profile">Trang cá nhân</a>
+    </li>
+    <li>
+      <a class="dropdown-item"  id="logout" href="javascript:;">Đăng xuất</a>
+    </li>
+    `
+  }
+
+  document.getElementById("logout").addEventListener("click", (e) => {
+    
+    setTimeout(() => {
+      localStorage.removeItem('techSession');
+
+      window.location.href = '/logout';
+    }, 200);
+  })
 </script>
