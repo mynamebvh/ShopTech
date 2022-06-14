@@ -1,4 +1,4 @@
-<div class="ec-shop-rightside col-lg-9 order-lg-last col-md-12 order-md-first margin-b-30">
+<div class="ec-shop-rightside col-lg-12 order-lg-last col-md-12 order-md-first margin-b-30">
   <!-- Shop Top Start -->
   <div class="ec-pro-list-top d-flex">
     <div class="col-md-6 ec-grid-list">
@@ -12,15 +12,14 @@
       </div>
     </div>
     <div class="col-md-6 ec-sort-select">
-      <span class="sort-by">Sort by</span>
+      <span class="sort-by">Sắp xếp theo</span>
       <div class="ec-select-inner">
         <select name="ec-select" id="ec-select">
-          <option selected disabled>Position</option>
-          <option value="1">Relevance</option>
-          <option value="2">Name, A to Z</option>
-          <option value="3">Name, Z to A</option>
-          <option value="4">Price, low to high</option>
-          <option value="5">Price, high to low</option>
+          <option value="1">Liên quan</option>
+          <option value="2">Tên sản phẩm, A đến Z</option>
+          <option value="3">Tên sản phẩm, Z đến A</option>
+          <option value="4">Giá thấp đến cao</option>
+          <option value="5">Giá cao đến thấp</option>
         </select>
       </div>
     </div>
@@ -41,26 +40,21 @@
                   <img class="hover-image" src="<%= pro.images[4] %>" alt="Product" />
                 </a>
                 <span class="percentage">20%</span>
-                <a
-                  href="#"
-                  class="quickview"
-                  data-link-action="quickview"
-                  title="Quick view"
-                  data-bs-toggle="modal"
-                  data-bs-target="#ec_quickview_modal"
-                  ><img src="/static/client/images/icons/quickview.svg" class="svg_img pro_svg" alt=""
-                /></a>
+
                 <div class="ec-pro-actions">
-                  <a href="compare.html" class="ec-btn-group compare" title="Compare"
-                    ><img src="/static/client/images/icons/compare.svg" class="svg_img pro_svg" alt=""
-                  /></a>
-                  <button title="Add To Cart" class="add-to-cart" data-id="<%= pro.id %>">
+                  <button
+                    title="Add To Cart"
+                    class="add-to-cart"
+                    data-img="<%= pro.images[3] %>"
+                    data-quantity="1"
+                    data-price="<%= pro.price %>"
+                    data-name="<%= pro.name %>"
+                    data-id="<%= pro.id %>"
+                    data-slug="<%= pro.slug %>"
+                  >
                     <img src="/static/client/images/icons/cart.svg" class="svg_img pro_svg" alt="" />
                     Add To Cart
                   </button>
-                  <a class="ec-btn-group wishlist" title="Wishlist"
-                    ><img src="/static/client/images/icons/wishlist.svg" class="svg_img pro_svg" alt=""
-                  /></a>
                 </div>
               </div>
             </div>

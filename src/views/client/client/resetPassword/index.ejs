@@ -11,13 +11,13 @@
           <div class="col-12">
             <div class="row ec_breadcrumb_inner">
               <div class="col-md-6 col-sm-12">
-                <h2 class="ec-breadcrumb-title">Login</h2>
+                <h2 class="ec-breadcrumb-title">Thay đổi mật khẩu</h2>
               </div>
               <div class="col-md-6 col-sm-12">
                 <!-- ec-breadcrumb-list start -->
                 <ul class="ec-breadcrumb-list">
-                  <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="ec-breadcrumb-item active">Login</li>
+                  <li class="ec-breadcrumb-item"><a href="/">Trang chủ</a></li>
+                  <li class="ec-breadcrumb-item active">Thay đổi mật khẩu</li>
                 </ul>
                 <!-- ec-breadcrumb-list end -->
               </div>
@@ -30,36 +30,43 @@
     <section class="ec-page-content section-space-p">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 text-center">
-            <div class="section-title">
-              <h2 class="ec-bg-title">Đăng nhập</h2>
-              <h2 class="ec-title">Đăng nhập</h2>
-              <p class="sub-title mb-3"></p>
+         
+          <% if(isValid){%> 
+            <div class="section-title" style="text-align: center;">
+              <h1 class="ec-title"><%= title %></h1>
             </div>
-          </div>
-          <div class="ec-login-wrapper">
-            <div class="ec-login-container">
-              <div class="ec-login-form">
-                <form action="#" method="post" class="form-login">
-                  <span class="ec-login-wrap">
-                    <label>Email*</label>
-                    <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
-                  </span>
-                  <span class="ec-login-wrap">
-                    <label>Mật khẩu*</label>
-                    <input id="password" type="password" name="password" placeholder="Nhập mật khẩu" required="" value=""/>
-                  </span>
-                  <span class="ec-login-wrap ec-login-fp">
-                    <label><a href="#">Quên mật khẩu?</a></label>
-                  </span>
-                  <span class="ec-login-wrap ec-login-btn">
-                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
-                    <a href="register.html" class="btn btn-secondary">Đăng ký</a>
-                  </span>
-                </form>
+        
+          <%}
+          else {%> 
+            <div class="col-md-12 text-center">
+            
+              <div class="section-title">
+                <h2 class="ec-bg-title">Thay đổi mật khẩu</h2>
+                <h2 class="ec-title">Thay đổi mật khẩu</h2>
+                <p class="sub-title mb-3"></p>
               </div>
             </div>
-          </div>
+            <div class="ec-login-wrapper">
+              <div class="ec-login-container">
+                <div class="ec-login-form">
+                  <form action="#" method="post" class="form-login">
+                    <span class="ec-login-wrap">
+                      <label>Mật khẩu mới*</label>
+                      <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
+                    </span>
+                    <span class="ec-login-wrap">
+                      <label>Xác nhận mật khẩu*</label>
+                      <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
+                    </span>
+                    <span class="ec-login-wrap ec-login-btn">
+                      <button class="btn btn-primary" type="submit">Thay đổi</button>
+                    </span>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <%}%>
+         
         </div>
       </div>
     </section>

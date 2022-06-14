@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("../components/head")%>
+
+  <link href="/static/admin/plugins/notify/css/notifIt.css" rel="stylesheet" />
+  <body class="checkout_page">
+    <%- include ("../components/header")%> <%- include ("../components/cart")%>
+
+    <!-- Ec breadcrumb start -->
+    <div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row ec_breadcrumb_inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="ec-breadcrumb-title">Đặt hàng</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <!-- ec-breadcrumb-list start -->
+                <ul class="ec-breadcrumb-list">
+                  <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="ec-breadcrumb-item active">Đặt hàng</li>
+                </ul>
+                <!-- ec-breadcrumb-list end -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ec breadcrumb end -->
+
+    <!-- Ec checkout page -->
+    <section class="ec-page-content section-space-p">
+      <div class="container">
+        <div class="row">
+          <div class="ec-checkout-leftside col-lg-8 col-md-12">
+            <!-- checkout content Start -->
+            <div class="ec-checkout-content">
+              <div class="ec-checkout-inner">
+                <div class="ec-checkout-wrap margin-bottom-30 padding-bottom-3">
+                  <div class="ec-checkout-block ec-check-bill">
+                    <h3 class="ec-checkout-title">Xác nhận thông tin thanh toán ngân hàng</h3>
+                    <div class="ec-bl-block-content">
+                      <div class="ec-check-bill-form">
+                        <form action="/api/v1/order" method="post">
+                          <span class="ec-bill-wrap">
+                            <label>Tổng tiền</label>
+                            <input type="text" id="p-price" name="firstname" placeholder="" disabled />
+                          </span>
+                          <!-- <span class="ec-bill-wrap ec-bill-half">
+                            <label>Tên*</label>
+                            <input type="text" id="lastName" name="lastname" placeholder="" required="" />
+                          </span> -->
+                          <span class="ec-bill-wrap">
+                            <label>Nội dung chuyển khoản</label>
+                            <textarea
+                              type="text"
+                              id="ec-text-note"
+                              name="customerAddress"
+                              placeholder=""
+                              disabled
+                            ></textarea>
+                          </span>
+
+                          <span class="ec-bill-wrap">
+                            <label>Ngân hàng</label>
+                            <span class="ec-bl-select-inner">
+                              <select name="city" id="ec-select-bank" class="ec-bill-select">
+                                <option value="">Không chọn</option>
+                                <option value="MBAPP">Ung dung MobileBanking</option>
+                                <option value="VNPAYQR">VNPAYQR</option>
+                                <option value="VNBANK">LOCAL BANK</option>
+                                <option value="IB">INTERNET BANKING</option>
+                                <option value="ATM">ATM CARD</option>
+                                <option value="INTCARD">INTERNATIONAL CARD</option>
+                                <option value="VISA">VISA</option>
+                                <option value="MASTERCARD">MASTERCARD</option>
+                                <option value="JCB">JCB</option>
+                                <option value="UPI">UPI</option>
+                                <option value="VIB">VIB</option>
+                                <option value="VIETCAPITALBANK">VIETCAPITALBANK</option>
+                                <option value="SCB">Ngan hang SCB</option>
+                                <option value="NCB">Ngan hang NCB</option>
+                                <option value="SACOMBANK">Ngan hang SacomBank</option>
+                                <option value="EXIMBANK">Ngan hang EximBank</option>
+                                <option value="MSBANK">Ngan hang MSBANK</option>
+                                <option value="NAMABANK">Ngan hang NamABank</option>
+                                <option value="VNMART">Vi dien tu VnMart</option>
+                                <option value="VIETINBANK">Ngan hang Vietinbank</option>
+                                <option value="VIETCOMBANK">Ngan hang VCB</option>
+                                <option value="HDBANK">Ngan hang HDBank</option>
+                                <option value="DONGABANK">Ngan hang Dong A</option>
+                                <option value="TPBANK">Ngân hàng TPBank</option>
+                                <option value="OJB">Ngân hàng OceanBank</option>
+                                <option value="BIDV">Ngân hàng BIDV</option>
+                                <option value="TECHCOMBANK">Ngân hàng Techcombank</option>
+                                <option value="VPBANK">Ngan hang VPBank</option>
+                                <option value="AGRIBANK">Ngan hang Agribank</option>
+                                <option value="MBBANK">Ngan hang MBBank</option>
+                                <option value="ACB">Ngan hang ACB</option>
+                                <option value="OCB">Ngan hang OCB</option>
+                                <option value="IVB">Ngan hang IVB</option>
+                                <option value="SHB">Ngan hang SHB</option>
+                              </select>
+                            </span>
+                          </span>
+
+                          <!-- <span class="ec-bill-wrap ec-bill-half">
+                            <label>Quận / Huyện*</label>
+                            <span class="ec-bl-select-inner">
+                              <select name="district" id="ec-select-district" class="ec-bill-select"></select>
+                            </span>
+                          </span> -->
+                          <!-- <span class="ec-bill-wrap ec-bill-half">
+                            <label>Xã / Phường</label>
+                            <span class="ec-bl-select-inner">
+                              <select name="ward" id="ec-select-ward" class="ec-bill-select"></select>
+                            </span>
+                          </span> -->
+
+                          <!-- <br>
+                          <div class="ec-bill-wrap ec-bill-half">
+                            <label>Phương thức thanh toán</label>
+                            <span class="ec-bl-select-inner">
+                              <select name="ward" id="ec-select-methodpay" class="ec-bill-select">
+                                <option value="COD">COD (Thanh toán khi nhận hàng)</option>
+                                <option value="BANK">Thanh toán ngân hàng</option>
+
+                              </select>
+                            </span> -->
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <span class="ec-check-order-btn">
+                  <button class="btn btn-primary" id="order">Thanh toán</button>
+                </span>
+              </div>
+            </div>
+            <!--cart content End -->
+
+            <!-- Sidebar Area Start -->
+            <div class="ec-checkout-rightside col-lg-4 col-md-12">
+              <div class="ec-sidebar-wrap">
+                <!-- Sidebar Summary Block -->
+                <div class="ec-sidebar-block">
+                  <div class="ec-sb-title">
+                    <h3 class="ec-sidebar-title">
+                      Summary
+                      <div class="ec-sidebar-res"><i class="ecicon eci-angle-down"></i></div>
+                    </h3>
+                  </div>
+                  <div class="ec-sb-block-content ec-sidebar-dropdown">
+                    <div class="ec-checkout-summary">
+                      <div>
+                        <span class="text-left">Tạm tím</span>
+                        <span class="text-right" id="c-price">0 VND</span>
+                      </div>
+                      <div>
+                        <span class="text-left">VAT (8%)</span>
+                        <span class="text-right" id="c-vat">0 VND</span>
+                      </div>
+                      <div>
+                        <span class="text-left">Khuyến mại</span>
+                        <span class="text-right" id="c-voucher">- 0 VND</span>
+                      </div>
+                      <div class="ec-checkout-coupan-content">
+                        <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form" method="post" action="#">
+                          <input
+                            class="ec-coupan"
+                            type="text"
+                            required=""
+                            placeholder="Enter Your Coupan Code"
+                            name="ec-coupan"
+                            value=""
+                          />
+                          <button class="ec-coupan-btn button btn-primary" type="submit" name="subscribe" value="">
+                            Apply
+                          </button>
+                        </form>
+                      </div>
+                      <div class="ec-checkout-summary-total">
+                        <span class="text-left">Tổng tiền</span>
+                        <span class="text-right" id="c-total">0 VND</span>
+                      </div>
+                    </div>
+                    <div class="ec-checkout-pro"></div>
+                  </div>
+                </div>
+                <!-- Sidebar Summary Block -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include ("../components/modal")%> <%- include ("../components/footer")%> <%- include ("../components/link_js")%>
+  </body>
+  <script src="/static/admin/plugins/notify/js/notifIt.js"></script>
+  <script src="/static/client/js/payment.js"></script>
+  <script>
+  </script>
+</html>
