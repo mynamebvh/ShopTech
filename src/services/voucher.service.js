@@ -80,6 +80,15 @@ const getVoucherById = async (id) => {
 };
 
 /**
+ * Get voucher by code admin
+ * @param {String} code
+ * @returns {Promise<Voucher>}
+ */
+ const getVoucherByCodeAdmin = async (code) => {
+  return Voucher.findOne({ code });
+};
+
+/**
  * Update voucher by id
  * @param {ObjectId} voucherId
  * @param {Object} updateBody
@@ -106,6 +115,19 @@ const updateVoucherById = async (voucherId, updateBody) => {
   return voucher;
 };
 
+const updateVoucherQuantityByCode = async (code) => {
+  const voucher = await Voucher.findOne({ code });
+
+  if (!voucher) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Mã giảm giá không tồn tại');
+  }
+
+  // updateBody.quantity =;
+  Object.assign(voucher, {quantity: voucher.quantity - 1});
+  await voucher.save();
+  return voucher;
+};
+
 /**
  * Delete voucher by id
  * @param {ObjectId} voucherId
@@ -127,4 +149,6 @@ module.exports = {
   createVoucher,
   updateVoucherById,
   deleteVoucherById,
+  updateVoucherQuantityByCode,
+  getVoucherByCodeAdmin
 };

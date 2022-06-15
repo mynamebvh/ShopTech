@@ -18,7 +18,7 @@ const { orderService, orderDetailService, voucherService } = require('./index');
  */
 const createPaymentUrl = async (req) => {
   try{
-    const { amount, bankCode, orderInfo, code } = req.body;
+    const { amount, bankCode, orderInfo, code = null } = req.body;
     const ipAddr =
       req.headers['x-forwarded-for'] ||
       req.connection.remoteAddress ||
@@ -55,6 +55,7 @@ const createPaymentUrl = async (req) => {
       reduce = calculatorVoucher(result[1].type, result[1].discount, result[1].max, total)
     }
 
+    console.log(total, reduce, (total) - reduce)
     const orderType = 'billpayment';
     const locale = 'vn';
     const currCode = 'VND';
@@ -69,7 +70,9 @@ const createPaymentUrl = async (req) => {
     vnp_Params['vnp_TxnRef'] = orderId;
     vnp_Params['vnp_OrderInfo'] = orderInfo;
     vnp_Params['vnp_OrderType'] = orderType;
-    vnp_Params['vnp_Amount'] = ((total - (total * 0.08)) - reduce) * 100;
+    vnp_Params['vnp_Amount'] = ((total) - reduce) * 100;
+    // vnp_Params['vnp_Amount'] = 10600000000;
+
     vnp_Params['vnp_ReturnUrl'] = returnUrl;
     vnp_Params['vnp_IpAddr'] = ipAddr;
     vnp_Params['vnp_CreateDate'] = createDate;
@@ -122,6 +125,7 @@ const vnpReturn = async (req) => {
 
   if (secureHash === signed) {
     await orderService.updateStatusByTxnRef(vpnParams['vnp_TxnRef']);
+    
     return 'Giao dịch thành công';
   } else {
     return 'Giao dịch thất bại';

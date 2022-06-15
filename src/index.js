@@ -13,41 +13,49 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
 });
 
 //redis cache
-mongoose.Query.prototype.cache = function(time = 3600){
-  this.cache = true; 
-  this.cacheTime = time;
-  return this;
-}
+// mongoose.Query.prototype.cache = function (time = 3600) {
+//   this.cache = true;
+//   this.cacheTime = time;
+//   return this;
+// };
 
-async function clearCachedData(collectionName, op){
-  const allowedCacheOps = ["find","findById","findOne"];
-  console.log(collectionName)
-  if (!allowedCacheOps.includes(op) && await redis.EXISTS(collectionName)){
-    redis.DEL(collectionName);
-  }
-}
+// async function clearCachedData(collectionName, op) {
+//   const allowedCacheOps = ['find', 'findById', 'findOne'];
+//   // console.log(collectionName);
+//   if (!allowedCacheOps.includes(op) && (await redis.EXISTS(collectionName))) {
+//     redis.DEL(collectionName);
+//   }
+// }
 
-const exec = mongoose.Query.prototype.exec;
-mongoose.Query.prototype.exec = async function () {
-  const collectionName = this.mongooseCollection.name;
+// const exec = mongoose.Query.prototype.exec;
+// mongoose.Query.prototype.exec = async function () {
+//   const collectionName = this.mongooseCollection.name;
+//   let seft = this;
+//   if (this.cache) {
+//     const key = JSON.stringify({ ...this.getOptions(), collectionName: collectionName, op: this.op });
+//     const cachedResults = await redis.HGET(collectionName, key);
 
-  if (this.cache) {
-    const key = JSON.stringify({ ...this.getOptions(), collectionName: collectionName, op: this.op });
-    const cachedResults = await redis.HGET(collectionName, key);
+//     if (cachedResults) {
+//       const result = JSON.parse(cachedResults);
 
-    if (cachedResults) {
-      const result = JSON.parse(cachedResults);
-      return result;
-    }
-    const result = await exec.apply(this, arguments);
-    redis.HSET(collectionName, key, JSON.stringify(result), 'EX', this.cacheTime);
-    return {...result, ...this};
-  }
+//       // console.log(this.model);
 
-  clearCachedData(collectionName, this.op);
-  return exec.apply(this, arguments);
-};
+//       if (Array.isArray(result)) {
+//         // console.log(result.map((d) => new this.model(d)));
+//         return result.map((d) => new this.model(d));
+//       }
 
+//       console.log( new this.model(result))
+//       return new this.model(result);
+//     }
+//     const result = await exec.apply(this, arguments);
+//     redis.HSET(collectionName, key, JSON.stringify(result), 'EX', this.cacheTime);
+//     return result;
+//   }
+
+//   clearCachedData(collectionName, this.op);
+//   return exec.apply(this, arguments);
+// };
 
 const exitHandler = () => {
   if (server) {

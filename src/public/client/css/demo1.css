@@ -720,7 +720,7 @@ progress {
 body {
   margin: 0 auto;
   background-color: #ffffff;
-  font-family: 'Poppins, sans-serif';
+  /* font-family: 'Poppins, sans-serif'; */
   font-size: 14px;
   font-weight: 400;
   font-style: normal;
@@ -15956,7 +15956,7 @@ body {
   font-size: 14px;
   color: #777;
   
-  font-family: 'Poppins, sans-serif';
+  /* font-family: 'Poppins, sans-serif'; */
   font-weight: 300;
   top: 0 !important;
 }
@@ -18666,7 +18666,7 @@ h6,
   color: #444444;
   display: block;
   position: relative;
-  font-family: 'Poppins, sans-serif';
+  /* font-family: 'Poppins, sans-serif'; */
 }
 .ec-main-menu ul li .main-label-note-new {
   -webkit-transition: all 0.3s ease-in-out;
@@ -19731,7 +19731,7 @@ body.ec-open:before {
   font-size: 65px;
   font-weight: 600;
   letter-spacing: 2px;
-  font-family: 'Fjalla One';
+  /* font-family: 'Fjalla One'; */
   position: relative;
 }
 .ec-slide-content .ec-slide-title:before {

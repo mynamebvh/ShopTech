@@ -6,6 +6,8 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const response = require('../utils/response');
 
+const KEY = 'post'
+
 const { postService, redisService, formDataService, imageService } = require('../services');
 
 const createPost = catchAsync(async (req, res) => {
@@ -13,23 +15,21 @@ const createPost = catchAsync(async (req, res) => {
   const { url } = await imageService.uploadImg(body.thumbnail.filepath);
   const { title, content, tag } = body.fields;
 
-  // // console.log(body)
-  const post = await postService.createPost({ title, content, tag, thumbnail: url, user: req.userId });
+  const post = await Promise.all([ postService.createPost({ title, content, tag, thumbnail: url, user: req.userId }), redisService.del(KEY)]);
 
   res.status(httpStatus.CREATED).json(response(httpStatus.CREATED, 'Thành công'));
 });
 
 const getPost = catchAsync(async (req, res) => {
   const { postId } = req.params;
-  // let postCache = await redisService.getValueByField('posts', postId);
 
   // if (postCache) {
-  //   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', JSON.parse(postCache)));
-  //   return;
+  //   return res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', postCache));
   // }
 
-  const post = await postService.getPostById(postId);
-  // await redisService.saveTypeHashes('posts', post._id.toString(), post);
+  // const post = await postService.getPostById(postId);
+  // await redisService.hSet(KEY, {type: 'getPost', postId }, post);
+
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', post));
 });
 
@@ -37,14 +37,16 @@ const getPosts = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
-  // const postCache = await redisService.getValueByKey('posts');
+  let postCache = await redisService.hGet(KEY, { type: 'getPosts', ...filter, ...options });
 
-  // if (postCache) {
-  //   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', postCache));
-  //   return;
-  // }
+  if(postCache){
+    console.log("cache")
+    return res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', postCache));
+  }
 
   const data = await postService.getPosts(filter, options);
+  await redisService.hSet(KEY, { type: 'getPosts', ...filter, ...options }, data);
+ 
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Thành công', data));
 });
 
@@ -65,19 +67,14 @@ const updatePost = catchAsync(async (req, res, next) => {
     delete updateBody.thumbnail;
   }
 
-  const post = await postService.updatePostById(req.params.postId, updateBody);
-
-  res.locals = {
-    category: 'post',
-    id: req.params.postId,
-  };
+  const post = await Promise.all([postService.updatePostById(req.params.postId, updateBody), redisService.del(KEY)]);
 
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Cập nhật thành công', post));
   next();
 });
 
 const deletePost = catchAsync(async (req, res) => {
-  await postService.deletePostById(req.params.postId);
+  await Promise.all([ postService.deletePostById(req.params.postId), redisService.del(KEY)]);
   res.status(httpStatus.OK).json(response(httpStatus.OK, 'Xoá thành công'));
 });
 

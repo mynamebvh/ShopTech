@@ -57,7 +57,7 @@ const deleteProduct = catchAsync(async (req, res) => {
 });
 
 const searchProductView = catchAsync(async (req, res) => {
-  const data = await categoryService.getCategorys();
+  const data = await categoryService.getAllCategorys();
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 

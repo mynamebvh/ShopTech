@@ -37,9 +37,6 @@ categorySchema.plugin(paginate);
  * @returns {Promise<boolean>}
  */
 categorySchema.statics.isNameDuplicate = async function (name, categoryId) {
-  console.log(categoryId)
-  console.log(name)
-
   const category = await this.find({ name, _id: { $ne: categoryId } });
   return !!category.length;
 };
@@ -49,8 +46,8 @@ categorySchema.statics.isNameDuplicate = async function (name, categoryId) {
  * @param {ObjectId} id - The id category
  * @returns {Promise<boolean>}
  */
-categorySchema.statics.isDuplicate = async function (id) {
-  const category = await this.findById(id);
+categorySchema.statics.isDuplicate = async function (categoryId) {
+  const category = await this.findById({id: {$ne: categoryId}});
   return !!category;
 };
 
@@ -62,7 +59,15 @@ categorySchema.pre('save', async function (next) {
   next();
 });
 
+categorySchema.pre('find', async function (next) {
+  // console.log('a', this.getOptions())
+  next();
+});
 
+categorySchema.pre('findById', async function (next) {
+  console.log('id', this.getOptions())
+  next();
+});
 /**
  * @typedef Category
  */

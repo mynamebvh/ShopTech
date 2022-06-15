@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const { Order } = require('../models/index');
-
+const voucherService = require("./voucher.service")
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -75,6 +75,10 @@ const updateStatusOrderById = async (orderId, status) => {
  */
 const updateStatusByTxnRef = async (txnRef) => {
   const order = await Order.findOne({txnRef});
+
+  if(order.code){
+    await voucherService.updateVoucherQuantityByCode(order.code);
+  }
 
   Object.assign(order, { status: "Thanh toán thành công" });
   await order.save();

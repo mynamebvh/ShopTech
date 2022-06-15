@@ -36,21 +36,31 @@ const refreshTokens = catchAsync(async (req, res) => {
 const forgotPassword = catchAsync(async (req, res) => {
   const resetPasswordToken = await tokenService.generateResetPasswordToken(req.body.email);
 
-  const data = await axios.post('http://localhost:5000/forgot-email', {
+  const queueForgot = "FORGOT_PASSWORD";
+
+  let body =  {
     type: 'FORGOT_PASSWORD',
     options: {
       email: req.body.email,
       subject: 'ShopTech - Khôi phục mật khẩu',
     },
-    link: `localhost:3000/api/auth/forgot-password?=token=${resetPasswordToken}`,
+    link: `localhost:3000/reset-password?token=${resetPasswordToken}`,
+  }
+
+  const channel = await (await rabbitMQ).createChannel();
+  await channel.assertQueue(queueForgot);
+  await channel.sendToQueue(queueForgot, Buffer.from(JSON.stringify(body)), {
+    // RabbitMQ - Khi khởi động lại, tiếp tục chạy
+    persistent: true,
   });
-  // await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
-  res.status(httpStatus.NO_CONTENT).send();
+
+  res.status(httpStatus.OK).json({code: 200, message: "Gửi email thành công"});
 });
 
 const resetPassword = catchAsync(async (req, res) => {
+  console.log("run")
   await authService.resetPassword(req.query.token, req.body.password);
-  res.status(httpStatus.NO_CONTENT).send();
+  res.status(httpStatus.OK).send({});
 });
 
 const sendVerificationEmail = catchAsync(async (req, res) => {

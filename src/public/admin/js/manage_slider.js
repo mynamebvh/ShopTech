@@ -49,7 +49,7 @@ const loadUsers = () => {
       {
         data: "createdAt",
         render: function (data, type, row) {
-          return '2h trước';
+          return dayjs(data).fromNow();
         },
       },
       {

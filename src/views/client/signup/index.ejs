@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("../components/head")%>
+
+  <body>
+    <%- include ("../components/header")%>
+
+    <div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row ec_breadcrumb_inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="ec-breadcrumb-title">Đăng ký</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <!-- ec-breadcrumb-list start -->
+                <ul class="ec-breadcrumb-list">
+                  <li class="ec-breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                  <li class="ec-breadcrumb-item active">Đăng ký</li>
+                </ul>
+                <!-- ec-breadcrumb-list end -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ec-page-content section-space-p">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <div class="section-title">
+              <h2 class="ec-bg-title">Đăng ký</h2>
+              <h2 class="ec-title">Đăng ký</h2>
+              <p class="sub-title mb-3"></p>
+            </div>
+          </div>
+          <div class="ec-login-wrapper">
+            <div class="ec-login-container">
+              <div class="ec-login-form">
+                <form action="#" method="post" class="form-login">
+                  <span class="ec-login-wrap">
+                    <label>Email*</label>
+                    <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
+                  </span>
+                  <span class="ec-login-wrap">
+                    <label>Tên đăng nhập*</label>
+                    <input id="username" type="text" name="name" placeholder="Nhập tên đăng nhập" required="" value=""/>
+                  </span>
+                  <span class="ec-login-wrap">
+                    <label>Họ, tên đệm*</label>
+                    <input id="firstName" type="text" name="name" placeholder="Nhập họ, tên đệm" required="" value=""/>
+                  </span>
+                  <span class="ec-login-wrap">
+                    <label>Tên*</label>
+                    <input id="lastName" type="text" name="name" placeholder="Nhập tên" required="" value=""/>
+                  </span>
+                  <span class="ec-login-wrap">
+                    <label>Mật khẩu*</label>
+                    <input id="password" type="password" name="password" placeholder="Nhập mật khẩu" required="" value=""/>
+                  </span>
+                  <span class="ec-login-wrap">
+                    <label>Số điện thoại*</label>
+                    <input id="phone" type="password" name="password" placeholder="Nhập số điện thoại" required="" value=""/>
+                  </span>
+                  <span class="ec-login-wrap ec-login-btn">
+                    <button class="btn btn-primary" type="submit">Đăng ký</button>
+                    <!-- <a href="register.html" class="btn btn-secondary">Đăng ký</a> -->
+                  </span>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <%- include ("../components/footer")%> <%- include ("../components/link_js")%>
+    <script>
+      document.querySelector('.form-login').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = $('#email').val();
+        const username = $('#username').val();
+        const lastName = $('#lastName').val();
+        const firstName = $('#firstName').val();
+        const password = $('#password').val();
+        const phone = $('#phone').val();
+
+        fetch('/api/v1/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password, username, firstName, lastName, phone }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.code == 201) {
+              alert("Đăng ký thành công")
+              setTimeout(() => {
+              }, 500);
+              window.location.href = '/login';
+            }
+            else {
+              alert(data.message);
+            }
+          })
+          .catch((error) => {
+            alert('Tài khoản hoặc mật khẩu sai');
+          });
+      });
+
+    </script>
+  </body>
+</html>

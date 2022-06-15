@@ -17,6 +17,10 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Sai email hoặc mật khẩu');
   }
+
+  if (user.isLocked) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Tài khoản bị khoá');
+  }
   return user;
 };
 
@@ -83,6 +87,7 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
     await userService.updateUserById(user.id, { password: newPassword });
     await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
   } catch (error) {
+    console.log(error)
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
   }
 };

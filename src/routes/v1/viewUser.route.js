@@ -9,6 +9,7 @@ const { viewUserController, productController } = require('../../controllers');
 const router = express.Router();
 
 router.route('/login').get(viewUserController.login);
+router.route('/signup').get(viewUserController.signup);
 router.route('/logout').get(viewUserController.logout);
 router.route('/forgot-password').get(viewUserController.forgotPassword);
 router.route('/reset-password').get(viewUserController.resetPassword);

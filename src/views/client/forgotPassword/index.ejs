@@ -61,30 +61,25 @@
         e.preventDefault();
 
         const email = $('#email').val();
-        const password = $('#password').val();
 
-        fetch('/api/v1/auth/login', {
+        fetch('/api/v1/auth/forgot-password', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email }),
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data)
-            localStorage.setItem('techSession', JSON.stringify(data));
             if (data.code == 200) {
-              setTimeout(() => {
-              }, 200);
-              window.location.href = '/profile';
+              alert('Bạn vui lòng bấm vào đường dẫn trong email chúng tôi vừa gửi để lấy lại mật khẩu');
             }
             else {
-              alert('Tài khoản hoặc mật khẩu sai');
+              alert("Gửi thất bại")
             }
           })
           .catch((error) => {
-            alert('Tài khoản hoặc mật khẩu sai');
+            alert("Gửi thất bại")
           });
       });
 

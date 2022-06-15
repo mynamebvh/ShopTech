@@ -10,7 +10,7 @@ router.route('/').get(postController.getPosts).post(postController.createPost);
 
 router
   .route('/:postId')
-  .get(cache('post', 'postId'), postController.getPost)
+  .get(postController.getPost)
   .patch(postController.updatePost, clearCache)
   .delete(postController.deletePost);
 

@@ -40,13 +40,18 @@ const getOrdersDetailByOrderId = async (id) => {
 
   const [orderDetail, order] = result;
 
-  const { type, max, discount } = await voucherService.getVoucherByCode(order.code)
   orderDetail.total = orderDetail.products.reduce((a, b) => {
-    return a + b.product.price * b.product.quantity;
+    return a + (b.product.price * b.quantity);
   }, 0);
 
+  if(order.code){
+    const { type, max, discount } = await voucherService.getVoucherByCodeAdmin(order.code)
+    orderDetail.discount = calculatorVoucher(type, discount, max, orderDetail.total) ;
+  }else {
+    orderDetail.discount = 0;
+  }
+
   orderDetail.total += orderDetail.total * 0.08;
-  orderDetail.discount = calculatorVoucher(type, discount, max, orderDetail.total) ;
   return orderDetail;
 };
 
@@ -62,7 +67,7 @@ const createOrderDetail = async (postBody) => {
 
   const { products, order } = postBody;
 
-  let arrQueryCreate = products.map((prod) => OrderProduct.create({ product: prod.id, quantity: prod.quantity }));
+  let arrQueryCreate = products.map((prod) => OrderProduct.create({ product: prod.id, quantity: parseInt(prod.quantity) }));
   let orderProducts = await Promise.all(arrQueryCreate);
 
   return OrderDetail.create({ order, products: orderProducts });

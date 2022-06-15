@@ -1,7 +1,9 @@
 const httpStatus = require('http-status');
 const { Post } = require('../models/index');
-const { redisService, formdataService } = require('../services/index');
+const redisService = require('./redis.service');
 const ApiError = require('../utils/ApiError');
+
+const KEY = 'post'
 
 /**
  * Query for post
@@ -46,8 +48,13 @@ const getPostById = async (id) => {
  * @returns {Promise<Post>}
  */
 const getPostBySlug = async (slug) => {
-  // await redisService.setex(`post`, id, '1m', await Post.findById(id));
-  return Post.findOne({ slug });
+  // let postCache = await redisService.hGet(KEY, { type: 'getPostBySlug', slug })
+
+  // if(postCache) return postCache
+
+  let post =  Post.findOne({ slug });
+  // await redisService.hSet(KEY, { type: 'getPostBySlug', slug }, post)
+  return post;
 };
 
 /**

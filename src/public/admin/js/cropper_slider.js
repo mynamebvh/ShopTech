@@ -71,7 +71,7 @@ window.onload = function () {
   var uploadedImageName = 'cropped.jpg';
   var uploadedImageURL;
 
-  console.log(uploadedImageURL);
+  // console.log(uploadedImageURL);
   // Tooltip
   $('[data-toggle="tooltip"]').tooltip();
 

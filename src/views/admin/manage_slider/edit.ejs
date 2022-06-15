@@ -888,7 +888,9 @@
             formData.append('title', $('#title').val());
             formData.append('description', $('#description').val());
             formData.append('link', $('#link').val());
-            formData.append('img', blobImg, 'crop.png');
+            if(blobImg){
+              formData.append('img', blobImg, 'crop.png');
+            }
 
             const response = await fetch(`/api/v1/sliders/${id}`, {
               body: formData,
@@ -901,7 +903,7 @@
               $('#submit').html(`<i class="fa fa-paper-plane"></i> Cập nhật`);
             }, 500);
 
-            if (data.code == 201) {
+            if (data.code == 200) {
               notif({
                 msg: 'Tạo thành công, bạn sẽ được chuyển hướng sau 2s nữa',
                 position: 'right',
@@ -919,6 +921,8 @@
                 position: 'right',
                 zindex: 99999999,
               });
+
+              $('#submit').html(`<i class="fa fa-paper-plane"></i> Cập nhật`);
               return;
             }
           } catch (error) {
@@ -931,7 +935,7 @@
 
             setTimeout(() => {
               $('#submit').html(`<i class="fa fa-paper-plane"></i> Cập nhật`);
-            }, 500);
+            }, 200);
           }
         });
       </script>

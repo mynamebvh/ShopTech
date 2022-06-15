@@ -105,7 +105,6 @@ const viewDetailOrder = () => {
 
     const data = await (await fetch(`/api/v1/order-detail/${order.id}`)).json();
     let products = data.data.products;
-
     const total = (data.data.total)
     $('#t-total').text((total).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
     $('#voucher').text((data.data.discount).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));

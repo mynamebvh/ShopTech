@@ -18,7 +18,11 @@ const viewRoutes = require('./routes/v1/view.route');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
 
+const connectRabbitMQ = require("./config/rabbitmq")
+
 const app = express();
+
+global.rabbitMQ = connectRabbitMQ()
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
@@ -49,8 +53,6 @@ app.use(express.urlencoded({ extended: true }));
 // parse json request body
 app.use(express.json());
 
-
-
 // sanitize request data
 app.use(xss());
 app.use(mongoSanitize());
@@ -64,7 +66,8 @@ app.options('*', cors());
 
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
-  app.use('/api/v1/auth', authLimiter);
+  app.use('/api/v1/auth', 
+  );
 }
 
 // render html

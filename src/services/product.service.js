@@ -25,13 +25,13 @@ const getProducts = async (filter, options) => {
  * @returns {Promise<Product>}
  */
 const createProduct = async (productBody) => {
-  if (!(await Category.isDuplicate(productBody.category))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Thể loại chưa tồn tại');
-  }
+  // if (!(await Category.isDuplicate(productBody.category))) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Thể loại chưa tồn tại');
+  // }
 
-  if (await Product.isNameDuplicate(productBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Sản phẩm đã tồn tại');
-  }
+  // if (await Product.isNameDuplicate(productBody.name)) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Sản phẩm đã tồn tại');
+  // }
 
   return Product.create(productBody);
 };

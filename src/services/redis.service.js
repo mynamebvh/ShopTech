@@ -53,12 +53,11 @@ const get = async (category, key) => {
 
 /**
  * delete key using redis DEL
- * @param {string} category
  * @param {string} key
  * @returns {Promise<>}
  */
-const deleteKey = async (category, key) => {
-  return await client.del(`${category}:${key}`);
+const del = async (key) => {
+  return await client.del(key);
 };
 
 /* 
@@ -74,8 +73,10 @@ const deleteKey = async (category, key) => {
  * @param {Object} value
  * @returns {Promise<Object>}
  */
-const saveTypeHashes = async (key, field, value) => {
-  return await client.hSet(key, field, JSON.stringify(value));
+const hSet = async (key, field, value) => {
+  await client.hSet(key, JSON.stringify(field), JSON.stringify(value));
+  await client.expire(key, 10800);
+  return true;
 };
 
 /**
@@ -94,15 +95,16 @@ const getValueByKey = async (key, cursor = 0) => {
  * @param {string} field
  * @returns {Promise<Object>}
  */
-const getValueByField = async (key, field) => {
-  return await client.hGet(key, field);
+const hGet = async (key, field) => {
+  let result =  await client.hGet(key, JSON.stringify(field));
+  return JSON.parse(result);
 };
 
 module.exports = {
   get,
   setex,
-  deleteKey,
-  saveTypeHashes,
-  getValueByField,
+  del,
+  hSet,
+  hGet,
   getValueByKey,
 };

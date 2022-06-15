@@ -52,11 +52,11 @@
                   <form action="#" method="post" class="form-login">
                     <span class="ec-login-wrap">
                       <label>Mật khẩu mới*</label>
-                      <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
+                      <input id="password" type="password" name="name" placeholder="Nhập mật khẩu" required="" value=""/>
                     </span>
                     <span class="ec-login-wrap">
                       <label>Xác nhận mật khẩu*</label>
-                      <input id="email" type="text" name="name" placeholder="Nhập email" required="" value=""/>
+                      <input id="c-password" type="password" name="name" placeholder="Nhập lại mật khẩu" required="" value=""/>
                     </span>
                     <span class="ec-login-wrap ec-login-btn">
                       <button class="btn btn-primary" type="submit">Thay đổi</button>
@@ -75,31 +75,31 @@
       document.querySelector('.form-login').addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const email = $('#email').val();
         const password = $('#password').val();
+        const confirmPassword = $('#c-password').val();
+        
+        if(password != confirmPassword){
+          alert("Xác nhận mật khẩu chưa trùng");
+          return;
+        }
 
-        fetch('/api/v1/auth/login', {
+        let url = new URL(window.location.href);
+        let token = url.searchParams.get("token");
+
+        fetch(`/api/v1/auth/reset-password?token=${token}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ password }),
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data)
-            localStorage.setItem('techSession', JSON.stringify(data));
-            if (data.code == 200) {
-              setTimeout(() => {
-              }, 200);
-              window.location.href = '/profile';
-            }
-            else {
-              alert('Tài khoản hoặc mật khẩu sai');
-            }
+            alert("Đã thay đổi mật khẩu thành công")
+            window.location.href = '/login';
           })
           .catch((error) => {
-            alert('Tài khoản hoặc mật khẩu sai');
+            alert('Reset mật khẩu thất bại');
           });
       });
 

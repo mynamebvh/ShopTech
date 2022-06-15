@@ -32,7 +32,7 @@ const listProduct = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
 
-  console.log('cate', req.params);
+  // console.log('cate', req.params);
   const category = await categoryService.getCategoryBySlug(filter, options, req.params.category);
   // const products = await productService.getProductByCategory(category)
   res.render('client/listProduct', { data, products: category.products.data });
@@ -81,7 +81,6 @@ const blog = catchAsync(async (req, res) => {
 const blogDetail = catchAsync(async (req, res) => {
   const data = await categoryService.getAllCategorys();
   const article = await postService.getPostBySlug(req.params.slug);
-  // console.log(post)
   res.render('client/blog_detail', { data, article });
 });
 
@@ -89,6 +88,12 @@ const login = catchAsync(async (req, res) => {
   const data = await categoryService.getAllCategorys();
 
   res.render('client/login', { data });
+});
+
+const signup = catchAsync(async (req, res) => {
+  const data = await categoryService.getAllCategorys();
+
+  res.render('client/signup', { data });
 });
 
 const profile = catchAsync(async (req, res) => {
@@ -151,6 +156,7 @@ module.exports = {
   blog,
   blogDetail,
   login,
+  signup,
   profile,
   payment,
   paymentReturn,
